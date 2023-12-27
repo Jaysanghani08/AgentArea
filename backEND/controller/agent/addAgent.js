@@ -21,18 +21,25 @@ const multer = require("multer");
 
 const agent = require("../../models/agent/agent");
 
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage(); 
+// const upload = multer({ storage: storage });
 
 
 const addAgent = async (req, res) => {
 
+    console.log("HELLLO");
+
     try {
 
         const data = req.body;
+        const aadharFile = req.files[0];
+        const panFile = req.files[1];
+
+        console.log(data);
+        console.log(req.files);
+
         const agent_data = new agent({
             name: data.name,
-            bacode: data.bacode,
             mobile: data.mobile,
             email: data.email,
             username: data.username,
@@ -41,27 +48,47 @@ const addAgent = async (req, res) => {
             city: data.city,
             state: data.state,
             pin: data.pin,
-            pan: data.pan,
+            pan: data.panNumber,
             bank: data.bank,
             bankAccType: data.bankAccType,
             micr: data.micr,
             accNumber: data.accNumber,
             bankIFSC: data.bankIFSC,
-            docs :[
-                {
-                    aadhar: req.file.aadhar,
-                    pan : req.file.pan,
-                }
+            docs: [{
+                aadhar: {
+                    originalname: aadharFile.originalname,
+                    buffer: aadharFile.buffer,
+                    mimetype: aadharFile.mimetype,
+                },
+                pan: {
+                    originalname: panFile.originalname,
+                    buffer: panFile.buffer,
+                    mimetype: panFile.mimetype,
+                },
+            }
             ]
         });
 
-        const save  = await agent_data.save();
-        console.log(save);
+        try {
+            const save = await agent_data.save();
+            console.log(save);
+            res.status(200).send();
+        }
+        catch (e) {
+            console.log("This Error From addAgen.js saving part");
+            console.log(e);
+            res.status(300).send();
+        }
+
 
     } catch (error) {
         console.log("This is error from addAgent.js");
         console.log(error);
+        res.status(500).send();
     }
+
+
+
 
 }
 
