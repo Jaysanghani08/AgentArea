@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { AgentSignup } from '../services/Api';
+import Spinner from './../components/general/spinner';
 // name: data.name,
 //             bacode: data.bacode,
 //             mobile: data.mobile,
@@ -27,6 +29,7 @@ import React, { useState } from 'react'
 
 
 const AddAgent = () => {
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -67,10 +70,22 @@ const AddAgent = () => {
         setPanFile(event.target.files[0])
     };
 
-    const handleSubmit = (e) => {
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         formData.docs[0].aadhar = aadharFile;
         formData.docs[0].pan = panFile;
+
+        try{
+            const response = await AgentSignup(formData);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+
         console.log(formData);
     }
 
@@ -392,7 +407,7 @@ const AddAgent = () => {
                                     type="submit"
                                     className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
                                 >
-                                    Sign in
+                                    {isLoading ? <Spinner /> : 'Sign in'}
                                 </button>
                             </div>
                         </form>
