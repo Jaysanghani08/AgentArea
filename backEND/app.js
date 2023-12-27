@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const bodyParser = require('body-parser');
 
 
 
 
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +28,8 @@ const addAgent = require("./controller/agent/addAgent");
 
 
 
-app.post("/addAgent",upload.single('pdf'),addAgent);
+app.post("/addAgent",upload.array('docs', 2),addAgent);
+
 
 
 

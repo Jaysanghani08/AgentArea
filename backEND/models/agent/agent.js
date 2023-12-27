@@ -9,11 +9,8 @@ const Schema = mongoose.Schema({
     name: {
         type: String,
     },
-    bacode: {
-        type: String
-    },
     mobile: {
-        type: Number,
+        type: String,
         unique: true,
         validate(m) {
             if (validator.isMobilePhone(m)) {
@@ -68,7 +65,7 @@ const Schema = mongoose.Schema({
         type: String
     },
     accNumber: {
-        type: String
+        type: Number
     },
     bankIFSC: {
         type: String
@@ -77,30 +74,34 @@ const Schema = mongoose.Schema({
         type: [
             {
                 aadhar: {
-                    type: Buffer
+                    originalname: { type: String, required: true },
+                    buffer: { type: Buffer, required: true },
+                    mimetype: { type: String, required: true },
                 },
                 pan: {
-                    type: Buffer
+                    originalname: { type: String, required: true },
+                    buffer: { type: Buffer, required: true },
+                    mimetype: { type: String, required: true },
                 }
             }
         ]
     }
 })
 
-Schema.pre("save",(async function(next){
+Schema.pre("save", (async function (next) {
 
     const password = this.password;
     const pan = this.pan;
 
-    const hashed_pass = await bcrypt.hash(password,8);
-    const hashed_pan = await bcrypt.hash(pan,8);
+    const hashed_pass = await bcrypt.hash(password, 8);
+    const hashed_pan = await bcrypt.hash(pan, 8);
 
     this.password = hashed_pass;
     this.pan = hashed_pan;
     next();
 }))
 
-const agent = mongoose.model("agent",Schema);
+const agent = mongoose.model("agent", Schema);
 
 
 
