@@ -26,7 +26,18 @@ import Spinner from './../components/general/spinner';
 //                 }
 //             ]
 
-
+// if (err.hasOwnProperty('email') == true && err.email == 1) {
+//     res.status(410).send();
+// }
+// else if (err.hasOwnProperty('mobile') == true && err.mobile == 1) {
+//     res.status(411).send();
+// }
+// else if (err.hasOwnProperty('username') == true && err.username == 1) {
+//     res.status(412).send();
+// }
+// else {
+//     res.status(413).send("Bad Request");
+// }
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +52,7 @@ const AddAgent = () => {
         city: '',
         state: '',
         pin: '',
-        pan: '',
+        panNumber: '',
         bank: '',
         bankAccType: '',
         micr: '',
@@ -75,7 +86,16 @@ const AddAgent = () => {
 
         try {
             const response = await AgentSignup(formData);
-            console.log(response);
+
+            if(response.status === 200) {
+                alert('Agent created successfully');
+            } else if(response.status === 410) {
+                alert('Email already exists');
+            }   else if(response.status === 411) {  
+                alert('Mobile already exists');
+            }  else if(response.status === 412) {  
+                alert('Username already exists');
+            }
         } catch (error) {
             console.log(error);
         } finally {
@@ -242,7 +262,7 @@ const AddAgent = () => {
                                 <div className="mt-2">
                                     <input
                                         id="pan"
-                                        name="pan"
+                                        name="panNumber"
                                         type="text"
                                         autoComplete="text"
                                         required
