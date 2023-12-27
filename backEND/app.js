@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
 
 
 
@@ -15,8 +16,15 @@ app.use(cors())
 require("./connection/connection")
 
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-app.post("/addAgent",upload.single('pdf'),)
+
+const addAgent = require("./controller/agent/addAgent");
+
+
+
+app.post("/addAgent",upload.single('pdf'),addAgent);
 
 
 

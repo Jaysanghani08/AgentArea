@@ -13,7 +13,7 @@ const Schema = mongoose.Schema({
         type: String
     },
     mobile: {
-        type: number,
+        type: Number,
         unique: true,
         validate(m) {
             if (validator.isMobilePhone(m)) {
