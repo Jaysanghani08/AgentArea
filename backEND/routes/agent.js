@@ -32,7 +32,7 @@ const getFullAgent = require("../controller/agent/getFullAgnet");
 
 router.post("/agent/addAgent",upload.array('docs', 2),addAgent);
 
-router.post("/agent/getFullAgent",getFullAgent);
+router.get("/agent/getFullAgent",getFullAgent);
 
 router.get("/agent/getAgents",getAgents);
 

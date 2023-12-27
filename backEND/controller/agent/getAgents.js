@@ -24,6 +24,7 @@ const  getAgents = async (req,res) =>{
     } catch (error) {
         console.log("This is error from controller/agent/getAgents.js");
         console.log(error);
+        res.status(500).send();
     }
 
 

@@ -51,12 +51,36 @@ const addAgent = async (req, res) => {
             ]
         });
 
-        const save  = await agent.save();
-        console.log(save);
+        try {
+
+            const save = await agent_data.save();
+            console.log(save);
+            res.status(200).send();
+
+        } catch (error) {
+
+            console.log("This is error from controller/agent/addAgent.js");
+            console.log(error);
+            const err = error.keyPattern;
+            // console.log(err);
+            if (err.hasOwnProperty('email') == true && err.email == 1) {
+                res.status(410).send();
+            }
+            else if (err.hasOwnProperty('mobile') == true && err.mobile == 1) {
+                res.status(411).send();
+            }
+            else if (err.hasOwnProperty('username') == true && err.username == 1) {
+                res.status(412).send();
+            }
+            else {
+                res.status(413).send("Bad Request");
+            }
+
+        }
 
     } catch (error) {
         console.log("This is error from addAgent.js");
-        consolo.log(error);
+        console.log(error);
     }
 
 }
