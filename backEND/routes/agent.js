@@ -30,11 +30,14 @@ const getFullAgent = require("../controller/agent/getFullAgnet");
 
 
 
-router.post("/agent/addAgent",upload.array('docs', 2),addAgent);
+router.post("/agent/addAgent", upload.fields([
+    { name: 'aadharFile', maxCount: 1 },
+    { name: 'panFile', maxCount: 1 }])
+    , addAgent);
 
-router.get("/agent/getFullAgent",getFullAgent);
+router.get("/agent/getFullAgent", getFullAgent);
 
-router.get("/agent/getAgents",getAgents);
+router.get("/agent/getAgents", getAgents);
 
 
 

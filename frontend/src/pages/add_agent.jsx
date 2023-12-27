@@ -47,12 +47,8 @@ const AddAgent = () => {
         micr: '',
         accNumber: '',
         bankIFSC: '',
-        docs: [
-            {
-                aadhar: '',
-                pan: '',
-            }
-        ]
+        aadharFile: null,
+        panDoc: null
     });
 
     const [aadharFile, setAadharFile] = useState(null);
@@ -63,21 +59,21 @@ const AddAgent = () => {
     }
 
     const handleAadharFileChange = (event) => {
-        setAadharFile(event.target.files[0])
+        setAadharFile(event.target.files[0]);
     };
 
     const handlePanFileChange = (event) => {
-        setPanFile(event.target.files[0])
+        setPanFile(event.target.files[0]);
     };
 
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        formData.docs[0].aadhar = aadharFile;
-        formData.docs[0].pan = panFile;
+        formData.aadharFile = aadharFile;
+        formData.panFile = panFile;
 
-        try{
+        try {
             const response = await AgentSignup(formData);
             console.log(response);
         } catch (error) {
@@ -85,8 +81,6 @@ const AddAgent = () => {
         } finally {
             setIsLoading(false);
         }
-
-        console.log(formData);
     }
 
     return (
@@ -103,7 +97,7 @@ const AddAgent = () => {
                     </div>
 
                     <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" onSubmit={handleSubmit}>
+                        <form className="space-y-6" encType='multipart/form-data' onSubmit={handleSubmit} >
                             <div>
                                 <label htmlFor="tel" className="block text-sm font-medium leading-6 text-gray-600">
                                     Mobile No.
@@ -351,7 +345,7 @@ const AddAgent = () => {
                                 <div className="mt-2">
                                     <input
                                         id="aadhar"
-                                        name="aadhar"
+                                        name="aadharFile"
                                         type="file"
                                         required
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
@@ -368,7 +362,7 @@ const AddAgent = () => {
                                 <div className="mt-2">
                                     <input
                                         id="panDoc"
-                                        name="pan"
+                                        name="panFile"
                                         type="file"
                                         required
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
