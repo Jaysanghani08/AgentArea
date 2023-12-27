@@ -6,13 +6,15 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: '#1B262C',
-                secondary: '#0F4C75',
+                primary: '#015FC9',
+                secondary: '#0DD3F1',
                 accent: '#3282B8',
-                background: '#BBE1FA',
+                background: '#edf2f5',
                 red: '#FF0000',
                 green: '#00FF00',
                 text: '#333333',
+                light: '#F6F7FC',
+                dark: '#15233C'
             },
             fontFamily: {
                 sans: ['Helvetica', 'Arial', 'sans-serif'],

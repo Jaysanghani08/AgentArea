@@ -5,6 +5,10 @@ import './App.css';
 // Import your Login, Signup, and other components here
 import Login from './pages/login_signup/login';
 import Signup from './pages/login_signup/signup';
+import Home from './pages/home/home.jsx';
+import AddAgent from './pages/add_agent.jsx';
+import AgentProfile from './pages/agentProfile.jsx';
+import AddCompany from './pages/add_company.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -34,8 +38,12 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/login" element={Login} />
-                <Route path="/signup" element={Signup} />
+                <Route path='/' element={<Home />}></Route>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/addagent" element={<AddAgent />} />
+                <Route path="/agentProfile" element={<AgentProfile />} />
+                <Route path="/addcompany" element={<AddCompany />} />
                 {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
                     <ClientRoute path="/client/other" component={OtherClientComponent} />
                     <AgentRoute path="/agent/dashboard" component={AgentDashboard} />

@@ -19,7 +19,7 @@ const multer = require("multer");
 // Bank IFSC/A
 // 2 PDF(PAN,AADHAR)
 
-const agent = require("../../models/agent/agent");
+const agent = require("../models/agent/agent");
 
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
@@ -30,9 +30,8 @@ const addAgent = async (req, res) => {
     try {
 
         const data = req.body;
-        const agent_data = new agent({
+        const agent = new agent({
             name: data.name,
-            bacode: data.bacode,
             mobile: data.mobile,
             email: data.email,
             username: data.username,
@@ -55,14 +54,12 @@ const addAgent = async (req, res) => {
             ]
         });
 
-        const save  = await agent_data.save();
+        const save  = await agent.save();
         console.log(save);
 
     } catch (error) {
         console.log("This is error from addAgent.js");
-        console.log(error);
+        consolo.log(error);
     }
-
+6
 }
-
-module.exports = addAgent;
