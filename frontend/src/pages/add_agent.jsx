@@ -87,13 +87,13 @@ const AddAgent = () => {
         try {
             const response = await AgentSignup(formData);
 
-            if(response.status === 200) {
+            if (response.status === 200) {
                 alert('Agent created successfully');
-            } else if(response.status === 410) {
+            } else if (response.status === 410) {
                 alert('Email already exists');
-            }   else if(response.status === 411) {  
+            } else if (response.status === 411) {
                 alert('Mobile already exists');
-            }  else if(response.status === 412) {  
+            } else if (response.status === 412) {
                 alert('Username already exists');
             }
         } catch (error) {
@@ -249,6 +249,7 @@ const AddAgent = () => {
                                         type="text"
                                         autoComplete="text"
                                         required
+                                        pattern='[0-9]{6}'
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
                                         onChange={handleChange}
                                     />
@@ -334,6 +335,7 @@ const AddAgent = () => {
                                         type="text"
                                         autoComplete="text"
                                         required
+                                        pattern='[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}'
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
                                         onChange={handleChange}
                                     />
@@ -352,6 +354,9 @@ const AddAgent = () => {
                                         type="text"
                                         autoComplete="text"
                                         required
+                                        pattern='[0-9]{9}'
+                                        title='Please enter 9 digit MICR code'
+                                        maxLength='9'
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
                                         onChange={handleChange}
                                     />
@@ -386,6 +391,7 @@ const AddAgent = () => {
                                         type="file"
                                         required
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+                                        pattern='[A-Z|a-z]{5}[0-9]{4}[A-Z|a-z]{1}'
                                         onChange={handlePanFileChange}
                                         accept=".jpg, .jpeg, .png, .pdf"
                                     />
