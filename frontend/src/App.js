@@ -8,8 +8,9 @@ import Signup from './pages/login_signup/signup';
 import Home from './pages/home/home.jsx';
 import AddAgent from './pages/add_agent.jsx';
 import AgentProfile from './pages/agentProfile.jsx';
-import AddCompany from './pages/add_company.jsx';
+import AddCompany from './pages/company/add_company.jsx';
 import AgentList from './pages/admin/agentList.jsx';
+import Company_list from './pages/company/company_list.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/agentProfile" element={<AgentProfile />} />
                 <Route path="/agentlist" element={<AgentList />} />
                 <Route path="/addcompany" element={<AddCompany />} />
+                <Route path="/companylist" element={<Company_list />} />
                 {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
                     <ClientRoute path="/client/other" component={OtherClientComponent} />
                     <AgentRoute path="/agent/dashboard" component={AgentDashboard} />
