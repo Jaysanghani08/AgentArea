@@ -60,12 +60,12 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                         actionColumn && actionColumn.columnIndex === colIndex ? (
                                             <span className="flex">
                                                 {/* <span className=""> */}
-                                                    <a href={row[colIndex][0]} key={actionColumn.columnIndex} className="text-green border-green me-4">
-                                                        <FaRegEdit size={22}/>
-                                                    </a>
+                                                <a href={row[colIndex][0]} key={actionColumn.columnIndex} className="text-green border-green Ï">
+                                                    <FaRegEdit size={22} />
+                                                </a>
                                                 {/* </span> */}
                                                 <a href={row[colIndex][1]} key={actionColumn.columnIndex} className=" text-red border-red">
-                                                    <MdDeleteOutline size={23}/>
+                                                    <MdDeleteOutline size={23} />
                                                 </a>
                                             </span>
                                         ) :

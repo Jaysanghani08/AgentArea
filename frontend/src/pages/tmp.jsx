@@ -210,7 +210,9 @@ const Tmp = () => {
     const actionColumn = { columnIndex: 5 };
 
     return (
-        <CustomTable buttonColumns={buttonColumns} columns={columns} dataSet={dataSet} actionColumn={actionColumn}></CustomTable>
+        <>
+            <CustomTable buttonColumns={buttonColumns} columns={columns} dataSet={dataSet} actionColumn={actionColumn}></CustomTable>
+        </>
     )
 }
 
