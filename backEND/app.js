@@ -13,9 +13,11 @@ require("./connection/connection");
 
 
 const agent = require("./routes/agent");
+const company = require("./routes/company");
 
 
 app.use(agent);
+app.use(company);
 
 
 
@@ -24,5 +26,5 @@ app.listen(7000,(()=>{
 }))
 
 
-module.exports = app;
+
 
