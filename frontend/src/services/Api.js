@@ -30,3 +30,14 @@ export const getFullAgent = async (id) => {
         throw new Error("Error fetching Agent data");
     }
 }
+
+export const addCompany = async (data) => {
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/company/addCompany`, data, {
+            'Content-Type': 'application/json'
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error fetching graph data");
+    }
+}

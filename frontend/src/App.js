@@ -11,6 +11,7 @@ import AgentProfile from './pages/agentProfile.jsx';
 import AddCompany from './pages/company/add_company.jsx';
 import AgentList from './pages/admin/agentList.jsx';
 import Company_list from './pages/company/company_list.jsx';
+import Tmp from './pages/tmp.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/agentlist" element={<AgentList />} />
                 <Route path="/addcompany" element={<AddCompany />} />
                 <Route path="/companylist" element={<Company_list />} />
+                <Route path="/tmp" element={<Tmp />} />
                 {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
                     <ClientRoute path="/client/other" component={OtherClientComponent} />
                     <AgentRoute path="/agent/dashboard" component={AgentDashboard} />
