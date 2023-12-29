@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 
+const product = require("./policy");
+
 
 
 const Schema = mongoose.Schema({
@@ -22,6 +24,15 @@ const Schema = mongoose.Schema({
             }
         }]
     },
+    life :{
+        type:[product],
+    },
+    motor :{
+        type:[product],
+    },
+    sme :{
+        type:[product],
+    }
     // email: {
     //     type: String,
     //     validate(e) {
