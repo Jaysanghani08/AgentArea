@@ -17,7 +17,7 @@ router.post("/company/addCompany",addCompany);
 
 router.post("/company/addAgency",addAgency);
 
-router.get("/company/removeCompany",removeCompany);
+router.geto ("/company/removeCompany",removeCompany);
 
 
 
