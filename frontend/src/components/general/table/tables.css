@@ -1,0 +1,22 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background-color: #015FC9;
+    color: white;
+    border: 0.7px solid #ddddddc9 ;
+}
+
+.evenRow {
+    background-color: white !important ;
+}
+
+.oddRow { 
+    background-color: #f2f2f2 !important;
+}
+
+td{
+    border: 0.7px solid #ddddddc9;
+}

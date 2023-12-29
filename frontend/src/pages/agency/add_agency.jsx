@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { addCompany } from '../../services/Api';
+import { addAgency } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
 
-const AddAgent = () => {
+const AddAgency = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
        name: '',
-       url: ''
+       code: ''
     });
 
     const handleChange = (e) => {
@@ -16,16 +16,21 @@ const AddAgent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData);
         setIsLoading(true);
 
         try {
-            const response = await addCompany(formData);
+            const response = await addAgency(formData);
 
             if(response.status === 200) {
-                alert('Company created successfully');
+                alert('Agency created successfully');
+            }
+            else{
+                alert('Error creating agency')
             }
         } catch (error) {
             console.log(error);
+            alert('Error creating agency')
         } finally {
             setIsLoading(false);
         }
@@ -48,7 +53,7 @@ const AddAgent = () => {
                         <form className="space-y-6" encType='multipart/form-data' onSubmit={handleSubmit} >
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-600">
-                                    Name
+                                    Agency Name
                                 </label>
                                 <div className="mt-2">
                                     <input
@@ -65,13 +70,13 @@ const AddAgent = () => {
 
                             <div>
                                 <label htmlFor="url" className="block text-sm font-medium leading-6 text-gray-600">
-                                    Website Url
+                                    Code
                                 </label>
                                 <div className="mt-2">
                                     <input
                                         id="url"
-                                        name="url"
-                                        type="url"
+                                        name="code"
+                                        type="text"
                                         autoComplete="tel"
                                         required
                                         className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
@@ -96,4 +101,4 @@ const AddAgent = () => {
     )
 };
 
-export default AddAgent;
+export default AddAgency;

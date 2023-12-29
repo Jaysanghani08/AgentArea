@@ -77,7 +77,6 @@ const AddAgent = () => {
         setPanFile(event.target.files[0]);
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
