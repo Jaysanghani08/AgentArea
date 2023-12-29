@@ -17,8 +17,8 @@ const addProduct = async (req, res) => {
             product_type: data.product_type,
             company_agency: data.agency_id,
         }
-        if (type == "life") {
-            const update = await company.updateOne({ _id: id }, { $push: { life: product } });
+        if (type == "health") {
+            const update = await company.updateOne({ _id: id }, { $push: { health: product } });
             console.log(update);
             res.status(200).send();
         }

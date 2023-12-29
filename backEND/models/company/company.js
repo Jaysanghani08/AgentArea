@@ -24,7 +24,7 @@ const Schema = mongoose.Schema({
             }
         }]
     },
-    life :{
+    health :{
         type:[product],
     },
     motor :{
