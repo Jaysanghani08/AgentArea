@@ -53,11 +53,24 @@ export const addAgency = async (data) => {
     }
 }
 
+//baaki
 export const removeCompany = async (id) => {
     try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/company/removeCompany?id=${id}`);
+        const response = await commonrequest("GET", `${BACKEND_URL}/company/removeCompany?id=658f9aab2a7c2ed3429800b6`);
         return response;
     } catch (error) {
         throw new Error("Error fetching graph data");
+    }
+}
+
+// baaki
+export const addProduct = async (data) => {
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/company/addProduct`, data, {
+            'Content-Type': 'application/json'
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error in adding product");
     }
 }

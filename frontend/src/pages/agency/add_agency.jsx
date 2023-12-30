@@ -42,7 +42,7 @@ const AddAgency = () => {
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <h1 className='text-gray-800 text-3xl'>
-                            Add <span className='text-primary'>Company</span> 
+                            Add <span className='text-primary'>Agency</span> 
                         </h1>
                         {/* <h2 className="mt-0 leading-9 tracking-tight text-gray-500">
                         Sign in to your account
