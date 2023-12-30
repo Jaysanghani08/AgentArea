@@ -46,6 +46,7 @@ function App() {
                 <Route path='/' element={<Home />}></Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/addagent" element={<AddAgent />} />
                 <Route path="/agentProfile" element={<AgentProfile />} />
                 <Route path="/agentlist" element={<AgentList />} />
