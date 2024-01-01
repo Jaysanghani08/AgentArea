@@ -12,7 +12,7 @@ import { ReactComponent as SvgDecoratorBlob3 } from "./../../images/svg-decorato
 
 import SupportIconImage from "./../../images/support-icon.svg";
 import ShieldIconImage from "./../../images/shield-icon.svg";
-import CustomizeIconImage from "./../../images/customize-icon.svg";
+import MobileIconImage from "./../../images/mobile-icon.svg";
 import FastIconImage from "./../../images/fast-icon.svg";
 import ReliableIconImage from "./../../images/reliable-icon.svg";
 import SimpleIconImage from "./../../images/simple-icon.svg";
@@ -59,53 +59,53 @@ const DecoratorBlob = styled(SvgDecoratorBlob3)`
 `;
 
 export default ({ cards = null, heading = "Amazing Features", subheading = "Features", description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }) => {
-  /*
-   * This componets has an array of object denoting the cards defined below. Each object in the cards array can have the key (Change it according to your need, you can also add more objects to have more cards in this feature component) or you can directly pass this using the cards prop:
-   *  1) imageSrc - the image shown at the top of the card
-   *  2) title - the title of the card
-   *  3) description - the description of the card
-   *  If a key for a particular card is not provided, a default value is used
-   */
+    /*
+     * This componets has an array of object denoting the cards defined below. Each object in the cards array can have the key (Change it according to your need, you can also add more objects to have more cards in this feature component) or you can directly pass this using the cards prop:
+     *  1) imageSrc - the image shown at the top of the card
+     *  2) title - the title of the card
+     *  3) description - the description of the card
+     *  If a key for a particular card is not provided, a default value is used
+     */
 
-  const defaultCards = [
-    {
-      imageSrc: ShieldIconImage,
-      title: "Secure",
-      description: "We strictly only deal with vendors that provide top notch security."
-    },
-    { imageSrc: SupportIconImage, title: "24/7 Support" },
-    { imageSrc: CustomizeIconImage, title: "Customizable" },
-    { imageSrc: ReliableIconImage, title: "Reliable" },
-    { imageSrc: FastIconImage, title: "Fast" },
-    { imageSrc: SimpleIconImage, title: "Easy" }
-  ];
+    const defaultCards = [
+        {
+            imageSrc: ShieldIconImage,
+            title: "Secure",
+            description: "Top-tier protection for your information, ensuring confidence in management."
+        },
+        { imageSrc: SupportIconImage, title: "24/7 Support", description:"Get assistance anytime with our 24/7 support for uninterrupted management." },
+        { imageSrc: MobileIconImage, title: "Mobile App", description: "Access anytime, anywhere with our seamless mobile app support for convenience." },
+        { imageSrc: ReliableIconImage, title: "Reliable", description: "Count on us for dependable and consistent insurance management services." },
+        { imageSrc: FastIconImage, title: "Fast", description: "Boost productivity with streamlined processes for efficient management." },
+        { imageSrc: SimpleIconImage, title: "Easy" , description: "Simplify tasks effortlessly with user-friendly interface for easy management."}
+    ];
 
-  if (!cards) cards = defaultCards;
+    if (!cards) cards = defaultCards;
 
-  return (
-    <Container>
-      <ThreeColumnContainer>
-        {subheading && <Subheading>{subheading}</Subheading>}
-        <Heading>{heading}</Heading>
-        {description && <Description>{description}</Description>}
-        <VerticalSpacer />
-        {cards.map((card, i) => (
-          <Column key={i}>
-            <Card>
-              <span className="imageContainer">
-                <img src={card.imageSrc || defaultCardImage} alt="" />
-              </span>
-              <span className="textContainer">
-                <span className="title">{card.title || "Fully Secure"}</span>
-                <p className="description">
-                  {card.description || "Lorem ipsum donor amet siti ceali ut enim ad minim veniam, quis nostrud."}
-                </p>
-              </span>
-            </Card>
-          </Column>
-        ))}
-      </ThreeColumnContainer>
-      <DecoratorBlob />
-    </Container>
-  );
+    return (
+        <Container>
+            <ThreeColumnContainer>
+                {subheading && <Subheading>{subheading}</Subheading>}
+                <Heading>{heading}</Heading>
+                {description && <Description>{description}</Description>}
+                <VerticalSpacer />
+                {cards.map((card, i) => (
+                    <Column key={i}>
+                        <Card>
+                            <span className="imageContainer">
+                                <img src={card.imageSrc || defaultCardImage} alt="" />
+                            </span>
+                            <span className="textContainer">
+                                <span className="title">{card.title || "Fully Secure"}</span>
+                                <p className="description">
+                                    {card.description || "Lorem ipsum donor amet siti ceali ut enim ad minim veniam, quis nostrud."}
+                                </p>
+                            </span>
+                        </Card>
+                    </Column>
+                ))}
+            </ThreeColumnContainer>
+            <DecoratorBlob />
+        </Container>
+    );
 };
