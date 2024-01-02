@@ -74,7 +74,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
     <NavLinks key={1}>
       <NavLink href="/#">About</NavLink>
       <NavLink href="/#">Blog</NavLink>
-      <NavLink href="/#">Pricing</NavLink>
+      <NavLink href="#pricing">Pricing</NavLink>
       <NavLink href="/#">Contact Us</NavLink>
       <NavLink href="/#" tw="lg:ml-12!">
         Login
@@ -89,7 +89,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const defaultLogoLink = (
     <LogoLink href="/">
       <img src={logo} alt="logo" />
-      Treact
+      Insure Area
     </LogoLink>
   );
 

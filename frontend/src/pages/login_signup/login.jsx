@@ -1,81 +1,216 @@
-import React from 'react';
-import * as Form from '@radix-ui/react-form';
+import React from "react";
+import AnimationRevealPage from "./../../helpers/AnimationRevealPage.js";
+import { Container as ContainerBase } from "./../../components/misc/Layouts";
+import tw from "twin.macro";
+import styled from "styled-components";
+import { css } from "styled-components/macro"; //eslint-disable-line
+import illustration from "./../../images/login-illustration.svg";
+import logo from "./../../images/logo.svg";
+import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 
-const Signup = () => (
-    <div className="flex flex-col items-center justify-center w-full h-screen bg-light">
-        <div className='border rounded-md bg-white px-[30px] md:px-[50px] py-9'>
+const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
+const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
+const MainContainer = tw.div`lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
+const LogoLink = tw.a``;
+const LogoImage = tw.img`h-12 mx-auto`;
+const MainContent = tw.div`mt-12 flex flex-col items-center`;
+const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
+const FormContainer = tw.div`w-full flex-1 mt-8`;
 
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                {/* <img
-                    className="mx-auto h-10 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=primary&shade=600"
-                    alt="Your Company"
-                /> */}
-                <h1 className='text-gray-800 text-3xl'>
-                    <span className='text-primary'>Agent</span> area
-                </h1>
-                <h2 className="mt-0 leading-9 tracking-tight text-gray-500">
-                    Sign in to your account
-                </h2>
-            </div>
+const SocialButtonsContainer = tw.div`flex flex-col items-center`;
+const SocialButton = styled.a`
+  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
+  .iconContainer {
+    ${tw`bg-white p-2 rounded-full`}
+  }
+  .icon {
+    ${tw`w-4`}
+  }
+  .text {
+    ${tw`ml-4`}
+  }
+`;
 
-            <Form.Root className="w-[260px] md:w-[340px] mt-5">
-                <Form.Field className="grid mb-[10px]" name="phone">
-                    <div className="flex items-baseline justify-between">
-                        <Form.Label className="text-[15px] font-medium leading-[35px] text-gray-600">
-                            Mobile No.
-                            <sup className="text-red">*</sup>
-                        </Form.Label>
-                        <Form.Message className="text-[13px] text-red opacity-[0.8]" match="valueMissing">
-                            Please enter your Mobile No.
+const DividerTextContainer = tw.div`my-12 border-b text-center relative`;
+const DividerText = tw.div`leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform -translate-y-1/2 absolute inset-x-0 top-1/2 bg-transparent`;
 
-                        </Form.Message>
-                        <Form.Message className="text-[13px] ms-5 text-red opacity-[0.8]" match="patternMismatch">
-                            Please provide a valid Mobile.
-                        </Form.Message>
-                    </div>
-                    <Form.Control asChild>
-                        <input
-                            className="box-border px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-                            type="tel"
-                            pattern='(\+[1-9][0-9]{0,2})?[6-9]\d{9}'
-                            required
-                        />
-                    </Form.Control>
-                </Form.Field>
-                <Form.Field className="grid mt-5 mb-[10px]" name="question">
-                    <div className="flex items-baseline justify-between">
-                        <Form.Label className="text-[15px] font-medium leading-[35px] text-gray-600">
-                            Password
-                            <sup className="text-red"> *</sup>
-                        </Form.Label>
-                        <Form.Message className="text-[13px] text-white opacity-[0.8]" match="valueMissing">
-                            Please enter a password
-                        </Form.Message>
-                    </div>
-                    <Form.Control asChild>
-                        <input
-                            className="box-border px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-                            type='password'
-                            required
-                        />
-                    </Form.Control>
-                </Form.Field>
-                <Form.Submit asChild>
-                    <button className=" mt-4 box-border w-full text-white shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-primary px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
-                        Get OTP
-                    </button>
-                </Form.Submit>
-            </Form.Root>
+const Form = tw.form`mx-auto max-w-xs`;
+const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
+const SubmitButton = styled.button`
+  ${tw`mt-5 tracking-wide font-semibold bg-primary-500 text-gray-100 w-full py-4 rounded-lg hover:bg-primary-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none`}
+  .icon {
+    ${tw`w-6 h-6 -ml-2`}
+  }
+  .text {
+    ${tw`ml-3`}
+  }
+`;
+const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
+const IllustrationImage = styled.div`
+  ${props => `background-image: url("${props.imageSrc}");`}
+  ${tw`m-12 xl:m-16 w-full max-w-sm bg-contain bg-center bg-no-repeat`}
+`;
+const ErrorContainer = tw.div`text-red-500 text-xs mt-1 pl-8 border py-1 rounded-sm border-red-500 bg-red-100 `;
 
-            <p className="mt-10 text-center text-sm text-gray-500">
-                Not a member?{' '}
-                <a href="#" className="font-semibold leading-6 text-primary hover:text-primary-500">
-                    Start a 14 day free trial
-                </a>
-            </p>
-        </div>
-    </div>
-);
+const Login = ({
+    logoLinkUrl = "#",
+    illustrationImageSrc = illustration,
+    headingText = "Enter To Agent Area",
+    socialButtons = [],
+    SubmitButtonIcon = LoginIcon,
+    forgotPasswordUrl = "#",
+    signupUrl = "#",
+}) => {
 
-export default Signup;
+    const [Error, setError] = React.useState("");
+    const [countryCode, setCountryCode] = React.useState("+91"); // [countryCode, setCountryCode
+    const [phone, setPhone] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [isOtpSent, setIsOtpSent] = React.useState(false);
+    const [otp, setOtp] = React.useState("");
+    const [submitButtonText, setSubmitButtonText] = React.useState("Send OTP");
+
+    const onChangeCountryCode = (e) => {
+
+        const regex = /^[+][0-9]{1,3}$/;
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else {
+            setError("Invalid Country Code");
+        }
+
+        setCountryCode(e.target.value);
+    }
+
+    const onChangePhone = (e) => {
+
+        const regex = /^[0-9]{10}$/;
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else {
+            setError("Invalid Phone Number");
+        }
+
+        setPhone(e.target.value);
+    }
+
+    const onChangePassword = (e) => {
+
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]).{8,}$/
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else if (e.target.value.length < 8) {
+            setError("Password must be min. 8 characters long");
+        }
+        else {
+            setError("Please Enter Strong Password");
+        }
+
+        setPassword(e.target.value);
+    }
+
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
+
+        if (phone.length === 0) {
+            setError("Please Enter Phone Number");
+        }
+        else if (password.length === 0) {
+            setError("Please Enter Password");
+        }
+
+        setIsOtpSent(true);
+    }
+
+    const onChangeOtp = (e) => {
+
+        const regex = /^[0-9]{4}$/;
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else if(e.target.value.length !== 4) {
+            setError("OTP must be 4 digits long");
+        }
+        else if(!regex.test(e.target.value)){
+            setError("OTP must be Numeric Values Only");
+        }
+
+        setOtp(e.target.value);
+    }
+
+    const handleOtpSubmit = async (e) => {
+        e.preventDefault();
+
+        if (otp.length === 0) {
+            setError("Please Enter OTP");
+        }
+        else {
+            setError("Invalid OTP");
+        }
+    }
+
+
+    return (
+        <AnimationRevealPage>
+            <Container>
+                <Content>
+                    <MainContainer>
+                        <LogoLink href={logoLinkUrl}>
+                            <LogoImage src={logo} />
+                        </LogoLink>
+                        <MainContent>
+                            <Heading>{headingText}</Heading>
+                            <FormContainer>
+                                <Form>
+                                    <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} />
+                                    <Input type="text" placeholder="Phone No." onChange={onChangePhone} />
+                                    <Input type="password" placeholder="Password" onChange={onChangePassword} />
+                                    {
+                                        isOtpSent &&
+                                        <Input type="text" placeholder="OTP" onChange={onChangeOtp} />
+                                    }
+                                    {Error && <ErrorContainer> {Error} </ErrorContainer>}
+                                    {
+                                        !isOtpSent ?
+                                            <SubmitButton onClick={handleSendOtp} >
+                                                <SubmitButtonIcon className="icon" />
+                                                <span className="text">{submitButtonText}</span>
+                                            </SubmitButton>
+                                            :
+                                            <>
+                                                <SubmitButton onClick={handleOtpSubmit} >
+                                                    <SubmitButtonIcon className="icon" />
+                                                    <span className="text">Login</span>
+                                                </SubmitButton>
+                                            </>
+                                    }
+                                </Form>
+                                <p tw="mt-6 text-xs text-gray-600 text-center">
+                                    <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
+                                        Forgot Password ?
+                                    </a>
+                                </p>
+                                <p tw="mt-8 text-sm text-gray-600 text-center">
+                                    Dont have an account?{" "}
+                                    <a href={signupUrl} tw="border-b border-gray-500 border-dotted">
+                                        Sign Up
+                                    </a>
+                                </p>
+                            </FormContainer>
+
+                        </MainContent>
+                    </MainContainer>
+                    <IllustrationContainer>
+                        <IllustrationImage imageSrc={illustrationImageSrc} />
+                    </IllustrationContainer>
+                </Content>
+            </Container>
+        </AnimationRevealPage>
+    );
+}
+
+
+export default Login;

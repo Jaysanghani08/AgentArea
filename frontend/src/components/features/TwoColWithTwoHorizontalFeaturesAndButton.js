@@ -91,13 +91,13 @@ export default ({
     {
       Icon: BriefcaseIcon,
       title: "Professionalism",
-      description: "We have the best professional marketing people across the globe just to work with you.",
+      description: "Elevate your insurance experience with our dedicated commitment to professionalism, ensuring precision, reliability, and excellence in every aspect of our service.",
       iconContainerCss: tw`bg-teal-300 text-teal-800`
     },
     {
       Icon: MoneyIcon,
       title: "Affordable",
-      description: "We promise to offer you the best rate we can - at par with the industry standard.",
+      description: "Enjoy top-notch insurance solutions without breaking the bank. Experience quality service at a price that fits your budget.",
       iconContainerCss: tw`bg-red-300 text-red-800`
     }
   ];

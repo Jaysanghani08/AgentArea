@@ -32,6 +32,7 @@ export default () => {
             We have Amazing <HighlightedText>Service.</HighlightedText>
           </>
         }
+        description="Experience excellence with our amazing service. Tailored solutions, expert support—empowering you for seamless insurance management. Discover the difference with us."
       />
       <MainFeature
         subheading={<Subheading>Quality Work</Subheading>}
@@ -58,6 +59,7 @@ export default () => {
             We Always Abide by Our <HighlightedText>Principles.</HighlightedText>
           </>
         }
+        description="we steadfastly adhere to a set of core principles, ensuring a foundation of integrity, reliability, and trust in every interaction and service we provide. These principles guide our commitment to excellence, transparency, and customer satisfaction, making us a reliable partner in your insurance management journey."
         imageSrc={prototypeIllustrationImageSrc}
         showDecoratorBlob={false}
         features={[
@@ -107,7 +109,7 @@ export default () => {
           }
         ]}
       />
-      <Testimonial
+      {/* <Testimonial
         subheading={<Subheading>Testimonials</Subheading>}
         heading={
           <>
@@ -136,8 +138,8 @@ export default () => {
             customerTitle: "Founder, EventsNYC"
           }
         ]}
-      />
-      <FAQ
+      /> */}
+      {/* <FAQ
         subheading={<Subheading>FAQS</Subheading>}
         heading={
           <>
@@ -176,8 +178,8 @@ export default () => {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
           }
         ]}
-      />
-      <GetStarted/>
+      /> */}
+      {/* <GetStarted/> */}
       <Footer />
     </AnimationRevealPage>
   );
