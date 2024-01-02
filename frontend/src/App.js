@@ -13,6 +13,7 @@ import AgentList from './pages/admin/agentList.jsx';
 import Company_list from './pages/company/company_list.jsx';
 import Tmp from './pages/tmp.jsx';
 import AddAgency from './pages/agency/add_agency.jsx';
+import AddProduct from './pages/product/add_product.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -45,12 +46,14 @@ function App() {
                 <Route path='/' element={<Home />}></Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/addagent" element={<AddAgent />} />
                 <Route path="/agentProfile" element={<AgentProfile />} />
                 <Route path="/agentlist" element={<AgentList />} />
                 <Route path="/addcompany" element={<AddCompany />} />
                 <Route path="/companylist" element={<Company_list />} />
                 <Route path="/addagency" element={<AddAgency />} />
+                <Route path="/addproduct" element={<AddProduct />} />
                 <Route path="/tmp" element={<Tmp />} />
                 {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
                     <ClientRoute path="/client/other" component={OtherClientComponent} />

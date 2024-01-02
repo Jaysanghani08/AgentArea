@@ -49,7 +49,7 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                 buttonColumns.some((btnCol) => btnCol.columnIndex === colIndex) ? (
                                     buttonColumns.map((btnCol) => (
                                         btnCol.columnIndex === colIndex ? (
-                                            <a href={row[colIndex]} key={btnCol.columnIndex} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
+                                            <a href={row[colIndex]} key={`###${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
                                                 {btnCol.buttonText}
                                             </a>
                                         ) : null
@@ -60,11 +60,11 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                         actionColumn && actionColumn.columnIndex === colIndex ? (
                                             <span className="flex">
                                                 {/* <span className=""> */}
-                                                <a href={row[colIndex][0]} key={actionColumn.columnIndex} className="text-green border-green Ï">
+                                                <a href={row[colIndex][0]} key={`#${actionColumn.columnIndex}`} className="text-green border-green Ï">
                                                     <FaRegEdit size={22} />
                                                 </a>
                                                 {/* </span> */}
-                                                <a href={row[colIndex][1]} key={actionColumn.columnIndex} className=" text-red border-red">
+                                                <a href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`} className=" text-red border-red">
                                                     <MdDeleteOutline size={23} />
                                                 </a>
                                             </span>

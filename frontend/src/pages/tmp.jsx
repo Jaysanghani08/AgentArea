@@ -1,5 +1,6 @@
 import React from 'react'
 import CustomTable from '../components/general/table/table'
+import { removeCompany } from '../services/Api';
 
 const Tmp = () => {
 
@@ -208,6 +209,8 @@ const Tmp = () => {
     ];
 
     const actionColumn = { columnIndex: 5 };
+
+    // removeCompany(1).then(res => console.log(res))
 
     return (
         <>
