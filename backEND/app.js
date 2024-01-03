@@ -14,10 +14,13 @@ require("./connection/connection");
 
 const agent = require("./routes/agent");
 const company = require("./routes/company");
+const customer = require("./routes/customer");
 
 
 app.use(agent);
 app.use(company);
+app.use(customer);
+
 
 
 
