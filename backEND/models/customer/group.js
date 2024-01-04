@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 
 const customer = mongoose.Schema({
-    agent:{
+    agent_id:{
         type: mongoose.ObjectId
     },
     name :{
@@ -11,6 +11,12 @@ const customer = mongoose.Schema({
     mobile: {
         type: Number,
     },
+    email: {
+        type: String,
+    },
+    dob :{
+        type:Date,
+    }
     email: {
         type: String,
     },
