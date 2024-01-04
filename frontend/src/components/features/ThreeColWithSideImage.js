@@ -83,7 +83,7 @@ export default ({ cards = null, heading = "Amazing Features", subheading = "Feat
     if (!cards) cards = defaultCards;
 
     return (
-        <Container>
+        <Container id="services">
             <ThreeColumnContainer>
                 {subheading && <Subheading>{subheading}</Subheading>}
                 <Heading>{heading}</Heading>
@@ -93,7 +93,7 @@ export default ({ cards = null, heading = "Amazing Features", subheading = "Feat
                     <Column key={i}>
                         <Card>
                             <span className="imageContainer">
-                                <img src={card.imageSrc || defaultCardImage} alt="" />
+                                <img src={card.imageSrc || defaultCardImage} alt="feature image" />
                             </span>
                             <span className="textContainer">
                                 <span className="title">{card.title || "Fully Secure"}</span>
