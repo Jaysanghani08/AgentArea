@@ -53,7 +53,7 @@ const IllustrationImage = styled.div`
 const ErrorContainer = tw.div`text-red-500 text-xs mt-1 pl-8 border py-1 rounded-sm border-red-500 bg-red-100 `;
 
 const Login = ({
-    logoLinkUrl = "#",
+    logoLinkUrl = "/",
     illustrationImageSrc = illustration,
     headingText = "Enter To Agent Area",
     socialButtons = [],

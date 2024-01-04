@@ -141,18 +141,18 @@ export default () => {
         <Divider />
         <ThreeColRow>
           <LogoContainer>
-            <LogoImg src={LogoImage} />
+            <LogoImg src={LogoImage} alt="logo image"/>
             <LogoText>Treact Inc.</LogoText>
           </LogoContainer>
           <CopywrightNotice>&copy; 2018 Treact Inc. All Rights Reserved.</CopywrightNotice>
           <SocialLinksContainer>
-            <SocialLink href="https://facebook.com">
+            <SocialLink href="https://facebook.com" aria-label="Connect to Our Facebook Page">
               <FacebookIcon />
             </SocialLink>
-            <SocialLink href="https://twitter.com">
+            <SocialLink href="https://twitter.com" aria-label="Connect to Our Twitter Page">
               <TwitterIcon />
             </SocialLink>
-            <SocialLink href="https://youtube.com">
+            <SocialLink href="https://youtube.com" aria-label="Connect to Our Youtube Page">
               <YoutubeIcon />
             </SocialLink>
           </SocialLinksContainer>
