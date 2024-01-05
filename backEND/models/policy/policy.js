@@ -1,24 +1,12 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema({
-    agent_id:{
+    customer_id:{
         type:mongoose.ObjectId,
     },
     policy_number: {
         type: String,
         unique: true
-    },
-    name: {
-        type: String
-    },
-    mobile:{
-        type:Number,
-    },
-    email: {
-        type: String,
-    },
-    dob :{
-        type:Date,
     },
     group_code: {
         type: mongoose.ObjectId,
