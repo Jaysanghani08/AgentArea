@@ -22,6 +22,13 @@ app.use(company);
 app.use(customer);
 
 
+// for testing a dummy listener
+
+const addMember = require("./controller/customer/addMember");
+const id = '658bed167dd0bb526193617e';
+
+app.get("/test",async()=>{console.log(await addMember(id,"Shubham",7622051689,"shubham@gmail.com","04/11/2003",9157212522));});
+
 
 
 app.listen(7000,(()=>{

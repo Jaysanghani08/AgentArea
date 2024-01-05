@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 const customer = mongoose.Schema({
     agent_id:{
-        type: mongoose.ObjectId
+        type: mongoose.ObjectId,
+        ref: 'agent'
     },
     name :{
         type:String,
@@ -21,7 +22,7 @@ const customer = mongoose.Schema({
 
 const Schema = mongoose.Schema({
     id: {
-        type: number,
+        type: Number,
         required: true,
         unique: true,
     },
