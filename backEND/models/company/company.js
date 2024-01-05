@@ -9,6 +9,7 @@ const Schema = mongoose.Schema({
     name: {
         required:true,
         type: String,
+        unique:true,
     },
     url: {
         required:true,

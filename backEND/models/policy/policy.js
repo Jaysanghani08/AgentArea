@@ -11,9 +11,6 @@ const Schema = mongoose.Schema({
     group_code: {
         type: mongoose.ObjectId,
     },
-    company_id: {
-        type: mongoose.ObjectId,
-    },
     policy_type: {
         type: String,
         // enum: ['motor', 'health', 'sme'],

@@ -17,12 +17,6 @@ const customer = mongoose.Schema({
     dob :{
         type:Date,
     }
-    email: {
-        type: String,
-    },
-    dob :{
-        type:Date,
-    }
 })
 
 const Schema = mongoose.Schema({
