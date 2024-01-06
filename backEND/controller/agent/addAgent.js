@@ -66,13 +66,13 @@ const addAgent = async (req, res) => {
             console.log(error);
             const err = error.keyPattern;
             // console.log(err);
-            if (err.hasOwnProperty('email') == true && err.email == 1) {
+            if (err && err.hasOwnProperty('email') == true && err.email == 1) {
                 res.status(410).send();
             }
-            else if (err.hasOwnProperty('mobile') == true && err.mobile == 1) {
+            else if (err && err.hasOwnProperty('mobile') == true && err.mobile == 1) {
                 res.status(411).send();
             }
-            else if (err.hasOwnProperty('username') == true && err.username == 1) {
+            else if (err && err.hasOwnProperty('username') == true && err.username == 1) {
                 res.status(412).send();
             }
             else {

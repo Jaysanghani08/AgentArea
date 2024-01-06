@@ -30,8 +30,8 @@ const addMember = async (agent,name,mobile,email,dob,group_id) => {
         }
 
         const update = await group.findOneAndUpdate({id:group_id},{$push : { members : member }},{new:true});
-
-        return update;
+        const id = update.members[update.members.length - 1]._id;
+        return id;
 
 
     } catch (error) {

@@ -1,5 +1,77 @@
 const mongoose = require("mongoose");
 
+const chequeDetails = mongoose.Schema({
+    chequeNumber: {
+        type: String,
+        validate: {
+            validator: function () {
+                return this.payment_type === 'cheque';
+            },
+            // message: 'Cheque number is required for cheque payments.'
+        }
+    },
+    chequeDate: {
+        type: Date,
+        validate: {
+            validator: function () {
+                return this.payment_type === 'cheque';
+            },
+            // message: 'Cheque date is required for cheque payments.'
+        }
+    },
+    payment_bank_branch: {
+        type: String,
+        validate: {
+            validator: function () {
+                return this.payment_type === 'cheque';
+            },
+            // message: 'Cheque date is required for cheque payments.'
+        }
+    }
+})
+
+const motor_insurance_details = mongoose.Schema({
+    idv: {
+        type: Number,
+        validate: {
+            validator: function () {
+                return this.policy_type === 'motor';
+            },
+            // message: 'Cheque number is required for cheque payments.'
+        }
+    },
+    tp_premium: {
+        type: Number,
+        validate: {
+            validator: function () {
+                return this.policy_type === 'motor';
+            },
+            // message: 'Cheque number is required for cheque payments.'
+        }
+    },
+    od_premium: {
+        type: Number,
+        validate: {
+            validator: function () {
+                return this.policy_type === 'motor';
+            },
+            // message: 'Cheque number is required for cheque payments.'
+        }
+    },
+    registration_number: {
+        type: String,
+        validate: {
+            validator: function () {
+                return this.policy_type === 'motor';
+            },
+            // message: 'Cheque number is required for cheque payments.'
+        }
+    }
+})
+
+
+
+
 const Schema = mongoose.Schema({
     customer_id:{
         type:mongoose.ObjectId,
@@ -40,44 +112,7 @@ const Schema = mongoose.Schema({
         type: Number,
     },
     // For details about policytype for diffrent attribute for motor insurance
-    motor_insurance_details: {
-        idv: {
-            type: Number,
-            validate: {
-                validator: function () {
-                    return this.policy_type === 'motor';
-                },
-                // message: 'Cheque number is required for cheque payments.'
-            }
-        },
-        tp_premium: {
-            type: Number,
-            validate: {
-                validator: function () {
-                    return this.policy_type === 'motor';
-                },
-                // message: 'Cheque number is required for cheque payments.'
-            }
-        },
-        od_premium: {
-            type: Number,
-            validate: {
-                validator: function () {
-                    return this.policy_type === 'motor';
-                },
-                // message: 'Cheque number is required for cheque payments.'
-            }
-        },
-        registration_number: {
-            type: String,
-            validate: {
-                validator: function () {
-                    return this.policy_type === 'motor';
-                },
-                // message: 'Cheque number is required for cheque payments.'
-            }
-        }
-    },
+    motor_insurance_details: {motor_insurance_details},
     gst: {
         type: Number,
     },
@@ -87,35 +122,7 @@ const Schema = mongoose.Schema({
     payment_type: {
         type: String,
     },
-    cheque_details: {
-        chequeNumber: {
-            type: String,
-            validate: {
-                validator: function () {
-                    return this.paymentType === 'cheque';
-                },
-                // message: 'Cheque number is required for cheque payments.'
-            }
-        },
-        chequeDate: {
-            type: Date,
-            validate: {
-                validator: function () {
-                    return this.paymentType === 'cheque';
-                },
-                // message: 'Cheque date is required for cheque payments.'
-            }
-        },
-        payment_bank_branch: {
-            type: String,
-            validate: {
-                validator: function () {
-                    return this.paymentType === 'cheque';
-                },
-                // message: 'Cheque date is required for cheque payments.'
-            }
-        }
-    },
+    cheque_details: {chequeDetails},
     premium_deposite_date:{
         type:Date,
     },

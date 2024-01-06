@@ -15,11 +15,13 @@ require("./connection/connection");
 const agent = require("./routes/agent");
 const company = require("./routes/company");
 const customer = require("./routes/customer");
+const policy = require("./routes/policy");
 
 
 app.use(agent);
 app.use(company);
 app.use(customer);
+app.use(policy);
 
 
 // for testing a dummy listener

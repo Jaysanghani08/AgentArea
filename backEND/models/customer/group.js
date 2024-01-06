@@ -23,7 +23,6 @@ const customer = mongoose.Schema({
 const Schema = mongoose.Schema({
     id: {
         type: Number,
-        required: true,
         unique: true,
     },
     members:{type:[customer]}
