@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
 
-
-const product = require("./policy");
+const product = mongoose.Schema({
+    product_name: {
+        type: String,
+    },
+    product_type: {
+        type: String,
+    },
+    company_agency: {
+        type: mongoose.ObjectId,
+    },
+});
 
 
 
