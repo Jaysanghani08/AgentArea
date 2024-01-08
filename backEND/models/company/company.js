@@ -10,6 +10,9 @@ const product = mongoose.Schema({
     company_agency: {
         type: mongoose.ObjectId,
     },
+    policy_type:{
+        type:String,
+    }
 });
 
 
@@ -34,15 +37,7 @@ const Schema = mongoose.Schema({
             }
         }]
     },
-    health :{
-        type:[product],
-    },
-    motor :{
-        type:[product],
-    },
-    sme :{
-        type:[product],
-    }
+    products:[product]
     // email: {
     //     type: String,
     //     validate(e) {

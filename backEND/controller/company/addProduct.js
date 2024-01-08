@@ -16,22 +16,12 @@ const addProduct = async (req, res) => {
             product_name: data.product_name,
             product_type: data.product_type,
             company_agency: data.agency_id,
+            policy_type: data.policy_type
         }
-        if (type == "health") {
-            const update = await company.updateOne({ _id: id }, { $push: { health: product } });
-            console.log(update);
-            res.status(200).send();
-        }
-        else if (type == "motor") {
-            const update = await company.updateOne({ _id: id }, { $push: { motor: product } });
-            console.log(update);
-            res.status(200).send();
-        }
-        else if (type == "sme") {
-            const update = await company.updateOne({ _id: id }, { $push: { sme: product } });
-            console.log(update);
-            res.status(200).send();
-        }
+
+        const update = await company.updateOne({ _id: id }, { $push: { products: product } });
+        console.log(update);
+        res.status(200).send();
 
     } catch (error) {
         console.log("THis is the error from /controller/company/addProduct.js");
