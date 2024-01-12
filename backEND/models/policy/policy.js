@@ -90,6 +90,9 @@ const Schema = mongoose.Schema({
     premium_deposite_date:{
         type:Date,
     },
+    sum_assured:{
+        type:Number,
+    },
     remark:{
         type:String
     },

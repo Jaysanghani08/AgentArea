@@ -39,6 +39,7 @@ const addPolicy = async (req, res) => {
             total_premium_amount: data.total_premium_amount,
             payment_type: data.payment_type,
             premium_deposite_date: data.premium_deposite_date,
+            sum_assured : data.sum_assured,
             remark: data.remark,
 
             cheque_details: (data.payment_type == 'cheque') ? {
