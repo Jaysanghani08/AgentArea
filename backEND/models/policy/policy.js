@@ -117,4 +117,117 @@ const Schema = mongoose.Schema({
 
 const policy = mongoose.model("policy",Schema);
 
-module.exports = policy;
+
+const getPolicies = mongoose.model('getPolicies', Schema);
+
+
+// First, create the User model's underlying collection...
+// policy.createCollection();
+// Then create the `RedactedUser` model's underlying collection
+// as a View.
+getPolicies.createCollection({
+  viewOn: 'policies', // Set `viewOn` to the collection name, **not** model name.
+  pipeline: [
+    {
+      $lookup: {
+        from: 'groups',
+        localField: 'group_code',
+        foreignField: '_id',
+        as: 'group'
+      }
+    },
+    {
+      $unwind: {
+        path: '$group',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $unwind: {
+        path: '$group.members',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $match: {
+        $expr: {
+          $eq: [
+            '$group.members._id',
+            '$customer_id'
+          ]
+        }
+      }
+    },
+    {
+      $lookup: {
+        from: 'agents',
+        localField: 'agent_id',
+        foreignField: '_id',
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              email: 1,
+              mobile: 1
+            }
+          }
+        ],
+        as: 'agent'
+      }
+    },
+    {
+      $lookup: {
+        from: 'companies',
+        localField: 'company_id',
+        foreignField: '_id',
+        as: 'company'
+      }
+    },
+    {
+      $unwind: {
+        path: '$company',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $unwind: {
+        path: '$company.products',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $match: {
+        $expr: {
+          $eq: [
+            '$company.products._id',
+            '$product_id'
+          ]
+        }
+      }
+    },
+    {
+      $unwind: {
+        path: '$company.agencies',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $match: {
+        $expr: {
+          $eq: [
+            '$company.agencies._id',
+            '$agency'
+          ]
+        }
+      }
+    },
+    {
+      $unwind: {
+        path: '$agent',
+        preserveNullAndEmptyArrays: true
+      }
+    }
+  ]
+});
+
+module.exports = {policy,getPolicies};
