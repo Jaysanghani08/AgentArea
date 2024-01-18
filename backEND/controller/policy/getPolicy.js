@@ -1,19 +1,13 @@
 const mongoose = require("mongoose");
 
 
-const {policy,getPolicies} = require("../../models/policy/policy");
-const group = require("../../models/customer/group");
-const company = require("../../models/company/company");
-const agent = require("../../models/agent/agent");
-
+const db = require("../../connection/connectionMONGO");
 
 const getPolicy = async (req,res) => {
 
     try {
-        const db = mongoose.connection;
-        // console.log(db);
-        // const data = await policy.connection().getPolicies.find({}, { _id: 0 } ).exec();
-        const x = await getPolicies.find().exec();
+        const dataCollection = db.collection('getPolicies');
+        const x = await dataCollection.find({}).toArray();
 
         console.log(x);
         res.status(200).send();

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const {policy,getPolicies} = require("../../models/policy/policy");
+const policy = require("../../models/policy/policy");
 
 
 const addPolicy = async (req, res) => {

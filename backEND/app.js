@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors())
 
 require("./connection/connection");
+require("./connection/connectionMONGO");
 
 
 const agent = require("./routes/agent");
