@@ -125,6 +125,9 @@ const getPolicies = mongoose.model('getPolicies', Schema);
 // policy.createCollection();
 // Then create the `RedactedUser` model's underlying collection
 // as a View.
+
+policy.createCollection();
+
 getPolicies.createCollection({
   viewOn: 'policies', // Set `viewOn` to the collection name, **not** model name.
   pipeline: [

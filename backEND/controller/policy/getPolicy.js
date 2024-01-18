@@ -13,7 +13,7 @@ const getPolicy = async (req,res) => {
         const db = mongoose.connection;
         // console.log(db);
         // const data = await policy.connection().getPolicies.find({}, { _id: 0 } ).exec();
-        const x = await getPolicies.find({});
+        const x = await getPolicies.find().exec();
 
         console.log(x);
         res.status(200).send();

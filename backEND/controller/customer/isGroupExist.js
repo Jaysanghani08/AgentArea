@@ -10,7 +10,7 @@ const isGroupExist = async (req,res) => {
         const data = await group.findOne({id});
 
         if(data){
-            res.status(200).send();
+            res.status(200).send(data);
         }
         else{
             res.status(201).send();
