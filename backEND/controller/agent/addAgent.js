@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const multer = require("multer");
 
 
 const agent = require("../../models/agent/agent");
@@ -8,13 +7,18 @@ const agent = require("../../models/agent/agent");
 
 const addAgent = async (req, res) => {
 
-    console.log("HELLLO");
+    // console.log("HELLLO");
 
     try {
 
         const data = req.body;
+        
+        console.log(req.files);
+
         const aadharFile = req.files['aadharFile'][0];
         const panFile = req.files['panFile'][0];
+
+
 
         console.log(data);
         console.log('*****************')
