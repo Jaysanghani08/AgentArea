@@ -4,26 +4,21 @@ const mongoose = require("mongoose");
 const {policy,getPolicies} = require("../../models/policy/policy");
 
 
-const addMember = require("../../controller/customer/addMember");
-
-
 const addPolicy = async (req, res) => {
 
     try {
 
         const data = req.body;
         // console.log(data);
+        // console.log(req.files);
 
         const policy_copy = req.files['policy_copy'][0];
         const renewal_notice_copy = req.files['renewal_notice_copy'][0];
 
 
-        const customer_id = await addMember(data.agent_id,data.name,data.mobile,data.email,data.dob,data.group_code);
-        // const customer_id = "60a4b1e9c54b0a0012345678";
-        console.log(customer_id);
         const new_policy = new policy({
             agent_id:data.agent_id,
-            customer_id: customer_id,
+            customer_id: data.customer_id,
             policy_number: data.policy_number,
             group_code: data.group_code,
             policy_type: data.policy_type,
@@ -91,6 +86,7 @@ const addPolicy = async (req, res) => {
 
 }
 }
+
 module.exports = addPolicy;
 
 

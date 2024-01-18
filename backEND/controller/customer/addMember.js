@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 
-
 const group = require("../../models/customer/group");
 
 
-const addMember = async (agent,name,mobile,email,dob,group_id) => {
-
+const addMember = async (req,res) => {
 
     try {
-        
-        const ifExist = await group.findOne({id:group_id});
+
+        const data = req.body;
+        const ifExist = await group.findOne({id:data.group_id});
 
         if(!ifExist){
 
             const data = new group({
-                id:group_id
+                id:data.group_id
             })
 
             const saved_data = await data.save();
@@ -22,16 +21,16 @@ const addMember = async (agent,name,mobile,email,dob,group_id) => {
         }
 
         const member = {
-            agent_id : agent,
-            name : name,
-            mobile : mobile,
-            email : email,
-            dob : dob
+            agent_id : data.agent_id,
+            name : data.name,
+            mobile : data.mobile,
+            email : data.email,
+            dob : data.dob
         }
 
-        const update = await group.findOneAndUpdate({id:group_id},{$push : { members : member }},{new:true});
+        const update = await group.findOneAndUpdate({id:data.group_id},{$push : { members : member }},{new:true});
         const id = update.members[update.members.length - 1]._id;
-        return id;
+        res.status(200).send({id:id});
 
 
     } catch (error) {
