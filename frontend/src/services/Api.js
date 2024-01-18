@@ -53,6 +53,7 @@ export const addAgency = async (data) => {
     }
 }
 
+
 //baaki
 export const removeCompany = async (id) => {
     try {
@@ -68,6 +69,19 @@ export const addProduct = async (data) => {
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/company/addProduct`, data, {
             'Content-Type': 'application/json'
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error in adding product");
+    }
+}
+
+export const CheckIfGroupCodeExists = async (data) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/customer/isGroupExist`, {}, {
+            'Content-Type': 'application/json'
+        }, {
+            id: data
         });
         return response;
     } catch (error) {
