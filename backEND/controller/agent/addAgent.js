@@ -16,12 +16,6 @@ const addAgent = async (req, res) => {
         const aadharFile = req.files['aadharFile'][0];
         const panFile = req.files['panFile'][0];
 
-        console.log(data);
-        console.log('*****************')
-        console.log(aadharFile);
-        console.log('*****************')
-        console.log(panFile);
-
         const agent_data = new agent({
             name: data.name,
             bacode: data.bacode,
