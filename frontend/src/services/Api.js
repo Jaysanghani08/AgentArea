@@ -1,90 +1,59 @@
 import { commonrequest } from "./common_request";
 import { BACKEND_URL } from "./helper";
 
-export const AgentSignup = async (data) => {
-    console.log(data);
+const postRequest = async (endpoint, data, headers={}, params={}) => {
     try {
-        const response = await commonrequest("POST", `${BACKEND_URL}/agent/addAgent`, data, {
-            'Content-Type': 'multipart/form-data'
-        });
+        const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
         return response;
     } catch (error) {
-        throw new Error("Error fetching graph data");
+        throw new Error(`Error in POST request to ${endpoint}`);
     }
-}
+};
+
+const getRequest = async (endpoint, params={}) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/${endpoint}`, {}, {}, params);
+        return response;
+    } catch (error) {
+        throw new Error(`Error in GET request to ${endpoint}`);
+    }
+};
+
+// Agent functions
+export const AgentSignup = async (data) => {
+    return postRequest("agent/addAgent", data);
+};
 
 export const getAgents = async () => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/agent/getAgents`);
-        return response;
-    } catch (error) {
-        throw new Error("Error fetching graph data");
-    }
-}
+    return getRequest("agent/getAgents");
+};
 
 export const getFullAgent = async (id) => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/agent/getFullAgent?id=${id}`);
-        return response;
-    } catch (error) {
-        throw new Error("Error fetching Agent data");
-    }
-}
+    return getRequest(`agent/getFullAgent`, {id});
+};
 
+// Company functions
 export const addCompany = async (data) => {
-    try {
-        const response = await commonrequest("POST", `${BACKEND_URL}/company/addCompany`, data, {
-            'Content-Type': 'application/json'
-        });
-        return response;
-    } catch (error) {
-        throw new Error("Error fetching graph data");
-    }
-}
+    return postRequest("company/addCompany", data);
+};
 
 export const addAgency = async (data) => {
-    try {
-        const response = await commonrequest("POST", `${BACKEND_URL}/company/addAgency`, data, {
-            'Content-Type': 'application/json'
-        });
-        return response;
-    } catch (error) {
-        throw new Error("Error fetching graph data");
-    }
-}
+    return postRequest("company/addAgency", data);
+};
 
-
-//baaki
 export const removeCompany = async (id) => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/company/removeCompany?id=658f9aab2a7c2ed3429800b6`);
-        return response;
-    } catch (error) {
-        throw new Error("Error fetching graph data");
-    }
-}
+    return getRequest(`company/removeCompany`, {id});
+};
 
-// baaki
 export const addProduct = async (data) => {
-    try {
-        const response = await commonrequest("POST", `${BACKEND_URL}/company/addProduct`, data, {
-            'Content-Type': 'application/json'
-        });
-        return response;
-    } catch (error) {
-        throw new Error("Error in adding product");
-    }
-}
+    return postRequest("company/addProduct", data);
+};
 
-export const CheckIfGroupCodeExists = async (data) => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/customer/isGroupExist`, {}, {
-            'Content-Type': 'application/json'
-        }, {
-            id: data
-        });
-        return response;
-    } catch (error) {
-        throw new Error("Error in adding product");
-    }
-}
+export const CheckIfGroupCodeExists = async (id) => {
+    return getRequest(`customer/isGroupExist`, {id});
+};
+
+// Customer functions
+export const addCustomer = async (data) => {
+    return postRequest("customer/addMember", data);
+};

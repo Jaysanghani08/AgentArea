@@ -1,13 +1,10 @@
 import axios from "axios";
 
-export const commonrequest = async(methods,url,body,header, queryParams={})=>{
+export const commonrequest = async(methods,url,body,headers={}, queryParams={})=>{
     let config = {
         method:methods,
         url,
-        headers:header ? header 
-        :{
-            "Content-Type":"application/json"
-        },
+        headers: Object.keys(headers).length > 0 ? {...headers,"Content-Type": "application/json" } : { "Content-Type": "application/json" },
         data:body,
         params: queryParams
     }
