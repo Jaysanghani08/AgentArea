@@ -81,6 +81,9 @@ const Schema = mongoose.Schema({
     commissionable_premium: {
         type: Number,
     },
+    pay_id:{
+        typr:String
+    },
     // For details about policytype for diffrent attribute for motor insurance
     motor_insurance_details: {type:motor_insurance_details},
     gst: {
