@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const company = require("../../models/company/company");
 
 
-const  getAgents = async (req,res) =>{
+const  getCompanies = async (req,res) =>{
 
     try {
         
@@ -20,4 +20,4 @@ const  getAgents = async (req,res) =>{
 
 }
 
-module.exports = getAgents;
+module.exports = getCompanies;

@@ -10,7 +10,7 @@ const postRequest = async (endpoint, data, headers={}, params={}) => {
     }
 };
 
-const getRequest = async (endpoint, params={}) => {
+const  getRequest = async (endpoint, params={}) => {
     try {
         const response = await commonrequest("GET", `${BACKEND_URL}/${endpoint}`, {}, {}, params);
         return response;
@@ -33,6 +33,10 @@ export const getFullAgent = async (id) => {
 };
 
 // Company functions
+export const getCompanies = async () => {
+    return getRequest("company/getCompanies");
+};
+
 export const addCompany = async (data) => {
     return postRequest("company/addCompany", data);
 };

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from "twin.macro";
 import styled from "styled-components";
 import { SectionHeading, Subheading as SubheadingBase } from "./../../components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "./../../components/misc/Buttons.js";
 import Spinner from './../../components/general/spinner';
-import { CheckIfGroupCodeExists, addCustomer } from './../../services/Api';
+import { CheckIfGroupCodeExists, addCustomer, getCompanies } from './../../services/Api';
 
 const Container = tw.div`relative flex items-center justify-center p-12`;
 const TextContent = tw.div`mx-auto w-full max-w-[950px] bg-white`;
@@ -70,6 +70,7 @@ const AddPolicy = () => {
 
     const [groupMembers, setGroupMembers] = useState(null);
     const [fetchedButNotExists, setFetchedButNotExists] = useState(false);
+    const [companylist, setCompanyList] = useState(null);
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -125,6 +126,22 @@ const AddPolicy = () => {
 
     console.log(formData);
     console.log(customerFormData);
+
+    useEffect(() => {
+        const fetchCompanyList = async () => {
+            try {
+                const response = await getCompanies();
+                alert('Company list fetched');
+                console.log(response);
+                if (response.status === 200) {
+                    setCompanyList(response);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchCompanyList();
+    }, [])
 
     const handleRenewalNoticeCopyChange = (e) => {
         setRenewalNoticeCopy(e.target.files[0]);
@@ -322,9 +339,7 @@ const AddPolicy = () => {
                             <Label htmlFor="company_id">Company <RequiredIndicator>*</RequiredIndicator> </Label>
                             <Select name="company_id" onChange={handleChange}>
                                 <option value="">Select Company</option>
-                                <option value="1">Company 1</option>
-                                <option value="2">Company 2</option>
-                                <option value="3">Company 3</option>
+                                
                             </Select>
                         </FormGroup>
 
