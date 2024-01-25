@@ -80,6 +80,99 @@ const bussinessType = [
     }
 ]
 
+const policyType = [
+    {
+        id: 1,
+        name: 'Motor',
+        value: 'motor',
+        subTypes: [
+            // Private car 
+            // two wheelr
+            // comarcial vehicle
+            // misliance
+
+            {
+                id: 1,
+                name: 'Private Car',
+                value: 'private_car'
+            },
+            {
+                id: 2,
+                name: 'Two Wheeler',
+                value: 'two_wheeler'
+            },
+            {
+                id: 3,
+                name: 'Commercial Vehicle',
+                value: 'commercial_vehicle'
+            },
+            {
+                id: 4,
+                name: 'Miscellaneous',
+                value: 'miscellaneous'
+            }
+        ]
+    },
+    {
+        id: 2,
+        name: 'Health',
+        value: 'health',
+        subTypes: [
+            // individua, family floter, personal acciden, Travel
+            {
+                id: 1,
+                name: 'Individual',
+                value: 'individual'
+            },
+            {
+                id: 2,
+                name: 'Family Floater',
+                value: 'family_floater'
+            },
+            {
+                id: 3,
+                name: 'Personal Accident',
+                value: 'personal_accident'
+            },
+            {
+                id: 4,
+                name: 'Travel',
+                value: 'travel'
+            }
+        ]
+    },
+    {
+        id: 3,
+        name: 'SME',
+        value: 'sme',
+        subTypes: [
+            // fire ,marine , wc, other
+            {
+                id: 1,
+                name: 'Fire',
+                value: 'fire'
+            },
+            {
+                id: 2,
+                name: 'Marine',
+                value: 'marine'
+            },
+            {
+                id: 3,
+                name: 'Workmen Compensation',
+                value: 'workmen_compensation'
+            },
+            {
+                id: 4,
+                name: 'Other',
+                value: 'other'
+            }
+        ]
+    }
+]
+
+
+
 const AddPolicy = () => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -96,6 +189,7 @@ const AddPolicy = () => {
         groud_id: '',
         group_code: '',
         policy_type: '',
+        policy_sub_type: '',
         company_id: '',
         product_id: '',
         agency: '',
@@ -401,23 +495,41 @@ const AddPolicy = () => {
                                         {
                                             products?.map((product) => (
                                                 <option key={product._id} value={product._id}>{product.product_name}</option>
-                                            ))    
+                                            ))
                                         }
                                     </Select>
                                 </FormGroup>
                             </>
                         }
 
-
+                        {/* policy type */}
                         <FormGroup>
                             <Label htmlFor="policy_type">Policy Type <RequiredIndicator>*</RequiredIndicator> </Label>
                             <Select name="policy_type" onChange={handleChange}>
                                 <option value="">Select Policy Type</option>
-                                <option value="1">Policy Type 1</option>
-                                <option value="2">Policy Type 2</option>
-                                <option value="3">Policy Type 3</option>
+                                {
+                                    policyType.map((type) => (
+                                        <option key={type.id} value={type.value}>{type.name}</option>
+                                    ))
+                                }
                             </Select>
                         </FormGroup>
+
+                        {/* policy subtype */}
+
+                        <FormGroup>
+                            <Label htmlFor="policy_sub_type">Policy Sub Type <RequiredIndicator>*</RequiredIndicator> </Label>
+                            <Select name="policy_sub_type" onChange={handleChange}>
+                                <option value="">Select Policy Sub Type</option>
+                                {
+                                    formData.policy_type &&
+                                    policyType.find((type) => type.value === formData.policy_type).subTypes.map((type) => (
+                                        <option key={type.id} value={type.value}>{type.name}</option>
+                                    ))
+                                }
+                            </Select>
+                        </FormGroup>
+
                         {/* bussiness type */}
                         <FormGroup>
                             <Label htmlFor="business_type">Business Type <RequiredIndicator>*</RequiredIndicator> </Label>
