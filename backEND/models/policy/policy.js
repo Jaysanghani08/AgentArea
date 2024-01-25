@@ -29,7 +29,6 @@ const motor_insurance_details = mongoose.Schema({
 
 
 
-
 const Schema = mongoose.Schema({
     agent_id:{
         type:mongoose.ObjectId,
@@ -50,6 +49,9 @@ const Schema = mongoose.Schema({
     policy_type: {
         type: String,
         // enum: ['motor', 'health', 'sme'],
+    },
+    policy_sub_type:{
+        type:String
     },
     company_id:{
         type:mongoose.ObjectId,

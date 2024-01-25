@@ -22,6 +22,7 @@ const addPolicy = async (req, res) => {
             policy_number: data.policy_number,
             group_code: data.group_code,
             policy_type: data.policy_type,
+            policy_sub_type: data.policy_sub_type,
             company_id : data.company_id,
             product_id: data.product_id,
             agency: data.agency,
