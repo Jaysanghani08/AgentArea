@@ -10,7 +10,7 @@ const getPolicy = async (req,res) => {
         const x = await dataCollection.find({}).toArray();
 
         console.log(x);
-        res.status(200).send();
+        res.status(200).send(x);
     } catch (error) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
         console.log("This is error from controllers/policies/getPolicies.js");
         console.log(error);

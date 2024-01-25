@@ -12,13 +12,12 @@ const addAgent = async (req, res) => {
     try {
 
         const data = req.body;
+        console.log(data);
         
         console.log(req.files);
 
         const aadharFile = req.files['aadharFile'][0];
         const panFile = req.files['panFile'][0];
-
-
 
         console.log(data);
         console.log('*****************')

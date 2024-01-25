@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { SectionHeading, Subheading as SubheadingBase } from "./../../components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "./../../components/misc/Buttons.js";
 import Spinner from './../../components/general/spinner';
-import { CheckIfGroupCodeExists, addCustomer, getCompanies } from './../../services/Api';
+import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy } from './../../services/Api';
 
 const Container = tw.div`relative flex items-center justify-center p-12`;
 const TextContent = tw.div`mx-auto w-full max-w-[950px] bg-white`;
@@ -65,12 +65,30 @@ const paymentType = [
     }
 ]
 
+const bussinessType = [
+    {
+        id: 1,
+        name: 'Fresh'
+    },
+    {
+        id: 2,
+        name: 'Renewal'
+    },
+    {
+        id: 3,
+        name: 'Port'
+    }
+]
+
 const AddPolicy = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [groupMembers, setGroupMembers] = useState(null);
     const [fetchedButNotExists, setFetchedButNotExists] = useState(false);
     const [companylist, setCompanyList] = useState(null);
+    const [agencies, setAgencies] = useState(null);
+    const [products, setProducts] = useState(null);
+
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -118,23 +136,28 @@ const AddPolicy = () => {
     }
 
     const [renewalNoticeCopy, setRenewalNoticeCopy] = useState(null);
-    const [policyCopy, setPolicyCopy] = useState(null);
+    const [policyCopy, setPolicyCopy] = useState([]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+
+        if (e.target.name === 'company_id') {
+            const company = companylist.find((company) => company._id === e.target.value);
+            setAgencies(company?.agencies);
+            setProducts(company?.products);
+        }
+
     }
 
-    console.log(formData);
-    console.log(customerFormData);
+    console.log(companylist)
+    console.log(formData)
 
     useEffect(() => {
         const fetchCompanyList = async () => {
             try {
                 const response = await getCompanies();
-                alert('Company list fetched');
-                console.log(response);
                 if (response.status === 200) {
-                    setCompanyList(response);
+                    setCompanyList(response.data);
                 }
             } catch (error) {
                 console.log(error);
@@ -170,6 +193,7 @@ const AddPolicy = () => {
             console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
+                setFormData({ ...formData, group_code: response.data?._id });
                 setFetchedButNotExists(false);
                 setGroupMembers(response.data?.members);
             } else if (response.status === 201) {
@@ -217,17 +241,13 @@ const AddPolicy = () => {
         console.log(formData);
 
         try {
-            // const response = await AgentSignup(formData);
+            const response = await addPolicy(formData);
 
-            // if (response.status === 200) {
-            //     alert('Agent created successfully');
-            // } else if (response.status === 410) {
-            //     alert('Email already exists');
-            // } else if (response.status === 411) {
-            //     alert('Mobile already exists');
-            // } else if (response.status === 412) {
-            //     alert('Username already exists');
-            // }
+            if (response.status === 200) {
+                alert('Policy addedd successfully');
+            } else {
+                alert('Something went wrong');
+            }
         } catch (error) {
             console.log(error);
         } finally {
@@ -252,7 +272,7 @@ const AddPolicy = () => {
                 <TextContent>
                     <Heading>{heading}</Heading>
                     {/* <Container> <Spinner height={60} color='#000000' /> </Container> */}
-                    <Form>
+                    <Form  >
 
                         <Subheading>Customer Details</Subheading>
 
@@ -334,30 +354,60 @@ const AddPolicy = () => {
 
                         <HoriZontalLine />
 
-                        {/* company select */}
-                        <FormGroup>
-                            <Label htmlFor="company_id">Company <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Select name="company_id" onChange={handleChange}>
-                                <option value="">Select Company</option>
-                                
-                            </Select>
-                        </FormGroup>
-
                         {/* Policy number */}
                         <FormGroup>
                             <Label htmlFor="policy_number">Policy Number <RequiredIndicator>*</RequiredIndicator></Label>
                             <Input type="text" name="policy_number" placeholder="Policy Number" onChange={handleChange} />
                         </FormGroup>
 
-                        <FormGroup>
-                            <Label htmlFor="agency">Agency <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Select name="agency" onChange={handleChange}>
-                                <option value="">Select Agency</option>
-                                <option value="1">Agency 1</option>
-                                <option value="2">Agency 2</option>
-                                <option value="3">Agency 3</option>
-                            </Select>
-                        </FormGroup>
+                        {/* company select */}
+                        {
+                            companylist &&
+                            <>
+                                <FormGroup>
+                                    <Label htmlFor="company_id">Company <RequiredIndicator>*</RequiredIndicator> </Label>
+                                    <Select name="company_id" onChange={handleChange}>
+                                        <option value="">Select Company</option>
+                                        {
+                                            companylist?.map((company) => (
+                                                <option key={company._id} value={company._id}>{company.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormGroup>
+
+
+                                {/* Agency select */}
+                                <FormGroup>
+                                    <Label htmlFor="agency">Agency <RequiredIndicator>*</RequiredIndicator> </Label>
+                                    <Select name="agency" onChange={handleChange}>
+                                        <option value="">Select Agency</option>
+                                        {/* selected company.agencies */}
+                                        {
+                                            agencies?.map((agency) => (
+                                                <option key={agency._id} value={agency._id}>{agency.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormGroup>
+
+
+
+                                {/*  product selcet */}
+                                <FormGroup>
+                                    <Label htmlFor="product_id">Product <RequiredIndicator>*</RequiredIndicator> </Label>
+                                    <Select name="product_id" onChange={handleChange}>
+                                        <option value="">Select Product</option>
+                                        {
+                                            products?.map((product) => (
+                                                <option key={product._id} value={product._id}>{product.product_name}</option>
+                                            ))    
+                                        }
+                                    </Select>
+                                </FormGroup>
+                            </>
+                        }
+
 
                         <FormGroup>
                             <Label htmlFor="policy_type">Policy Type <RequiredIndicator>*</RequiredIndicator> </Label>
@@ -368,26 +418,16 @@ const AddPolicy = () => {
                                 <option value="3">Policy Type 3</option>
                             </Select>
                         </FormGroup>
-
-                        {/*  product selcet */}
-                        <FormGroup>
-                            <Label htmlFor="product_id">Product <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Select name="product_id" onChange={handleChange}>
-                                <option value="">Select Product</option>
-                                <option value="1">Product 1</option>
-                                <option value="2">Product 2</option>
-                                <option value="3">Product 3</option>
-                            </Select>
-                        </FormGroup>
-
                         {/* bussiness type */}
                         <FormGroup>
                             <Label htmlFor="business_type">Business Type <RequiredIndicator>*</RequiredIndicator> </Label>
                             <Select name="business_type" onChange={handleChange}>
                                 <option value="">Select Business Type</option>
-                                <option value="1">Business Type 1</option>
-                                <option value="2">Business Type 2</option>
-                                <option value="3">Business Type 3</option>
+                                {
+                                    bussinessType.map((type) => (
+                                        <option key={type.id} value={type.name}>{type.name}</option>
+                                    ))
+                                }
                             </Select>
                         </FormGroup>
 

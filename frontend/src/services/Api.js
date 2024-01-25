@@ -21,7 +21,9 @@ const  getRequest = async (endpoint, params={}) => {
 
 // Agent functions
 export const AgentSignup = async (data) => {
-    return postRequest("agent/addAgent", data);
+    return postRequest("agent/addAgent", data, {
+        "Content-Type": "multipart/form-data",
+    } , {});
 };
 
 export const getAgents = async () => {
@@ -56,6 +58,17 @@ export const addProduct = async (data) => {
 export const CheckIfGroupCodeExists = async (id) => {
     return getRequest(`customer/isGroupExist`, {id});
 };
+
+// Policy functions
+export const addPolicy = async (data) => {
+    return postRequest("policy/addPolicy", data, {
+        "Content-Type": "multipart/form-data",
+    } , {});
+};
+
+export const getPolicy = async () => {
+    return getRequest(`policy/getPolicies`);
+}
 
 // Customer functions
 export const addCustomer = async (data) => {

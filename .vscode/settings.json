@@ -1,7 +1,0 @@
-{
-    "liveServer.settings.port": 5501,
-    "node_modules": true,
-    "files.associations": {
-        "ostream": "cpp"
-    }
-}
