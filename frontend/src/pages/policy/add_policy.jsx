@@ -5,7 +5,8 @@ import { SectionHeading, Subheading as SubheadingBase } from "./../../components
 import { PrimaryButton as PrimaryButtonBase } from "./../../components/misc/Buttons.js";
 import Spinner from './../../components/general/spinner';
 import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy } from './../../services/Api';
-
+import getTodayDate from './../../helpers/TodayDate.js';
+import Validate from '../../helpers/Validator.js';
 const Container = tw.div`relative flex items-center justify-center p-12`;
 const TextContent = tw.div`mx-auto w-full max-w-[950px] bg-white`;
 
@@ -76,7 +77,7 @@ const bussinessType = [
     },
     {
         id: 3,
-        name: 'Port'
+        name: 'Portability'
     }
 ]
 
@@ -90,24 +91,23 @@ const policyType = [
             // two wheelr
             // comarcial vehicle
             // misliance
-
             {
-                id: 1,
+                id: 11,
                 name: 'Private Car',
                 value: 'private_car'
             },
             {
-                id: 2,
+                id: 12,
                 name: 'Two Wheeler',
                 value: 'two_wheeler'
             },
             {
-                id: 3,
+                id: 13,
                 name: 'Commercial Vehicle',
                 value: 'commercial_vehicle'
             },
             {
-                id: 4,
+                id: 14,
                 name: 'Miscellaneous',
                 value: 'miscellaneous'
             }
@@ -120,22 +120,22 @@ const policyType = [
         subTypes: [
             // individua, family floter, personal acciden, Travel
             {
-                id: 1,
+                id: 21,
                 name: 'Individual',
                 value: 'individual'
             },
             {
-                id: 2,
+                id: 22,
                 name: 'Family Floater',
                 value: 'family_floater'
             },
             {
-                id: 3,
+                id: 23,
                 name: 'Personal Accident',
                 value: 'personal_accident'
             },
             {
-                id: 4,
+                id: 24,
                 name: 'Travel',
                 value: 'travel'
             }
@@ -148,30 +148,28 @@ const policyType = [
         subTypes: [
             // fire ,marine , wc, other
             {
-                id: 1,
+                id: 31,
                 name: 'Fire',
                 value: 'fire'
             },
             {
-                id: 2,
+                id: 32,
                 name: 'Marine',
                 value: 'marine'
             },
             {
-                id: 3,
+                id: 33,
                 name: 'Workmen Compensation',
                 value: 'workmen_compensation'
             },
             {
-                id: 4,
+                id: 34,
                 name: 'Other',
                 value: 'other'
             }
         ]
     }
 ]
-
-
 
 const AddPolicy = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -182,6 +180,9 @@ const AddPolicy = () => {
     const [agencies, setAgencies] = useState(null);
     const [products, setProducts] = useState(null);
 
+    const showMsg = (msg) => {
+        alert(msg);
+    }
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -194,8 +195,8 @@ const AddPolicy = () => {
         product_id: '',
         agency: '',
         business_type: '',
-        login_date: '',
-        start_date: '',
+        login_date: getTodayDate(),
+        start_date: getTodayDate(),
         end_date: '',
         basic_premium: '',
         commissionable_premium: '',
@@ -204,9 +205,9 @@ const AddPolicy = () => {
         total_premium_amount: '',
         payment_type: '',
         quick_pay_id: '',
-        premium_deposite_date: '',
+        premium_deposite_date: getTodayDate(),
         remark: '',
-        chequeDate: '',
+        chequeDate: getTodayDate(),
         chequeNumber: '',
         payment_bank_branch: '',
         idv: '',
@@ -216,6 +217,112 @@ const AddPolicy = () => {
         renewal_notice_copy: null,
         policy_copy: null,
     });
+
+    const formmRegex = {
+        policy_number: {
+            required: true,
+            regex : /^[a-zA-Z0-9]{1,10}$/
+        },
+        customer_id: {
+            required: true,
+        },
+        groud_id: {
+            required: true,
+        },
+        group_code: {
+            required: true,
+            regex :  /^[0-9]{10}$/
+        },
+        policy_type: {
+            required: true,
+        },
+        policy_sub_type: {
+            required: true,
+        },
+        company_id: {
+            required: true,
+        },
+        product_id: {
+            required: true,
+        },
+        agency: {
+            required: true,
+        },
+        business_type: {
+            required: true,
+        },
+        login_date: {
+            required: true,
+        },
+        start_date: {
+            required: true,
+        },
+        end_date: {
+            required: true,
+        },
+        basic_premium: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        commissionable_premium: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        sum_assured: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        gst: {
+            required: true,
+            // '10%' regex
+            regex : /^(100|[1-9]\d?)%$/
+        },
+        total_premium_amount: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        payment_type: {
+            required: true,
+        },
+        quick_pay_id: {
+        },
+        premium_deposite_date: {
+            required: true,
+        },
+        remark: {
+        },
+        chequeDate: {
+            required: true,
+        },
+        chequeNumber: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        payment_bank_branch: {
+            required: true,
+        },
+        idv: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        tp_premium: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        od_premium: {
+            required: true,
+            regex : /^[0-9]{1,10}$/
+        },
+        registration_number: {
+            required: true,
+            regex : /^[a-zA-Z0-9]{1,10}$/
+        },
+        renewal_notice_copy: {
+        },
+        policy_copy: {
+            required: true,
+        },
+    }
 
     const [customerFormData, setCustomerFormData] = useState({
         agent_id: '',
@@ -334,6 +441,15 @@ const AddPolicy = () => {
 
         console.log(formData);
 
+        const errors = await Validate(formData, formmRegex);
+        console.log(errors);
+        if (errors) {
+            setIsLoading(false);
+            // errors is an object with key as field name and value as error message
+            alert(errors?.policy_number)
+            return;
+        }
+
         try {
             const response = await addPolicy(formData);
 
@@ -349,13 +465,6 @@ const AddPolicy = () => {
         }
     }
 
-    // check if group code is mobile number
-    // if(formData.group_code && formData.group_code.length === 10 && !isNaN(formData.group_code)) {
-    //     IfGroupExists();
-    // }
-
-
-    // const subheading = "Purchase New Policy";
     const heading = <> Purchase New <span className="text-primary-500">Policy</span></>;
     const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
     const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Sign in';
@@ -366,7 +475,7 @@ const AddPolicy = () => {
                 <TextContent>
                     <Heading>{heading}</Heading>
                     {/* <Container> <Spinner height={60} color='#000000' /> </Container> */}
-                    <Form  >
+                    <Form>
 
                         <Subheading>Customer Details</Subheading>
 
@@ -487,49 +596,53 @@ const AddPolicy = () => {
 
 
 
-                                {/*  product selcet */}
+                                {/*  product select */}
+
+
+
+                                {/* policy type */}
+                                <FormGroup>
+                                    <Label htmlFor="policy_type">Policy Type <RequiredIndicator>*</RequiredIndicator> </Label>
+                                    <Select name="policy_type" onChange={handleChange}>
+                                        <option value="">Select Policy Type</option>
+                                        {
+                                            policyType.map((type) => (
+                                                <option key={type.id} value={type.value}>{type.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormGroup>
+
+                                {/* policy subtype */}
+
+                                <FormGroup>
+                                    <Label htmlFor="policy_sub_type">Policy Sub Type <RequiredIndicator>*</RequiredIndicator> </Label>
+                                    <Select name="policy_sub_type" onChange={handleChange}>
+                                        <option value="">Select Policy Sub Type</option>
+                                        {
+                                            formData.policy_type &&
+                                            policyType.find((type) => type.value === formData.policy_type).subTypes.map((type) => (
+                                                <option key={type.id} value={type.value}>{type.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormGroup>
+
                                 <FormGroup>
                                     <Label htmlFor="product_id">Product <RequiredIndicator>*</RequiredIndicator> </Label>
                                     <Select name="product_id" onChange={handleChange}>
                                         <option value="">Select Product</option>
                                         {
-                                            products?.map((product) => (
+                                            // product of selected company with policy_type == policy_type and product_type == policy_sub_type
+                                            formData.policy_type && formData.policy_sub_type && products?.filter((product) => product.policy_type === formData.policy_type && product.product_type === formData.policy_sub_type).map((product) => (
                                                 <option key={product._id} value={product._id}>{product.product_name}</option>
                                             ))
                                         }
                                     </Select>
                                 </FormGroup>
+
                             </>
                         }
-
-                        {/* policy type */}
-                        <FormGroup>
-                            <Label htmlFor="policy_type">Policy Type <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Select name="policy_type" onChange={handleChange}>
-                                <option value="">Select Policy Type</option>
-                                {
-                                    policyType.map((type) => (
-                                        <option key={type.id} value={type.value}>{type.name}</option>
-                                    ))
-                                }
-                            </Select>
-                        </FormGroup>
-
-                        {/* policy subtype */}
-
-                        <FormGroup>
-                            <Label htmlFor="policy_sub_type">Policy Sub Type <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Select name="policy_sub_type" onChange={handleChange}>
-                                <option value="">Select Policy Sub Type</option>
-                                {
-                                    formData.policy_type &&
-                                    policyType.find((type) => type.value === formData.policy_type).subTypes.map((type) => (
-                                        <option key={type.id} value={type.value}>{type.name}</option>
-                                    ))
-                                }
-                            </Select>
-                        </FormGroup>
-
                         {/* bussiness type */}
                         <FormGroup>
                             <Label htmlFor="business_type">Business Type <RequiredIndicator>*</RequiredIndicator> </Label>
@@ -546,14 +659,14 @@ const AddPolicy = () => {
                         {/* login date */}
                         <FormGroup>
                             <Label htmlFor="login_date">Login Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Input type="date" name="login_date" placeholder="Login Date" onChange={handleChange} />
+                            <Input type="date" name="login_date" placeholder="Login Date" onChange={handleChange} value={formData.login_date || ''}/>
                         </FormGroup>
 
                         {/* start date */}
                         {/* end date */}
                         <FormGroup>
                             <Label htmlFor="start_date">Start Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="date" name="start_date" placeholder="Start Date" onChange={handleChange} />
+                            <HalfInput type="date" name="start_date" placeholder="Start Date" onChange={handleChange} value={formData.start_date || ''}/>
                             <Gap />
                             <Label htmlFor="end_date">End Date <RequiredIndicator>*</RequiredIndicator> </Label>
                             <HalfInput type="date" name="end_date" placeholder="End Date" onChange={handleChange} />
@@ -627,14 +740,14 @@ const AddPolicy = () => {
                             </HalfSelect>
                             <Gap />
                             <Label htmlFor="premium_deposite_date">Premium Deposite Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="date" name="premium_deposite_date" placeholder="Premium Deposite Date" onChange={handleChange} />
+                            <HalfInput type="date" name="premium_deposite_date" placeholder="Premium Deposite Date" onChange={handleChange} value={formData.premium_deposite_date || ''}/>
                         </FormGroup>
 
                         {/* quick pay id */}
                         {
                             (formData.payment_type === 'net_banking' || formData.payment_type === 'credit_card' || formData.payment_type === 'debit_card') &&
                             <FormGroup>
-                                <Label htmlFor="quick_pay_id">Quick Pay ID <RequiredIndicator>*</RequiredIndicator> </Label>
+                                <Label htmlFor="quick_pay_id">Quick Pay ID </Label>
                                 <Input type="text" name="quick_pay_id" placeholder="Quick Pay ID" onChange={handleChange} />
                             </FormGroup>
                         }
@@ -643,13 +756,11 @@ const AddPolicy = () => {
                         {
                             formData.payment_type === 'cheque' &&
                             <>
-                                <FormGroup>
-                                </FormGroup>
 
                                 {/* // cheque date */}
                                 <FormGroup>
                                     <Label htmlFor="chequeDate">Cheque Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                                    <Input type="date" name="chequeDate" placeholder="Cheque Date" onChange={handleChange} />
+                                    <Input type="date" name="chequeDate" placeholder="Cheque Date" onChange={handleChange} value={formData.chequeDate || ''}/>
                                 </FormGroup>
 
                                 {/* // cheque number */}
@@ -667,11 +778,9 @@ const AddPolicy = () => {
 
                         }
 
-
-
                         {/* remark */}
                         <FormGroup>
-                            <Label htmlFor="remark">Remark <RequiredIndicator>*</RequiredIndicator> </Label>
+                            <Label htmlFor="remark">Remark</Label>
                             <Textarea name="remark" placeholder="Remark" onChange={handleChange} />
                         </FormGroup>
 
