@@ -3,8 +3,6 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 
-
-
 const Schema = mongoose.Schema({
     name: {
         type: String,

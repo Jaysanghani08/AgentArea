@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 
 const customer = mongoose.Schema({
-    agent_id:{
-        type: mongoose.ObjectId,
-        ref: 'agent'
-    },
     name :{
         type:String,
     },
