@@ -16,6 +16,7 @@ import AddAgency from './pages/agency/add_agency.jsx';
 import AddProduct from './pages/product/add_product.jsx';
 import AddPolicy from './pages/policy/add_policy.jsx';
 import GetPolicy from './pages/policy/getPolicy.jsx';
+import Links from './Links.js';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -45,10 +46,11 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path='/' element={<Home />}></Route>
+                <Route path='/' element={<Links />}></Route>
+                <Route path='/home' element={<Home />}></Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/home" element={<Home />} />
+                {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="/addagent" element={<AddAgent />} />
                 <Route path="/agentProfile" element={<AgentProfile />} />
                 <Route path="/agentlist" element={<AgentList />} />
