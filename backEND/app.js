@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 
 const app = express();
@@ -31,10 +32,14 @@ app.use(admin);
 
 // for testing a dummy listener
 
-const addMember = require("./controller/customer/addMember");
-const id = '658bed167dd0bb526193617e';
+app.get("/test/encrypt",async (req,res)=>{
+    const password = "shubham464";
+    const hashed = await bcrypt.hash(password,9);
+    console.log(hashed);
+    res.status(200).send();
+})
 
-app.get("/test",async()=>{console.log(await addMember(id,"Shubham",7622051689,"shubham@gmail.com","04/11/2003",9157212522));});
+
 
 
 
