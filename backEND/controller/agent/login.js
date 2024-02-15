@@ -35,14 +35,13 @@ const login = async(req,res)=>{
                     {
                         phone: agentData.mobile,
                         username: agentData.username,
-                        type:"agent"
                     },
                     process.env.AGENT_JWT_KEY,
                     {
                         expiresIn: "1h"
                     }
                 );
-                res.status(200).send({token});
+                res.status(200).send({token:token,type:"agent"});
             }
             else{
                 res.status(202).send();
