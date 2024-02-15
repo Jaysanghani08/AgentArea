@@ -25,6 +25,8 @@ const addAgent = require("../controller/agent/addAgent");
 
 const getFullAgent = require("../controller/agent/getFullAgnet");
 
+const login = require("../controller/agent/login");
+
 
 
 
@@ -38,6 +40,8 @@ router.post("/agent/addAgent", upload.fields([
 router.get("/agent/getFullAgent", getFullAgent);
 
 router.get("/agent/getAgents", getAgents);
+
+router.post("/agent/login", login);
 
 
 

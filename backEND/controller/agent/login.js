@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-const admin = require("../../models/admin/admin");
+const agnet = require("../../models/agent/agent");
 
 
 // error code
@@ -22,10 +22,10 @@ const login = async(req,res)=>{
     try {
         const data = req.body;
 
-        const adminData = await admin.findOne({id:data.id});
+        const agentData = await agnet.findOne({mobile:data.mobile});
         
-        if(adminData){
-            const hashed_pass = adminData.password;
+        if(agentData){
+            const hashed_pass = agentData.password;
 
             const check = await bcrypt.compare(data.password,hashed_pass);
             
@@ -33,10 +33,11 @@ const login = async(req,res)=>{
                 // APPROVED
                 const token = jwt.sign(
                     {
-                        phone: adminData.id,
-                        type:"admin"
+                        phone: agentData.mobile,
+                        username: agentData.username,
+                        type:"agent"
                     },
-                    process.env.ADMIN_JWT_KEY,
+                    process.env.AGENT_JWT_KEY,
                     {
                         expiresIn: "1h"
                     }
@@ -52,7 +53,7 @@ const login = async(req,res)=>{
         }
 
     } catch (error) {
-        console.log("This is Error from /controller/admin/login.js");
+        console.log("This is Error from /controller/agent/login.js");
         console.log(error);
         res.status(400).send();
     }
