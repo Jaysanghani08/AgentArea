@@ -33,7 +33,8 @@ const login = async(req,res)=>{
                 // APPROVED
                 const token = jwt.sign(
                     {
-                        phone: adminData.phone
+                        phone: adminData.id,
+                        type:"admin"
                     },
                     process.env.JWT_KEY,
                     {
