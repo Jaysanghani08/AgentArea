@@ -34,14 +34,14 @@ const login = async(req,res)=>{
                 const token = jwt.sign(
                     {
                         phone: adminData.id,
-                        type:"admin"
+                        // type:"admin"
                     },
                     process.env.ADMIN_JWT_KEY,
                     {
                         expiresIn: "1h"
                     }
                 );
-                res.status(200).send({token});
+                res.status(200).send({token:token,type:"admin"});
             }
             else{
                 res.status(202).send();
