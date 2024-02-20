@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { postRequest } from '../services/Api';
+import { Navigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -27,6 +28,8 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 200) {
             setUser(response.data);
             sessionStorage.setItem('user', JSON.stringify(response.data));
+            
+            // <Navigate to="/admin" />;
         }
 
         return response;

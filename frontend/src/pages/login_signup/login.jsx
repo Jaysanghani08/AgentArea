@@ -8,6 +8,7 @@ import illustration from "./../../images/login-illustration.svg";
 import logo from "./../../images/logo.svg";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import { useAuth } from "../../context/AuthContext.js";
+import { Navigate } from 'react-router-dom';
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -72,6 +73,15 @@ const Login = ({
     const [submitButtonText, setSubmitButtonText] = React.useState("Send OTP");
     const { login } = useAuth();
 
+    if (sessionStorage.getItem('user') != null) {
+        if (sessionStorage.getItem('user').type == "admin")
+            <Navigate to="/admin"></Navigate>;
+        else if (sessionStorage.getItem('user').type == "agent")
+            <Navigate to="/agent"></Navigate>;
+        else if (sessionStorage.getItem('user').type == "client")
+            <Navigate to="/client" ></Navigate>
+    }
+
     const onChangeCountryCode = (e) => {
 
         const regex = /^[+][0-9]{1,3}$/;
@@ -101,15 +111,15 @@ const Login = ({
     const onChangePassword = (e) => {
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]).{8,}$/
-        // if (regex.test(e.target.value)) {
-        //     setError("");
-        // }
-        // else if (e.target.value.length < 8) {
-        //     setError("Password must be min. 8 characters long");
-        // }
-        // else {
-        //     setError("Please Enter Strong Password");
-        // }
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else if (e.target.value.length < 8) {
+            setError("Password must be min. 8 characters long");
+        }
+        else {
+            setError("Please Enter Strong Password");
+        }
 
         setPassword(e.target.value);
     }
@@ -171,16 +181,18 @@ const Login = ({
         }
 
         try {
-            const res = await login({id : phone, password });
+            const res = await login({ id: phone, password });
             console.log(sessionStorage.getItem('user'));
-            console.log(res);
-            if(res.status == 202){
+            if (res.status == 200) {
+                setError("");
+            }
+            else if (res.status == 202) {
                 setError("Invalid Credentials");
             }
-            else if(res.status == 404){
+            else if (res.status == 404) {
                 setError("User Not Found");
             }
-            else if(res.status == 400){
+            else if (res.status == 400) {
                 setError("Server Error");
             }
         }
@@ -201,7 +213,7 @@ const Login = ({
                             <Heading>{headingText}</Heading>
                             <FormContainer>
                                 <Form>
-                                    <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} />
+                                    {/* <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} /> */}
                                     <Input type="text" placeholder="Phone No." onChange={onChangePhone} />
                                     <Input type="password" placeholder="Password" onChange={onChangePassword} />
                                     {Error && <ErrorContainer> {Error} </ErrorContainer>}

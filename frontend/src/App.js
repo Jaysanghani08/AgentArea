@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import './App.css';
 import ProtectedRoute from './helpers/ProtectedRoute.js';
 
@@ -17,8 +17,9 @@ import AddAgency from './pages/agency/add_agency.jsx';
 import AddProduct from './pages/product/add_product.jsx';
 import AddPolicy from './pages/policy/add_policy.jsx';
 import GetPolicy from './pages/policy/getPolicy.jsx';
-import Links from './Links.js';
+import Links from './pages/admin/Links.js';
 import { AuthProvider } from './context/AuthContext.js';
+import AgentLinks from './pages/agent/AgentLinks.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -33,29 +34,48 @@ function App() {
 
     return (
         // <>
-            <AuthProvider>
-                <Routes>
-                    <Route path='/' element={<Links />}></Route>
-                    <Route path='/home' element={<Home />}></Route>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    {/* <Route path="/home" element={<Home />} /> */}
-                    <Route path="/addagent" element={<AddAgent />} />
-                    <Route path="/agentProfile" element={<AgentProfile />} />
-                    <Route path="/agentlist" element={<AgentList />} />
-                    <Route path="/addcompany" element={<AddCompany />} />
-                    <Route path="/companylist" element={<Company_list />} />
-                    <Route path="/addagency" element={<AddAgency />} />
-                    <Route path="/addproduct" element={<AddProduct />} />
-                    <Route path="/addpolicy" element={<AddPolicy />} />
-                    <Route path="/getpolicy" element={<GetPolicy />} />
-                    <Route path="/tmp" element={<Tmp />} />
-                    {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
+        <AuthProvider>
+            <Routes>
+                <Route path='/' element={<Links />} />
+                <Route path='/home' element={<Home />} />
+                {/* <Route path="/home" element={<Home />} /> */}
+                <Route path="addpolicy" element={<AddPolicy />} />
+                <Route path='admin' >
+                    <Route path="signup" element={<Signup />} />
+                    <Route path="login" element={<Login />} />
+                    <Route index element={<Links />} />
+                    <Route path="addagent" element={<AddAgent />} />
+                    <Route path="agentProfile" element={<AgentProfile />} />
+                    <Route path="agentlist" element={<AgentList />} />
+                    <Route path="addcompany" element={<AddCompany />} />
+                    <Route path="companylist" element={<Company_list />} />
+                    <Route path="addagency" element={<AddAgency />} />
+                    <Route path="addproduct" element={<AddProduct />} />
+                    <Route path="addpolicy" element={<AddPolicy />} />
+                    <Route path="getpolicy" element={<GetPolicy />} />
+                    <Route path="tmp" element={<Tmp />} />
+                </Route>
+                <Route path='agent' >
+                    <Route index element={<AgentLinks />} />
+                    <Route path="signup" element={<Signup />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="addagent" element={<AddAgent />} />
+                    <Route path="agentProfile" element={<AgentProfile />} />
+                    <Route path="agentlist" element={<AgentList />} />
+                    <Route path="addcompany" element={<AddCompany />} />
+                    <Route path="companylist" element={<Company_list />} />
+                    <Route path="addagency" element={<AddAgency />} />
+                    <Route path="addproduct" element={<AddProduct />} />
+                    <Route path="addpolicy" element={<AddPolicy />} />
+                    <Route path="getpolicy" element={<GetPolicy />} />
+                    <Route path="tmp" element={<Tmp />} />
+                </Route>
+                {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
                     <ClientRoute path="/client/other" component={OtherClientComponent} />
                     <AgentRoute path="/agent/dashboard" component={AgentDashboard} />
                     <AgentRoute path="/agent/other" component={OtherAgentComponent} /> */}
-                </Routes>
-            </AuthProvider>
+            </Routes>
+        </AuthProvider>
         // </>
     );
 }
