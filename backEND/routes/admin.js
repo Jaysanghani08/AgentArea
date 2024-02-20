@@ -3,7 +3,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const auth = require("../middleware/adminAuth");
+const auth = require("../middleware/auth");
 
 const login = require("../controller/admin/login");
 
