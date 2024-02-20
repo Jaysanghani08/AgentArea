@@ -22,7 +22,7 @@ const login = async(req,res)=>{
     try {
         const data = req.body;
 
-        const agentData = await agnet.findOne({mobile:data.mobile});
+        const agentData = await agnet.findOne({mobile:data.id});
         
         if(agentData){
             const hashed_pass = agentData.password;

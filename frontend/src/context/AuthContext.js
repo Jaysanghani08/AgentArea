@@ -17,12 +17,12 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const login = async (userData) => {
+    const login = async (userData, type) => {
 
         // Perform login logic here (e.g., send a request to a server)
         // If successful, set the user in the context and session storage
         console.log(userData);
-        const response = await postRequest("admin/login", userData);
+        const response = await postRequest(`${type}/login`, userData);
         // console.log(response);
 
         if (response.status === 200) {
