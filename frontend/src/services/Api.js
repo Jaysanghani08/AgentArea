@@ -1,7 +1,7 @@
 import { commonrequest } from "./common_request";
 import { BACKEND_URL } from "./helper";
 
-const postRequest = async (endpoint, data, headers={}, params={}) => {
+export const postRequest = async (endpoint, data, headers={}, params={}) => {
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
         return response;
@@ -10,7 +10,7 @@ const postRequest = async (endpoint, data, headers={}, params={}) => {
     }
 };
 
-const  getRequest = async (endpoint, params={}) => {
+export const  getRequest = async (endpoint, params={}) => {
     try {
         const response = await commonrequest("GET", `${BACKEND_URL}/${endpoint}`, {}, {}, params);
         return response;
