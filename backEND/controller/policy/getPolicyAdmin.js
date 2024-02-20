@@ -12,7 +12,7 @@ const getPolicy = async (req,res) => {
         console.log(x);
         res.status(200).send(x);
     } catch (error) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-        console.log("This is error from controllers/policies/getPolicies.js");
+        console.log("This is error from controllers/policies/getPoliciesAdmin.js");
         console.log(error);
         res.status(220).send();
     }

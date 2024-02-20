@@ -19,14 +19,15 @@ const upload = multer({ storage: storage });
 
 
 const addPolicy = require("../controller/policy/addPolicy");
-const getPolicies = require("../controller/policy/getPolicy");
+const getPoliciesAdmin = require("../controller/policy/getPolicyAdmin");
+const getPoliciesAgent = require("../controller/policy/getPolicyAgent");
 
 
 router.post("/policy/addPolicy",upload.fields([
     { name: 'renewal_notice_copy', maxCount: 1 },
     { name: 'policy_copy', maxCount: 1 }]),addPolicy);
 
-router.get("/policy/getPolicies",getPolicies);
+router.get("/policy/getPolicies",getPoliciesAgent);
 
 
 
