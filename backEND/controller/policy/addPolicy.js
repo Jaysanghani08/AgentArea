@@ -9,14 +9,15 @@ const addPolicy = async (req, res) => {
     try {
 
         const data = req.body;
-        console.log(data);
-        console.log(req.files);
+        const agent_id = req.user;
+        // console.log(agent_id);
+        // console.log(req.files);
 
         const policy_copy = req.files['policy_copy'][0];
         const renewal_notice_copy = req.files['renewal_notice_copy'][0];
 
         const new_policy = new policy({
-            agent_id:data.agent_id,
+            agent_id:agent_id,
             customer_id: data.customer_id,
             policy_number: data.policy_number,
             group_code: data.group_code,

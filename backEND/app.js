@@ -19,6 +19,7 @@ require("./connection/connectionMONGO");
 const company = require("./routes/admin/company");
 const admin = require("./routes/admin/admin");
 const adminAgent = require("./routes/admin/agent");
+const adminPolicy = require("./routes/admin/policy");
 
 
 const Customer = require("./routes/agent/customer");
@@ -32,6 +33,7 @@ app.use(company);
 app.use(Customer);
 app.use(policy);
 app.use(admin);
+app.use(adminPolicy);
 
 
 // for testing a dummy listener

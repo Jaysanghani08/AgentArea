@@ -7,23 +7,18 @@ const agent = require("../../models/agent/agent");
 
 const addAgent = async (req, res) => {
 
-    // console.log("HELLLO");
-
     try {
 
         const data = req.body;
-        console.log(data);
-        
-        console.log(req.files);
 
-        const aadharFile = req.files['aadharFile'][0];
-        const panFile = req.files['panFile'][0];
+        // const aadharFile = req.files['aadharFile'][0];
+        // const panFile = req.files['panFile'][0];
 
-        console.log(data);
-        console.log('*****************')
-        console.log(aadharFile);
-        console.log('*****************')
-        console.log(panFile);
+        // console.log(data);
+        // console.log('*****************')
+        // console.log(aadharFile);
+        // console.log('*****************')
+        // console.log(panFile);
 
         const agent_data = new agent({
             name: data.name,
@@ -42,19 +37,19 @@ const addAgent = async (req, res) => {
             micr: data.micr,
             accNumber: data.accNumber,
             bankIFSC: data.bankIFSC,
-            docs: [{
-                aadhar: {
-                    originalname: aadharFile.originalname,
-                    buffer: aadharFile.buffer,
-                    mimetype: aadharFile.mimetype,
-                },
-                pan: {
-                    originalname: panFile.originalname,
-                    buffer: panFile.buffer,
-                    mimetype: panFile.mimetype,
-                },
-            }
-            ]
+            // docs: [{
+            //     aadhar: {
+            //         originalname: aadharFile.originalname,
+            //         buffer: aadharFile.buffer,
+            //         mimetype: aadharFile.mimetype,
+            //     },
+            //     pan: {
+            //         originalname: panFile.originalname,
+            //         buffer: panFile.buffer,
+            //         mimetype: panFile.mimetype,
+            //     },
+            // }
+            // ]
         });
 
         try {

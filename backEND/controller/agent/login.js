@@ -21,9 +21,25 @@ const login = async(req,res)=>{
 
     try {
         const data = req.body;
+        const mobile = data.mobile;
+        const pipe = [
+            {
+                $match:
+                {
+                    mobile:mobile,
+                },
+            },
+            {
+                $project:
+                {
+                    docs: 0,
+                },
+            }
+        ]
 
-        const agentData = await agnet.findOne({mobile:data.mobile});
-        
+        const agentData2 = await agnet.aggregate(pipe);
+        const agentData = agentData2[0];
+
         if(agentData){
             const hashed_pass = agentData.password;
 
@@ -35,13 +51,14 @@ const login = async(req,res)=>{
                     {
                         phone: agentData.mobile,
                         username: agentData.username,
+                        id : agentData._id
                     },
-                    process.env.AGENT_JWT_KEY,
+                    process.env.JWT_KEY,
                     {
                         expiresIn: "1h"
                     }
                 );
-                res.status(200).send({token:token,type:"agent"});
+                res.status(200).send({agentData,token:token,type:"agent"});
             }
             else{
                 res.status(202).send();

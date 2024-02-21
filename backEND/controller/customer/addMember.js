@@ -21,7 +21,7 @@ const addMember = async (req,res) => {
         }
 
         const member = {
-            agent_id : data.agent_id,
+            // agent_id : data.agent_id,
             name : data.name,
             mobile : data.mobile,
             email : data.email,

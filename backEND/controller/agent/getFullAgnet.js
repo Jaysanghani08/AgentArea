@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const agent = require("../../models/agent/agent");
+const { ObjectId } = require("mongodb");
 
 const getFullAgent = async (req, res) => {
 
@@ -8,9 +9,22 @@ const getFullAgent = async (req, res) => {
 
         const id = req.query.id;
 
+        const pipe = [
+            {
+                $match:
+                {
+                    _id:new ObjectId(id),
+                },
+            },
+            {
+                $project:
+                {
+                    docs: 0,
+                },
+            }
+        ]
 
-        const agent_data = await agent.findOne({ _id: id });
-        console.log(agent_data);
+        const agent_data = await agent.aggregate(pipe);
         res.status(200).send(agent_data);
 
 

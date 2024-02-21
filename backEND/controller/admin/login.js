@@ -36,7 +36,7 @@ const login = async(req,res)=>{
                         phone: adminData.id,
                         // type:"admin"
                     },
-                    process.env.ADMIN_JWT_KEY,
+                    process.env.JWT_KEY,
                     {
                         expiresIn: "1h"
                     }
