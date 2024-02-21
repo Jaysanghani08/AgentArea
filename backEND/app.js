@@ -46,6 +46,11 @@ app.get("/test/encrypt",async (req,res)=>{
 })
 
 
+const testEmail = require("./mailer/agent/singup");
+
+app.get("/test/mail",testEmail);
+
+
 
 
 
