@@ -8,6 +8,7 @@ import illustration from "./../../images/login-illustration.svg";
 import logo from "./../../images/logo.svg";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import { useAuth } from "../../context/AuthContext.js";
+import { Navigate } from 'react-router-dom';
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -17,23 +18,6 @@ const LogoImage = tw.img`h-12 mx-auto`;
 const MainContent = tw.div`mt-12 flex flex-col items-center`;
 const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
 const FormContainer = tw.div`w-full flex-1 mt-8`;
-
-const SocialButtonsContainer = tw.div`flex flex-col items-center`;
-const SocialButton = styled.a`
-  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
-  .iconContainer {
-    ${tw`bg-white p-2 rounded-full`}
-  }
-  .icon {
-    ${tw`w-4`}
-  }
-  .text {
-    ${tw`ml-4`}
-  }
-`;
-
-const DividerTextContainer = tw.div`my-12 border-b text-center relative`;
-const DividerText = tw.div`leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform -translate-y-1/2 absolute inset-x-0 top-1/2 bg-transparent`;
 
 const Form = tw.form`mx-auto max-w-xs`;
 const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
@@ -69,8 +53,17 @@ const Login = ({
     const [password, setPassword] = React.useState("");
     const [isOtpSent, setIsOtpSent] = React.useState(false);
     const [otp, setOtp] = React.useState("");
-    const [submitButtonText, setSubmitButtonText] = React.useState("Send OTP");
     const { login } = useAuth();
+    const token = JSON.parse(sessionStorage.getItem('user'));
+
+    if (token != null) {
+        if (token.type === "admin")
+            return <Navigate to="/admin"></Navigate>;
+        else if (token.type === "agent")
+            return <Navigate to="/agent"></Navigate>;
+        else if (token.type === "client")
+            return <Navigate to="/client" ></Navigate>
+    }
 
     const onChangeCountryCode = (e) => {
 
@@ -101,15 +94,15 @@ const Login = ({
     const onChangePassword = (e) => {
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]).{8,}$/
-        // if (regex.test(e.target.value)) {
-        //     setError("");
-        // }
-        // else if (e.target.value.length < 8) {
-        //     setError("Password must be min. 8 characters long");
-        // }
-        // else {
-        //     setError("Please Enter Strong Password");
-        // }
+        if (regex.test(e.target.value)) {
+            setError("");
+        }
+        else if (e.target.value.length < 8) {
+            setError("Password must be min. 8 characters long");
+        }
+        else {
+            setError("Please Enter Strong Password");
+        }
 
         setPassword(e.target.value);
     }
@@ -171,16 +164,20 @@ const Login = ({
         }
 
         try {
-            const res = await login({id : phone, password });
-            console.log(sessionStorage.getItem('user'));
-            console.log(res);
-            if(res.status == 202){
+            const type = window.location.pathname.split("/")[1];
+            alert(type);
+            const res = await login({ id: phone, password }, type);
+            // console.log(token);
+            if (res.status === 200 && token != null){
+                setError("");
+            }
+            else if (res.status === 202) {
                 setError("Invalid Credentials");
             }
-            else if(res.status == 404){
+            else if (res.status === 404) {
                 setError("User Not Found");
             }
-            else if(res.status == 400){
+            else if (res.status === 400) {
                 setError("Server Error");
             }
         }
@@ -201,7 +198,7 @@ const Login = ({
                             <Heading>{headingText}</Heading>
                             <FormContainer>
                                 <Form>
-                                    <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} />
+                                    {/* <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} /> */}
                                     <Input type="text" placeholder="Phone No." onChange={onChangePhone} />
                                     <Input type="password" placeholder="Password" onChange={onChangePassword} />
                                     {Error && <ErrorContainer> {Error} </ErrorContainer>}
