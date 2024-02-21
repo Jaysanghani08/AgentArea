@@ -57,12 +57,18 @@ const Login = ({
     const token = JSON.parse(sessionStorage.getItem('user'));
 
     if (token != null) {
-        if (token.type === "admin")
+        if (token.type === "admin"){
+            // alert("Signining in as Admin");
             return <Navigate to="/admin"></Navigate>;
-        else if (token.type === "agent")
+        }   
+        else if (token.type === "agent"){
+            // alert("Signining in as Agent");
             return <Navigate to="/agent"></Navigate>;
-        else if (token.type === "client")
-            return <Navigate to="/client" ></Navigate>
+        }
+        else if (token.type === "customer"){
+            // alert("Signining in as Customer");
+            return <Navigate to="/customer"></Navigate>;
+        }
     }
 
     const onChangeCountryCode = (e) => {
@@ -165,7 +171,6 @@ const Login = ({
 
         try {
             const type = window.location.pathname.split("/")[1];
-            alert(type);
             const res = await login({ id: phone, password }, type);
             // console.log(token);
             if (res.status === 200 && token != null){
