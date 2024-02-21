@@ -1,32 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import tw from "twin.macro";
-import styled from "styled-components";
-import { SectionHeading, Subheading as SubheadingBase } from "./../../components/misc/Headings.js";
-import { PrimaryButton as PrimaryButtonBase } from "./../../components/misc/Buttons.js";
 import Spinner from './../../components/general/spinner';
+import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from '../../components/misc/form.js';
 import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy } from './../../services/Api';
 import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
-const Container = tw.div`relative flex items-center justify-center p-12`;
-const TextContent = tw.div`mx-auto w-full max-w-[950px] bg-white`;
-
-const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
-const Heading = tw(SectionHeading)`mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-const HoriZontalLine = tw.div`w-full h-[3px] bg-gray-500 rounded mt-6 mb-8`;
-const Form = tw.form`mt-5`
-const FormGroup = tw.div`mb-5 grid grid-cols-1 md:grid-cols-5 gap-x-5 md:gap-x-0 md:gap-y-6`
-const Label = tw.label`mb-1 flex items-center  text-base font-medium text-[#07074D] col-span-1`
-const RequiredIndicator = tw.span`text-red-500`
-const Input = tw.input`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-4`
-const Select = tw.select`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-4`
-const HalfInput = tw.input`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-1`
-const HalfSelect = tw.select`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-1`
-const ErrorMsg = tw.p`text-red-500 col-span-4`
-const Gap = tw.div`col-span-1`
-const Textarea = styled(Input).attrs({ as: "textarea" })`
-  ${tw`h-24`}`
-
-const SubmitButton = tw(PrimaryButtonBase)`flex justify-center items-center inline-block mt-8`
 
 const agents = [
     {
