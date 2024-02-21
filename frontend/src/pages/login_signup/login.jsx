@@ -100,15 +100,15 @@ const Login = ({
     const onChangePassword = (e) => {
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?/~\\-]).{8,}$/
-        if (regex.test(e.target.value)) {
-            setError("");
-        }
-        else if (e.target.value.length < 8) {
-            setError("Password must be min. 8 characters long");
-        }
-        else {
-            setError("Please Enter Strong Password");
-        }
+        // if (regex.test(e.target.value)) {
+        //     setError("");
+        // }
+        // else if (e.target.value.length < 8) {
+        //     setError("Password must be min. 8 characters long");
+        // }
+        // else {
+        //     setError("Please Enter Strong Password");
+        // }
 
         setPassword(e.target.value);
     }
