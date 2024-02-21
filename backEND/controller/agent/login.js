@@ -37,7 +37,8 @@ const login = async(req,res)=>{
             }
         ]
 
-        const agentData = await agnet.findOne({mobile:data.mobile});
+        const agentData2 = await agnet.aggregate(pipe);
+        const agentData = agentData2[0];
         
         if(agentData){
             const hashed_pass = agentData.password;
