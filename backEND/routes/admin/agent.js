@@ -17,39 +17,25 @@ router.use(bodyParser.json());
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+const auth = require("../../middleware/auth");
 
 
-const getAgents = require("../controller/agent/getAgents");
+const getAgents = require("../../controller/agent/getAgents");
 
-const addAgent = require("../controller/agent/addAgent");
+const addAgent = require("../../controller/agent/addAgent");
 
-const getFullAgent = require("../controller/agent/getFullAgnet");
-
-const login = require("../controller/agent/login");
-
-
-
+const getFullAgent = require("../../controller/agent/getFullAgnet");
 
 
 
 router.post("/agent/addAgent", upload.fields([
     { name: 'aadharFile', maxCount: 1 },
     { name: 'panFile', maxCount: 1 }])
-    , addAgent);
+    ,auth, addAgent);
 
-router.get("/agent/getFullAgent", getFullAgent);
+router.get("/agent/getFullAgent",auth, getFullAgent);
 
-router.get("/agent/getAgents", getAgents);
-
-router.post("/agent/login", login);
-
-
-
-
-
-
-
-
+router.get("/agent/getAgents", auth,getAgents);
 
 
 

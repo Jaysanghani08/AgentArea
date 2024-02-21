@@ -16,16 +16,20 @@ require("./connection/connection");
 require("./connection/connectionMONGO");
 
 
-const agent = require("./routes/agent");
-const company = require("./routes/company");
-const customer = require("./routes/customer");
-const policy = require("./routes/policy");
-const admin = require("./routes/admin");
+const company = require("./routes/admin/company");
+const admin = require("./routes/admin/admin");
+const adminAgent = require("./routes/admin/agent");
+
+
+const Customer = require("./routes/agent/customer");
+const agent = require("./routes/agent/agent");
+const policy = require("./routes/agent/policy");
 
 
 app.use(agent);
+app.use(adminAgent);
 app.use(company);
-app.use(customer);
+app.use(Customer);
 app.use(policy);
 app.use(admin);
 
