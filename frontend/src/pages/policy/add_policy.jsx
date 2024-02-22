@@ -323,8 +323,8 @@ const AddPolicy = () => {
 
     }
 
-    console.log(companylist)
-    console.log(formData)
+    // console.log(companylist)
+    // console.log(formData)
 
     useEffect(() => {
         const fetchCompanyList = async () => {
@@ -364,7 +364,7 @@ const AddPolicy = () => {
     const IfGroupExists = async (groupCode) => {
         try {
             const response = await CheckIfGroupCodeExists(groupCode);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
                 setFormData({ ...formData, group_code: response.data?._id });
@@ -390,7 +390,7 @@ const AddPolicy = () => {
             ...customerFormData
         }
 
-        console.log(data);
+        // console.log(data);
 
         try {
             const response = await addCustomer(data);
@@ -412,7 +412,7 @@ const AddPolicy = () => {
         renewalNoticeCopy && (formData.renewal_notice_copy = renewalNoticeCopy);
         formData.policy_copy = policyCopy;
 
-        console.log(formData);
+        // console.log(formData);
 
         const errors = await Validate(formData, formmRegex);
         console.log(errors);

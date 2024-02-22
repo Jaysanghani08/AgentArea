@@ -3,7 +3,6 @@ import { commonrequest } from "./common_request";
 import { BACKEND_URL } from "./helper";
 
 const user = JSON.parse(Cookies.get('user') || null);;
-console.log(user);
 
 export const postRequest = async (endpoint, data, headers={}, params={}) => {
 
@@ -22,7 +21,6 @@ export const postRequestWithToken = async (endpoint, data, headers={}, params={}
     }
     headers['Authorization '] = token;
     headers['Content-Type'] = 'application/json';
-    console.log(headers);
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
         return response;
