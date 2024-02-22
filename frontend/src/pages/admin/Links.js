@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import tw from "twin.macro";
-import { useAuth } from "../../context/AuthContext.js";
+import Cookies from 'js-cookie';
 // import styled from "styled-components";
 
 const Container = tw.div`relative flex flex-col items-center p-12`;
 
 const Links = () => {
-    const {user} = useAuth();
-    console.log(user);
-    if(user?.type !== "admin"){
-        sessionStorage.removeItem('user');
+    
+    const usr = JSON.parse(Cookies.get('user') || null);;
+
+    if(usr?.type !== "admin"){
+        Cookies.remove('user');
         return <Navigate to="/admin/login"></Navigate>
     }
 

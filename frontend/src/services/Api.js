@@ -1,7 +1,12 @@
+import Cookies from "js-cookie";
 import { commonrequest } from "./common_request";
 import { BACKEND_URL } from "./helper";
 
+const user = JSON.parse(Cookies.get('user') || null);;
+console.log(user);
+
 export const postRequest = async (endpoint, data, headers={}, params={}) => {
+
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
         return response;
@@ -9,6 +14,22 @@ export const postRequest = async (endpoint, data, headers={}, params={}) => {
         throw new Error(`Error in POST request to ${endpoint}`);
     }
 };
+
+export const postRequestWithToken = async (endpoint, data, headers={}, params={}) => {
+    const token = user?.token;
+    if (!token) {
+        throw new Error('No token found');
+    }
+    headers['Authorization '] = token;
+    headers['Content-Type'] = 'application/json';
+    console.log(headers);
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
+        return response;
+    } catch (error) {
+        throw new Error(`Error in POST request to ${endpoint}`);
+    }
+}
 
 export const  getRequest = async (endpoint, params={}) => {
     try {
@@ -44,7 +65,7 @@ export const addCompany = async (data) => {
 };
 
 export const addAgency = async (data) => {
-    return postRequest("company/addAgency", data);
+    return postRequestWithToken("company/addAgency", data);
 };
 
 export const removeCompany = async (id) => {

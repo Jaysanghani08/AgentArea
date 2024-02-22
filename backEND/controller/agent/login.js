@@ -16,7 +16,6 @@ const agnet = require("../../models/agent/agent");
 // 200 OK
 
 
-
 const login = async(req,res)=>{
 
     try {

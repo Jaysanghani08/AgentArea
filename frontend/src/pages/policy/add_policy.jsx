@@ -157,10 +157,6 @@ const AddPolicy = () => {
     const [agencies, setAgencies] = useState(null);
     const [products, setProducts] = useState(null);
 
-    const showMsg = (msg) => {
-        alert(msg);
-    }
-
     const [formData, setFormData] = useState({
         policy_number: '',
         customer_id: '',
@@ -443,8 +439,7 @@ const AddPolicy = () => {
     }
 
     const heading = <> Purchase New <span className="text-primary-500">Policy</span></>;
-    const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Sign in';
+    const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Policy';
 
     return (
         <>
@@ -533,7 +528,7 @@ const AddPolicy = () => {
 
 
                         <HoriZontalLine />
-
+                        <Subheading>Policy Details</Subheading>
                         {/* Policy number */}
                         <FormGroup>
                             <Label htmlFor="policy_number">Policy Number <RequiredIndicator>*</RequiredIndicator></Label>
@@ -704,7 +699,7 @@ const AddPolicy = () => {
                         </FormGroup>
 
                         <HoriZontalLine />
-                        {/* payment type */}
+                        <Subheading>Payment Details</Subheading>
                         <FormGroup>
                             <Label htmlFor="payment_type">Payment Type <RequiredIndicator>*</RequiredIndicator> </Label>
                             <HalfSelect name="payment_type" onChange={handleChange}>
@@ -762,6 +757,8 @@ const AddPolicy = () => {
                         </FormGroup>
 
                         <HoriZontalLine />
+                        <Subheading>Upload Documents</Subheading>
+
                         {/* renewal notice copy */}
                         <FormGroup>
                             <Label htmlFor="renewal_notice_copy">Renewal Notice Copy </Label>

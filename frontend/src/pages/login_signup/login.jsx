@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AnimationRevealPage from "./../../helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "./../../components/misc/Layouts";
 import tw from "twin.macro";
@@ -8,7 +8,8 @@ import illustration from "./../../images/login-illustration.svg";
 import logo from "./../../images/logo.svg";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import { useAuth } from "../../context/AuthContext.js";
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -54,22 +55,29 @@ const Login = ({
     const [isOtpSent, setIsOtpSent] = React.useState(false);
     const [otp, setOtp] = React.useState("");
     const { login } = useAuth();
-    const token = JSON.parse(sessionStorage.getItem('user'));
 
-    if (token != null) {
-        if (token.type === "admin"){
-            // alert("Signining in as Admin");
-            return <Navigate to="/admin"></Navigate>;
-        }   
-        else if (token.type === "agent"){
-            // alert("Signining in as Agent");
-            return <Navigate to="/agent"></Navigate>;
+    const navigate = useNavigate();
+
+    // const usr = Cookies.get('user');
+    const usr = JSON.parse(Cookies.get('user') || null);
+
+    useEffect(() => {
+        const fun = async () => {
+            if (usr != null) {
+                if (usr.type === "admin") {
+                    navigate("/admin")
+                }
+                else if (usr.type === "agent") {
+                    navigate("/agent")
+                }
+                else if (usr.type === "client") {
+                    navigate("/client")
+                }
+            }
         }
-        else if (token.type === "customer"){
-            // alert("Signining in as Customer");
-            return <Navigate to="/customer"></Navigate>;
-        }
-    }
+        fun();
+
+    }, []);
 
     const onChangeCountryCode = (e) => {
 
@@ -172,9 +180,19 @@ const Login = ({
         try {
             const type = window.location.pathname.split("/")[1];
             const res = await login({ id: phone, password }, type);
-            // console.log(token);
-            if (res.status === 200 && token != null){
+            // console.log(res);
+            const usr = Cookies.get('user');
+            if (res.status === 200 && usr != null) {
                 setError("");
+                if (usr.type === "admin") {
+                    navigate("/admin")
+                }
+                else if (usr.type === "agent") {
+                    navigate("/agent")
+                }
+                else {
+                    navigate("/")
+                }
             }
             else if (res.status === 202) {
                 setError("Invalid Credentials");

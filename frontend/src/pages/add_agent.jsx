@@ -1,33 +1,7 @@
 import React, { useState } from 'react'
-import tw from "twin.macro";
-import styled from "styled-components";
-import { SectionHeading, Subheading as SubheadingBase } from "./../components/misc/Headings.js";
-import { PrimaryButton as PrimaryButtonBase } from "./../components/misc/Buttons.js";
+import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../components/misc/form';
 import Spinner from './../components/general/spinner';
 import { AgentSignup } from './../services/Api';
-
-
-const Container = tw.div`relative`;
-const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-0 md:py-0`;
-const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
-const TextColumn = styled(Column)(props => [
-    tw`md:w-7/12 mt-0 md:mt-0`,
-    props.textOnLeft ? tw`md:mr-12 lg:mr-16 md:order-first` : tw`md:ml-12 lg:ml-16 md:order-last`
-]);
-
-const TextContent = tw.div`lg:py-2 text-center md:text-left`;
-
-const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
-const Heading = tw(SectionHeading)`mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-
-const Form = tw.form`mt-4 md:mt-4 text-sm flex flex-col max-w-sm mx-auto md:mx-0`
-const Input = tw.input`mt-5 first:mt-0 border-b-2 py-3 focus:outline-none font-semibold transition duration-300`
-const FileLabel = tw.label` pt-5 font-semibold`
-const FileInput = tw.input`mt-0 first:mt-0 border-b-2 py-3 focus:outline-none font-semibold transition duration-300`
-const Textarea = styled(Input).attrs({ as: "textarea" })`
-  ${tw`h-24`}`
-
-const SubmitButton = tw(PrimaryButtonBase)`flex justify-center items-center inline-block mt-8`
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -109,56 +83,102 @@ const AddAgent = () => {
         }
     }
 
-    const subheading = "Agent Signup";
-    const heading = <>Create an <span className="text-primary-500">Agent</span></>;
-    const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    const submitButtonText = isLoading ? <Spinner height={20}/> : 'Sign in';
-    const formAction = "#";
-    const formMethod = "get";
+    const heading = <> Create new <span className="text-primary-500">Agent</span></>;
+    const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Agent';
 
     return (
         <Container>
-            {/* <TwoColumn> */}
-                {/* <ImageColumn> */}
-                {/* <Image imageSrc={EmailIllustrationSrc} /> */}
-                {/* </ImageColumn> */}
-                <TextColumn>
-                    <TextContent>
-                        {subheading && <Subheading>{subheading}</Subheading>}
-                        <Heading>{heading}</Heading>
-                        {/* {description && <Description>{description}</Description>} */}
+            <TextContent>
+                <Heading>{heading}</Heading>
+                {/* {description && <Description>{description}</Description>} */}
 
-                        <Form  onSubmit={handleSubmit}>
-                            <Input type="text" name="name" placeholder="Full Name" onChange={handleChange} />
-                            <Input type="text" name="mobile" placeholder="Mobile No." onChange={handleChange} />
-                            <Input type="email" name="email" placeholder="Your Email Address" onChange={handleChange} />
-                            <Input type="text" name="username" placeholder="Username" onChange={handleChange} />
-                            <Input type="password" name="password" placeholder="Password" onChange={handleChange} />
-                            <Textarea type="text" name="address" placeholder="Address" onChange={handleChange} />
-                            <Input type="text" name="city" placeholder="City" onChange={handleChange} />
-                            <Input type="text" name="state" placeholder="State" onChange={handleChange} />
+                <Form onSubmit={handleSubmit}>
+                    <Subheading>Personal Details</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="name">Full Name <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="name" placeholder="Full Name" onChange={handleChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="mobile">Mobile No. <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="mobile" placeholder="Mobile No." onChange={handleChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="email">Email <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="email" name="email" placeholder="Your Email Address" onChange={handleChange} />
+                    </FormGroup>
 
-                        {/* </Form>
-                    </TextContent>
-                </TextColumn>
-                <TextColumn>
-                    <TextContent>
-                        <Form> */}
-                            <Input type="text" name="pin" placeholder="PIN Code" onChange={handleChange} />
-                            <Input type="text" name="panNumber" placeholder="PAN Number" onChange={handleChange} />
-                            <Input type="text" name="bank" placeholder="Bank Name" onChange={handleChange} />
-                            <Input type="text" name="bankAccType" placeholder="Account Type" onChange={handleChange} />
-                            <Input type="text" name="accNumber" placeholder="Account Number" onChange={handleChange} />
-                            <Input type="text" name="bankIFSC" placeholder="Bank IFSC" onChange={handleChange} />
-                            <Input type="text" name="micr" placeholder="MICR Code" onChange={handleChange} />
-                            <FileLabel > Aadhar </FileLabel>
-                            <FileInput type="file" name="aadharFile" placeholder="Aadhar Card" onChange={handleAadharFileChange} accept=".jpg, .jpeg, .png, .pdf" />
-                            <FileLabel > PAN </FileLabel>
-                            <FileInput type="file" name="panDoc" placeholder="PAN Card" onChange={handlePanFileChange} accept=".jpg, .jpeg, .png, .pdf" />
-                            <SubmitButton type='submit' className="btn btn-primary flex justify-center items-center" >{submitButtonText}</SubmitButton>
-                        </Form>
-                    </TextContent>
-                </TextColumn>
+                    <FormGroup>
+                        <Label htmlFor="username">Username <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="username" placeholder="Username" onChange={handleChange} />
+                        <Gap />
+                        <Label htmlFor="password">Password <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="password" name="password" placeholder="Password" onChange={handleChange} />
+                    </FormGroup>
+                    
+                    <FormGroup>
+                        <Label htmlFor="panNumber">PAN Number <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="panNumber" placeholder="PAN Number" onChange={handleChange} />
+                    </FormGroup>
+
+                    <HoriZontalLine />
+                    <Subheading>Address Details</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="address">Address <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Textarea type="text" name="address" placeholder="Address" onChange={handleChange} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="city">City <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="city" placeholder="City" onChange={handleChange} />
+                        <Gap />
+                        <Label htmlFor="state">State <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="state" placeholder="State" onChange={handleChange} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="pin">PIN Code <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="pin" placeholder="PIN Code" onChange={handleChange} />
+                    </FormGroup>
+                    
+                    <HoriZontalLine />
+                    <Subheading>Bank Details</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="bank">Bank Name <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="bank" placeholder="Bank Name" onChange={handleChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="bankAccType">Account Type <RequiredIndicator>*</RequiredIndicator></Label>
+                        {/* < type="text" name="bankAccType" placeholder="Account Type" onChange={handleChange} /> */}
+                        <HalfSelect name="bankAccType" onChange={handleChange}>
+                            <option value="savings">Savings</option>
+                            <option value="current">Current</option>
+                        </HalfSelect>
+                        <Gap />
+                        <Label htmlFor="accNumber">Account Number <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="accNumber" placeholder="Account Number" onChange={handleChange} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="bankIFSC">Bank IFSC <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="bankIFSC" placeholder="Bank IFSC" onChange={handleChange} />
+                        <Gap />
+                        <Label htmlFor="micr">MICR Code <RequiredIndicator>*</RequiredIndicator></Label>
+                        <HalfInput type="text" name="micr" placeholder="MICR Code" onChange={handleChange} />
+                    </FormGroup>
+                    <HoriZontalLine />
+
+                    <Subheading>Upload Documents</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="aadharFile">Aadhar Card <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="file" name="aadharFile" placeholder="Aadhar Card" onChange={handleAadharFileChange} accept=".jpg, .jpeg, .png, .pdf" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="panDoc">PAN Card <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="file" name="panDoc" placeholder="PAN Card" onChange={handlePanFileChange} accept=".jpg, .jpeg, .png, .pdf" />
+                    </FormGroup>
+                    <SubmitButton type='submit' className="btn btn-primary flex justify-center items-center" >{submitButtonText}</SubmitButton>
+                </Form>
+            </TextContent>
             {/* </TwoColumn> */}
         </Container >
     )

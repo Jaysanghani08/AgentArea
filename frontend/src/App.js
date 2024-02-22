@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import './App.css';
-import ProtectedRoute from './helpers/ProtectedRoute.js';
 
 // Import your Login, Signup, and other components here
 import Login from './pages/login_signup/login';
@@ -18,8 +17,9 @@ import AddProduct from './pages/product/add_product.jsx';
 import AddPolicy from './pages/policy/add_policy.jsx';
 import GetPolicy from './pages/policy/getPolicy.jsx';
 import Links from './pages/admin/Links.js';
-import { AuthProvider } from './context/AuthContext.js';
+import { AuthProvider, useAuth } from './context/AuthContext.js';
 import AgentLinks from './pages/agent/AgentLinks.jsx';
+import Cookies from 'js-cookie';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -30,10 +30,10 @@ import AgentLinks from './pages/agent/AgentLinks.jsx';
 
 
 function App() {
-    const [user, setUser] = useState(sessionStorage.getItem('user') || null);
+    const user = Cookies.get('user');
+    console.log(user);
 
     return (
-        // <>
         <AuthProvider>
             <Routes>
                 <Route path='/' element={<Links />} />
@@ -76,7 +76,6 @@ function App() {
                     <AgentRoute path="/agent/other" component={OtherAgentComponent} /> */}
             </Routes>
         </AuthProvider>
-        // </>
     );
 }
 

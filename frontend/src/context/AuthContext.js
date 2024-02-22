@@ -2,52 +2,50 @@
 import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { postRequest } from '../services/Api';
-import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        // Check session storage for a user on component mount
-        const storedUser = JSON.parse(sessionStorage.getItem('user'));
-        if (storedUser) {
-            setUser(storedUser);
-        }
-    }, []);
+    // console.log("auth context");
+    // useEffect(() => {
+    //     // Check session storage for a user on component mount
+    //     const user1 = Cookies.get('user');
+    //     console.log("herereereee");
+    //     if (user1) {
+    //         setUser(user1);
+    //     }
+    // }, []);
 
     const login = async (userData, type) => {
 
-        // Perform login logic here (e.g., send a request to a server)
-        // If successful, set the user in the context and session storage
         console.log(userData);
         const response = await postRequest(`${type}/login`, userData);
-        // console.log(response);
 
         if (response.status === 200) {
-            setUser(response.data);
-            sessionStorage.setItem('user', JSON.stringify(response.data));
-            
-            // <Navigate to="/admin" />;
+            const expirationDate = new Date();
+            expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 60 * 1000));
+            Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate});
         }
 
         return response;
     };
 
     const signup = (userData) => {
-        setUser(userData);
-        sessionStorage.setItem('user', JSON.stringify(userData));
+        // setUser(userData);
+        Cookies.set('user', userData, { expires: 0 });
     };
 
     const logout = () => {
         // Perform logout logic here (e.g., clear session, remove user from context and session storage)
-        setUser(null);
-        sessionStorage.removeItem('user');
+        // setUser(null);
+        Cookies.remove('user');
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout }}>
+        <AuthContext.Provider value={{ login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     );
