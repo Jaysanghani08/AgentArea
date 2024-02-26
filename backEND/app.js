@@ -46,9 +46,11 @@ app.get("/test/encrypt",async (req,res)=>{
 })
 
 
-const testEmail = require("./mailer/agent/singup");
+const testEmail = require("./mailer/agent/signup");
 
-app.get("/test/mail",testEmail);
+app.get("/test/mail",(req,res) => {
+    testEmail("shubhampatel12233@gmail.com",123123,"Shubham")
+});
 
 
 
