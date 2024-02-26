@@ -37,9 +37,9 @@ export const getRequest = async (endpoint, params = {}) => {
     const headers = {};
     headers['Authorization '] = token;
     headers['Content-Type'] = 'application/json';
-    
+
     try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/${endpoint}`, {}, {}, params);
+        const response = await commonrequest("GET", `${BACKEND_URL}/${endpoint}`, {}, headers, params);
         return response;
     } catch (error) {
         throw new Error(`Error in GET request to ${endpoint}`);
