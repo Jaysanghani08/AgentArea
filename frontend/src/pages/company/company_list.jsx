@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Spinner from '../../components/general/spinner';
 import CustomTable from '../../components/general/table/table';
+import { getCompanies } from '../../services/Api';
 
 const columns = [
     { title: "Name" },
@@ -59,6 +60,12 @@ const actionColumn = { columnIndex: 4 };
 const Company_list = () => {
 
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setIsLoading(true);
+        
+    }, []);
+
 
     return (
         <div>
