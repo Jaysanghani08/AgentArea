@@ -1,6 +1,12 @@
 const mailTransporter = require("../utils/setup");
 
 
+// https://codesandbox.io/p/sandbox/email-template-otp-2cfyn2?file=%2Findex.html%3A12%2C7
+// Link for templates
+ 
+
+
+
 const otp = async (email,otp) => {
 
     const date = new Date();
