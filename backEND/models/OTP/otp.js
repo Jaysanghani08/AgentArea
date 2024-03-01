@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const schema = new mongoose.Schema({
     otp:{
-        type:Number,
+        type:String,
         require:true
     },
     email:{
