@@ -61,32 +61,51 @@ const Company_list = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [dataSet, setDataSet] = useState([]);
+    const [companies,setCompanies] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
         const loadData = async () => {
-            const companies = await getCompanies();
-            // console.log(companies);
-            let data = [];
-            setTimeout(async () => {
-                data = await companies?.data?.map((company) => {
-                    return [
-                        company.name,
-                        company.url,
-                        company._id,
-                        company._id,
-                        ["/", "/"],
-                    ];
-                });
-                console.log(data);
-                // console.log(data);
-                setDataSet(data);
-                setIsLoading(false);
-            }, 3000);
+
+            const companiesx = await getCompanies();
+
+            setCompanies(companiesx.data);
+
+            console.log("JAYLO CHUTIYO");
+            console.log(companiesx.data);
+
+            
+            // console.log("SHUBHAM CHUTIYO");
+            setIsLoading(false);
+            
         }
 
         loadData();
+
     }, []);
+
+    useEffect(() => {
+        const tmp = async () => {
+
+            const x = companies;
+            const data = await x?.map((company) => {
+                return [
+                    company.name,
+                    company.url,
+                    company._id,
+                    company._id,
+                    ["/", "/"],
+                ];
+            });
+            
+            console.log(data);
+            
+            setDataSet(data);
+        }
+
+        tmp();
+
+    }, [companies]);
 
     console.log(dataSet);
 
@@ -96,7 +115,7 @@ const Company_list = () => {
             {
                 // dataSet.length > 0 ? <Spinner height={100} color='#000000'/> :
                 //     <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
-                <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
+                ((dataSet.length > 0)) && <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
             }
         </div >
     )
