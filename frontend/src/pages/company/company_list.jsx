@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Spinner from '../../components/general/spinner';
 import CustomTable from '../../components/general/table/table';
 import { getCompanies } from '../../services/Api';
+import tw from "twin.macro";
+import { SectionHeading, Subheading as SubheadingBase } from "../../components/misc/Headings.js";
+
+export const Container = tw.div`relative flex items-center justify-center p-8`;
+export const TextContent = tw.div`mx-auto w-full max-w-[1050px] bg-white`;
+export const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
+export const Heading = tw(SectionHeading)`text-primary-500 mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
+export const HoriZontalLine = tw.div`w-full h-[3px] bg-gray-500 rounded mt-6 mb-8`;
 
 const columns = [
     { title: "Name" },
@@ -10,45 +18,6 @@ const columns = [
     { title: "Agency" },
     { title: "Action" },
 ];
-
-// const dataSet = [
-//     [
-//         "Tiger Nixon",
-//         "System Architect",
-//         "Edinburgh",
-//         "5421",
-//         ["https://youtube.com", "https://www.google.com"],
-//     ],
-//     [
-//         "Ashton Cox",
-//         "Junior Technical Author",
-//         "San Francisco",
-//         "1562",
-//         ["https://youtube.com", "https://www.google.com"],
-//     ],
-//     [
-//         "John Doe",
-//         "Senior Software Engineer",
-//         "New York",
-//         "1234",
-//         ["https://youtube.com", "https://www.google.com"],
-//     ],
-//     [
-//         "Emily Smith",
-//         "UX/UI Designer",
-//         "Los Angeles",
-//         "7890",
-//         ["https://youtube.com", "https://www.google.com"],
-//     ],
-//     [
-//         "Michael Johnson",
-//         "Data Scientist",
-//         "Chicago",
-//         "4532",
-//         ["https://youtube.com", "https://www.google.com"],
-//     ],
-
-// ];
 
 const buttonColumns = [
     { columnIndex: 2, buttonText: "Products" },
@@ -61,7 +30,7 @@ const Company_list = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [dataSet, setDataSet] = useState([]);
-    const [companies,setCompanies] = useState([]);
+    const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -71,13 +40,11 @@ const Company_list = () => {
 
             setCompanies(companiesx.data);
 
-            console.log("JAYLO CHUTIYO");
-            console.log(companiesx.data);
+            // console.log("JAYLO CHUTIYO");
+            // console.log(companiesx.data);
 
-            
             // console.log("SHUBHAM CHUTIYO");
             setIsLoading(false);
-            
         }
 
         loadData();
@@ -88,7 +55,7 @@ const Company_list = () => {
         const tmp = async () => {
 
             const x = companies;
-            const data = await x?.map((company) => {
+            const data = x?.map((company) => {
                 return [
                     company.name,
                     company.url,
@@ -97,9 +64,7 @@ const Company_list = () => {
                     ["/", "/"],
                 ];
             });
-            
-            console.log(data);
-            
+
             setDataSet(data);
         }
 
@@ -107,17 +72,22 @@ const Company_list = () => {
 
     }, [companies]);
 
-    console.log(dataSet);
-
     return (
-        <div>
-            <h1>Your Companies</h1>
-            {
-                // dataSet.length > 0 ? <Spinner height={100} color='#000000'/> :
-                //     <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
-                ((dataSet.length > 0)) && <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
-            }
-        </div >
+        <Container>
+            <TextContent>
+                <Heading>Your Companies</Heading>
+                <HoriZontalLine/>
+                {
+                    !dataSet.length > 0 ?
+                        <div >
+                            <Spinner height={100} color='#a273ff' />
+                        </div>
+                        :
+                        //     <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
+                        ((dataSet.length > 0)) && <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
+                }
+            </TextContent>
+        </Container>
     )
 }
 

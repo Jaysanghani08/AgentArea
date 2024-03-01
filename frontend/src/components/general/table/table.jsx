@@ -8,6 +8,10 @@ import "datatables.net-rowreorder-dt";
 import './tables.css'
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
+import tw from "twin.macro";
+
+const Th = tw.th`bg-primary-500`;
+const Table = tw.table`w-full border-collapse border border-gray-300 mt-4`;
 
 
 const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null }) => {
@@ -32,25 +36,25 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
     // Create a reference for the table
     return (
         <div className="table-responsive">
-            <table id='myTable' ref={tableRef}>
+            <Table id='myTable' ref={tableRef}>
                 <thead>
-                    <tr>
-                        <th>#</th>
+                    <tr >
+                        <Th>#</Th>
                         {columns.map((column) => (
-                            <th key={column.title}>{column.title}</th>
+                            <Th key={column.title}>{column.title}</Th>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {dataSet.map((row, rowIndex) => (
+                    {dataSet?.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             <td>{rowIndex + 1}</td>
-                            {columns.map((column, colIndex) => (
+                            {columns?.map((column, colIndex) => (
                                 <td key={colIndex}>
                                     {
-                                        buttonColumns.some((btnCol) => btnCol.columnIndex === colIndex) ? (
-                                            buttonColumns.map((btnCol) => (
-                                                btnCol.columnIndex === colIndex ? (
+                                        buttonColumns?.some((btnCol) => btnCol.columnIndex === colIndex) ? (
+                                            buttonColumns?.map((btnCol) => (
+                                                btnCol?.columnIndex === colIndex ? (
                                                     <a href={row[colIndex]} key={`###${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
                                                         {btnCol.buttonText}
                                                     </a>
@@ -60,16 +64,16 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                             :
                                             (
                                                 actionColumn && actionColumn.columnIndex === colIndex ? (
-                                                    <span className="flex">
-                                                        {/* <span className=""> */}
-                                                        <a href={row[colIndex][0]} key={`#${actionColumn.columnIndex}`} className="text-green border-green Ï">
+                                                    // <span className="flex flex-row">
+                                                    <>
+                                                        <a href={row[colIndex][0]} key={`#${actionColumn.columnIndex}`}>
                                                             <FaRegEdit size={22} />
                                                         </a>
-                                                        {/* </span> */}
-                                                        <a href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`} className=" text-red border-red">
+                                                        <a href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`}>
                                                             <MdDeleteOutline size={23} />
                                                         </a>
-                                                    </span>
+                                                    </>
+
                                                 ) :
                                                     (
                                                         row[colIndex]
@@ -81,8 +85,8 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                         </tr>
                     ))}
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </div >
     )
 };
 
