@@ -63,7 +63,7 @@ export const getFullAgent = async (id) => {
 
 // Company functions
 export const getCompanies = async () => {
-    return getRequest("company/getCompanies");
+    return await getRequest("company/getCompanies");
 };
 
 export const addCompany = async (data) => {
