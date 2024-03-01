@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { addAgency } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
-import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../../components/misc/form';
+import { Container, TextContent, Subheading, Heading, Form, FormGroup, Label, RequiredIndicator, Input, SubmitButton } from './../../components/misc/form';
 
 
 const AddAgency = () => {
@@ -48,6 +48,7 @@ const AddAgency = () => {
                 <Heading>{heading}</Heading>
 
                 <Form onSubmit={handleSubmit}>
+                    <Subheading>Agency Information</Subheading>
                     <FormGroup>
                         <Label htmlFor="name">Agency Name <RequiredIndicator>*</RequiredIndicator></Label>
                         <Input type="text" name="name" placeholder="Agency Name" onChange={handleChange} />

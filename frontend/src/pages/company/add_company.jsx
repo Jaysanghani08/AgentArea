@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { addCompany } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
+import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../../components/misc/form';
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-       name: '',
-       url: ''
+        name: '',
+        url: ''
     });
 
     const handleChange = (e) => {
@@ -21,7 +22,7 @@ const AddAgent = () => {
         try {
             const response = await addCompany(formData);
 
-            if(response.status === 200) {
+            if (response.status === 200) {
                 alert('Company created successfully');
             }
         } catch (error) {
@@ -32,67 +33,26 @@ const AddAgent = () => {
     }
 
     return (
-        <div className="h-screen flex justify-center items-center bg-light">
-            <div className="border rounded-md px-3 bg-white shadow-lg">
-                <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                        <h1 className='text-gray-800 text-3xl'>
-                            Add <span className='text-primary'>Company</span> 
-                        </h1>
-                        {/* <h2 className="mt-0 leading-9 tracking-tight text-gray-500">
-                        Sign in to your account
-                    </h2> */}
-                    </div>
+        <Container>
+            <TextContent>
+                <Heading>Create new <span className="text-primary-500">Company</span></Heading>
 
-                    <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" encType='multipart/form-data' onSubmit={handleSubmit} >
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-600">
-                                    Name
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        autoComplete="tel"
-                                        required
-                                        className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
+                <Form onSubmit={handleSubmit}>
+                    <Subheading>Company Information</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="name">Company Name <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="text" name="name" placeholder="Company Name" onChange={handleChange} />
+                    </FormGroup>
 
-                            <div>
-                                <label htmlFor="url" className="block text-sm font-medium leading-6 text-gray-600">
-                                    Website Url
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="url"
-                                        name="url"
-                                        type="url"
-                                        autoComplete="tel"
-                                        required
-                                        className="px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
+                    <FormGroup>
+                        <Label htmlFor="url">Website URL <RequiredIndicator>*</RequiredIndicator></Label>
+                        <Input type="url" name="url" placeholder="Website URL" onChange={handleChange} />
+                    </FormGroup>
 
-                            <div>
-                                <button
-                                    type="submit"
-                                    className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-                                >
-                                    {isLoading ? <Spinner /> : 'Add'}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <SubmitButton>{isLoading ? <Spinner height={20} color='#000000' /> : 'Create Company'}</SubmitButton>
+                </Form>
+            </TextContent>
+        </Container>
     )
 };
 
