@@ -21,10 +21,10 @@ const auth = require("../../middleware/auth");
 
 
 const getAgents = require("../../controller/agent/getAgents");
-
 const addAgent = require("../../controller/agent/addAgent");
-
 const getFullAgent = require("../../controller/agent/getFullAgnet");
+const sendOTP = require('../../controller/agent/sendOTP');
+const verifyOTP = require('../../controller/agent/verifyOTP');
 
 
 
@@ -36,6 +36,10 @@ router.post("/agent/addAgent", upload.fields([
 router.get("/agent/getFullAgent",auth, getFullAgent);
 
 router.get("/agent/getAgents", auth,getAgents);
+
+router.post("/agent/mailer/sendOTP",auth,sendOTP);
+
+router.post("/agent/verifyOTP",auth,verifyOTP);
 
 
 

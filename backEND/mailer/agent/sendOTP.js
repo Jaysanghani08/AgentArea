@@ -7,21 +7,22 @@ const mailTransporter = require("../utils/setup");
 
 
 
-const otp = async (email,otp) => {
+const otp = async (email,otp,name) => {
 
     const date = new Date();
     const istDateTime = date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
     let data = {
         otp:otp,
-        date:istDateTime
+        date:istDateTime,
+        name:name
     }
 
     let mailDetails = {
         from: 'Insure Area',
         to: email,
         subject: 'Signup code',
-        template: 'signup',
+        template: 'sendOTP',
         context:{
             data:data
         }
@@ -31,6 +32,7 @@ const otp = async (email,otp) => {
         if (err) {
             console.log('This is error from mailer/sendOTP.js');
             console.log(err);
+            return 0;
         } else {
             console.log('Email sent successfully');
             return 1;

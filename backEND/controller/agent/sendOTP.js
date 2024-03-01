@@ -1,20 +1,22 @@
-// const otp = 
-
 const otpGenerator = require('otp-generator')
-
-
-
 
 
 const otp = require("../../models/OTP/otp");
 const agent = require("../../models/agent/agent");
+const mail = require("../../mailer/agent/sendOTP");
+
+
+// res codes
+// 222 - user already exist
+// 500,400,300 - server error,
+// 200 - done
 
 
 
-
-const otp = async (req,res) => {
+const sendOTP = async (req,res) => {
 
     const email = req.body.email;
+    const name = req.body.name;
 
     const match = await agent.findOne({ email: email });
 
@@ -27,7 +29,7 @@ const otp = async (req,res) => {
             try {
                 await otp.deleteOne({ email: email });
             } catch (error) {
-                console.log("This is error from /controllers/utils/sendOTP.js");
+                console.log("This is error from ./controllers/agents/sendOTP.js");
                 console.log(error);
                 res.status(500);
                 return;
@@ -35,8 +37,11 @@ const otp = async (req,res) => {
         }
 
         const otp_number = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
-        console.log(otp_number);
-        const mailer = mail(email, otp_number);
+        const mailer = mail(email,otp_number,name);
+        if(mailer == 0){
+            res.status(300).send();
+            return;
+        }
         const data = new otp({
             email: email,
             otp: otp_number
@@ -45,7 +50,7 @@ const otp = async (req,res) => {
             const saved = await data.save();
             res.status(200).send();
         } catch (error) {
-            console.log("This is error from /controller/utils/sendOTP.js -> mailer part");
+            console.log("This is error from ./controller/agents/sendOTP.js -> mailer part");
             console.log(error);
             res.status(400).send();
         }
@@ -53,4 +58,4 @@ const otp = async (req,res) => {
     }
 }
 
-module.exports = otp;
+module.exports = sendOTP;
