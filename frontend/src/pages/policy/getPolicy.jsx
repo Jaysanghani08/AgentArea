@@ -6,7 +6,7 @@ import { SectionHeading, Subheading as SubheadingBase } from "../../components/m
 import tw from "twin.macro";
 
 export const Container = tw.div`relative flex items-center justify-center p-8 bg-blue-100 min-h-screen`;
-export const TextContent = tw.div`mx-auto w-full max-w-[1050px] px-12 py-8 bg-white rounded-2xl shadow-2xl shadow-blue-800 bg-white`;
+export const TextContent = tw.div`mx-auto w-full max-w-screen-2xl px-12 py-8 bg-white rounded-2xl shadow-2xl shadow-blue-800 bg-white`;
 export const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
 export const Heading = tw(SectionHeading)`text-primary-500 mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 export const HoriZontalLine = tw.div`w-full h-[3px] bg-gray-500 rounded mt-6 mb-8`;
@@ -20,6 +20,7 @@ const columns = [
     { title: "Agent Name" },
     { title: "Product Name" },
     { title: "Agency Name" },
+    { title: "Details" }
 ];
 
 const GetPolicy = () => {
@@ -35,16 +36,17 @@ const GetPolicy = () => {
 
             console.log(response?.data);
             if (response.status === 200) {
-                const data = response.data?.map((product) => {
+                const data = response.data?.map((policy) => {
                     return [
-                        product.policy_number,
-                        product.policy_type,
-                        product.business_type,
-                        product.group?.members?.name,
-                        product.company?.name,
-                        product.agent?.name,
-                        product.company?.products?.product_name,
-                        product.company?.agencies?.name,
+                        policy.policy_number,
+                        policy.policy_type,
+                        policy.business_type,
+                        policy.group?.members?.name,
+                        policy.company?.name,
+                        policy.agent?.name,
+                        policy.company?.products?.product_name,
+                        policy.company?.agencies?.name,
+                        "/policy/" + policy._id
                     ];
                 });
 
@@ -68,15 +70,15 @@ const GetPolicy = () => {
                 <HoriZontalLine />
                 {
                     isLoading ?
-                        <div >
+                        <div>
                             <Spinner height={100} color='#a273ff' />
                         </div>
                         :
-
                         ((policies.length > 0)) ? <CustomTable columns={columns} dataSet={policies} 
                         // actionColumn={{ columnIndex: 3 }} 
+                        buttonColumns={[{ columnIndex: 8, buttonText: "Details" }]}
                         />
-                            : <div>No products found</div>
+                            : <div>No Policies found</div>
                 }
             </TextContent>
         </Container>
