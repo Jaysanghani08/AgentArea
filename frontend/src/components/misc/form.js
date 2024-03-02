@@ -3,9 +3,9 @@ import { SectionHeading, Subheading as SubheadingBase } from "./Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "./Buttons.js";
 import styled from "styled-components"; 
 
-export const Container = tw.div`relative flex items-center justify-center p-12`;
-export const TextContent = tw.div`mx-auto w-full max-w-[950px] bg-white`;
-export const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
+export const Container = tw.div`relative flex items-center justify-center p-12 bg-blue-100 min-h-screen`;
+export const TextContent = tw.div`mx-auto w-full max-w-[950px] px-12 py-8 rounded-2xl shadow-2xl shadow-blue-800 bg-white`;
+export const Subheading = tw(SubheadingBase)`mt-1 text-2xl text-center mb-4 md:text-left`;
 export const Heading = tw(SectionHeading)`mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 export const HoriZontalLine = tw.div`w-full h-[3px] bg-gray-500 rounded mt-6 mb-8`;
 export const Form = tw.form`mt-5`

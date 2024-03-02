@@ -12,7 +12,10 @@ import tw from "twin.macro";
 
 const Th = tw.th`bg-primary-500`;
 const Table = tw.table`w-full border-collapse border border-gray-300 mt-4`;
-
+const Span = tw.span`flex justify-center space-x-2`;
+const GreenLink = tw.a`text-green-800 text-sm px-1 me-1 mb-1`;
+const RedLink = tw.a`text-red-800 text-sm me-1 mb-1`;
+const CustomButton = tw.button`bg-white text-primary-500 px-3 py-1 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium align-middle`;
 
 const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null }) => {
     // let DataTable = DataTables(window, $);
@@ -50,30 +53,30 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                         <tr key={rowIndex}>
                             <td>{rowIndex + 1}</td>
                             {columns?.map((column, colIndex) => (
-                                <td key={colIndex}>
+                                <td key={colIndex} >
                                     {
                                         buttonColumns?.some((btnCol) => btnCol.columnIndex === colIndex) ? (
                                             buttonColumns?.map((btnCol) => (
                                                 btnCol?.columnIndex === colIndex ? (
-                                                    <a href={row[colIndex]} key={`###${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
-                                                        {btnCol.buttonText}
-                                                    </a>
+                                                    <CustomButton>
+                                                        <a href={row[colIndex]} key={`###${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
+                                                            {btnCol.buttonText}
+                                                        </a>
+                                                    </CustomButton>
                                                 ) : null
                                             ))
                                         )
                                             :
                                             (
                                                 actionColumn && actionColumn.columnIndex === colIndex ? (
-                                                    // <span className="flex flex-row">
-                                                    <>
-                                                        <a href={row[colIndex][0]} key={`#${actionColumn.columnIndex}`}>
+                                                    <Span>
+                                                        <GreenLink href={row[colIndex][0]} key={`#${actionColumn.columnIndex}`}>
                                                             <FaRegEdit size={22} />
-                                                        </a>
-                                                        <a href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`}>
+                                                        </GreenLink>
+                                                        <RedLink href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`}>
                                                             <MdDeleteOutline size={23} />
-                                                        </a>
-                                                    </>
-
+                                                        </RedLink>
+                                                    </Span>
                                                 ) :
                                                     (
                                                         row[colIndex]

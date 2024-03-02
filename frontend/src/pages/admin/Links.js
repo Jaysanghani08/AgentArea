@@ -21,7 +21,6 @@ const Links = () => {
             {/* <Link to="/login" > Login</Link> */}
             {/* <Link to="/signup">Signup</Link> */}
             <Link to="/admin/addagent">Add Agent</Link>
-            <Link to="/admin/agentProfile">Agent Profile</Link>
             <Link to="/admin/agentlist">AgentList</Link>
             <Link to="/admin/addcompany">Add Company</Link>
             <Link to="/admin/companylist">CompanyList</Link>
