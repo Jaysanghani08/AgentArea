@@ -4,69 +4,52 @@ import Spinner from './../components/general/spinner'
 import { SectionHeading, Subheading as SubheadingBase } from "./../components/misc/Headings.js";
 import tw from "twin.macro";
 import CustomTable from './../components/general/table/table';
+import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input as customInput, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../components/misc/form';
+import { useLocation } from 'react-router-dom';
 
-export const Container = tw.div`relative flex items-center justify-center p-8`;
-export const TextContent = tw.div`mx-auto w-full max-w-[1050px] bg-white`;
-export const Subheading = tw(SubheadingBase)`mt-4 text-center md:text-left`;
-export const Heading = tw(SectionHeading)`text-primary-500 mt-2 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-export const HoriZontalLine = tw.div`w-full h-[3px] bg-gray-500 rounded mt-6 mb-8`;
 
-// response.data[0] = {
-//     "_id": "658bed167dd0bb526193617e",
-//     "name": "Shubham",
-//     "mobile": "7622051688",
-//     "email": "shubhampatel13495@gmail.com",
-//     "username": "shubham464",
-//     "password": "$2a$08$zp5a3.kTfNbmgXtfDP8sm.YSDlZkFG.HWmFVb0xSgdDR0pdmbOPWq",
-//     "address": "abcdefgh",
-//     "city": "kadi",
-//     "state": "Gujrat",
-//     "pin": 382715,
-//     "pan": "$2a$08$t8TCfWLeIHKPLTVrT2j5T.FTfTvPBWEr.TLU0p7t35F9tbkl/4I76",
-//     "bank": "HDFC",
-//     "micr": "123456789asdfg",
-//     "accNumber": 1234567890,
-//     "bankIFSC": "asdfg1234567",
-//     "__v": 0
-// }
 
-const dummyFormData = {
-    name: 'John Doe',
-    mobile: '9876543210',
-    email: 'john.doe@example.com',
-    username: 'johndoe123',
-    password: 'password123',
-    address: '123 Main Street',
-    city: 'Anytown',
-    state: 'State',
-    pin: '12345',
-    pan: 'ABCDE1234F',
-    bank: 'XYZ Bank',
-    bankAccType: 'Savings',
-    micr: '123456789',
-    accNumber: '9876543210',
-    bankIFSC: 'XYZ1234567',
-    docs: [
-        {
-            aadhar: '1234 5678 9012',
-            pan: 'ABCDE1234F',
-        }
-    ]
-};
+// const dummyFormData = {
+//     name: 'John Doe',
+//     mobile: '9876543210',
+//     email: 'john.doe@example.com',
+//     username: 'johndoe123',
+//     password: 'password123',
+//     address: '123 Main Street',
+//     city: 'Anytown',
+//     state: 'State',
+//     pin: '12345',
+//     pan: 'ABCDE1234F',
+//     bank: 'XYZ Bank',
+//     bankAccType: 'Savings',
+//     micr: '123456789',
+//     accNumber: '9876543210',
+//     bankIFSC: 'XYZ1234567',
+//     docs: [
+//         {
+//             aadhar: '1234 5678 9012',
+//             pan: 'ABCDE1234F',
+//         }
+//     ]
+// };
+
+const Input = tw(customInput)`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#000000] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-4`
 
 const AgentProfile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [agentListData, setAgentListData] = useState([]);
+    const agentId = useLocation().pathname.split('/')[3];
+
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const response = await getFullAgent('658bed167dd0bb526193617e');
+                const response = await getFullAgent(agentId);
                 console.log(response?.data[0]);
                 if (response.status === 200) {
-                    const data = Object.entries(response?.data[0]).map(([key, value]) => [key, value]);
-                    console.log(data);
-                    setAgentListData(data);
+                    // const data = Object.entries(response?.data[0]).map(([key, value]) => [key, value]);
+                    // console.log(data);
+                    setAgentListData(response.data[0]);
                 } else {
                     alert('Something went wrong. Please try again later.')
                 }
@@ -84,18 +67,102 @@ const AgentProfile = () => {
     return (
         <Container>
             <TextContent>
-                <Heading>Your Agents</Heading>
+                <Heading>Profile</Heading>
                 <HoriZontalLine />
 
-                {
-                    !agentListData.length > 0 ? <Spinner />
-                        :
-                        <CustomTable columns={[
-                            { title: "Key" },
-                            { title: "Value" },
-                        ]} dataSet={agentListData} />
-                        // <></>
-                }
+                <Form>
+                    <Subheading>Personal Information</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="name">Name</Label>
+                        <Input type="text" name="name" value={agentListData.name} placeholder="Company Name" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="mobile">Mobile</Label>
+                        <Input type="text" name="mobile" value={agentListData.mobile} placeholder="Mobile" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <Input type="email" name="email" value={agentListData.email} placeholder="Email" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="username">Username</Label>
+                        <Input type="text" name="username" value={agentListData.username} placeholder="Username" disabled/>
+                    </FormGroup>
+
+
+                    {/* <FormGroup>
+                        <Label htmlFor="password">Password</Label>
+                        <Input type="password" name="password" value={agentListData.password} placeholder="Password" disabled/>
+                    </FormGroup> */}
+
+                    <FormGroup>
+                        <Label htmlFor="address">Address</Label>
+                        <Input type="text" name="address" value={agentListData.address} placeholder="Address" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="city">City</Label>
+                        <Input type="text" name="city" value={agentListData.city} placeholder="City" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="state">State</Label>
+                        <Input type="text" name="state" value={agentListData.state} placeholder="State" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="pin">PIN Code</Label>
+                        <Input type="text" name="pin" value={agentListData.pin} placeholder="PIN" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="pan">PAN</Label>
+                        <Input type="text" name="pan" value={agentListData.pan} placeholder="PAN" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="bank">Bank</Label>
+                        <Input type="text" name="bank" value={agentListData.bank} placeholder="Bank" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="bankAccType">Account Type</Label>
+                        <Input type="text" name="bankAccType" value={agentListData.bankAccType} placeholder="Account Type" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="micr">MICR</Label>
+                        <Input type="text" name="micr" value={agentListData.micr} placeholder="MICR" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="accNumber">Account Number</Label>
+                        <Input type="text" name="accNumber" value={agentListData.accNumber} placeholder="Account Number" disabled/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="bankIFSC">Bank IFSC</Label>
+                        <Input type="text" name="bankIFSC" value={agentListData.bankIFSC} placeholder="Bank IFSC" disabled/>
+                    </FormGroup>
+
+                    {/* <Subheading>Documents</Subheading> */}
+                    {/* <CustomTable
+                        data={[
+                            {
+                                aadhar: dummyFormData.docs[0].aadhar,
+                                pan: dummyFormData.docs[0].pan
+                            }
+                        ]}
+                        headings={['Aadhar', 'PAN']}
+                    /> */}
+
+                    {/* <SubmitButton>{isLoading ? <Spinner height={20} color='#000000' /> : 'Update Profile'}</SubmitButton> */}
+                    
+                </Form>
+                
             </TextContent>
         </Container>
     )

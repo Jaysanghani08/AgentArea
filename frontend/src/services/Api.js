@@ -32,7 +32,8 @@ export const postRequestWithToken = async (endpoint, data, headers = {}, params 
 export const getRequest = async (endpoint, params = {}) => {
     const token = user?.token;
     if (!token) {
-        throw new Error('No token found');
+        alert('No token found');
+        // throw new Error('No token found');
     }
     const headers = {};
     headers['Authorization '] = token;

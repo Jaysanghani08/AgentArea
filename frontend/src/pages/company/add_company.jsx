@@ -37,8 +37,8 @@ const AddAgent = () => {
             <TextContent>
                 <Heading>Create new <span className="text-primary-500">Company</span></Heading>
 
-                <Form onSubmit={handleSubmit}>
                     <Subheading>Company Information</Subheading>
+                <Form onSubmit={handleSubmit}>
                     <FormGroup>
                         <Label htmlFor="name">Company Name <RequiredIndicator>*</RequiredIndicator></Label>
                         <Input type="text" name="name" placeholder="Company Name" onChange={handleChange} />
