@@ -25,6 +25,7 @@ const addAgent = require("../../controller/agent/addAgent");
 const getFullAgent = require("../../controller/agent/getFullAgnet");
 const sendOTP = require('../../controller/agent/sendOTP');
 const verifyOTP = require('../../controller/agent/verifyOTP');
+const deleteAgent = require('../../controller/agent/deleteAgent');
 
 
 
@@ -40,6 +41,8 @@ router.get("/agent/getAgents", auth,getAgents);
 router.post("/agent/mailer/sendOTP",auth,sendOTP);
 
 router.post("/agent/verifyOTP",auth,verifyOTP);
+
+router.get("/agent/deleteAgent",auth,deleteAgent)
 
 
 
