@@ -16,6 +16,12 @@ const addProduct = require("../../controller/company/addProduct");
 
 const getCompanies = require("../../controller/company/getCompanies");
 
+const getProducts = require('../../controller/company/getProducts');
+
+const getAgencies = require('../../controller/company/getAgencies');
+
+
+
 
 
 router.post("/company/addCompany",auth,addCompany);
@@ -27,6 +33,14 @@ router.get("/company/removeCompany",auth,removeCompany);
 router.post("/company/addProduct",auth,addProduct);
 
 router.get("/company/getCompanies",auth,getCompanies);
+
+router.get("/company/getProducts",auth,getProducts);
+
+router.get("/company/getAgencies",auth,getAgencies);
+
+
+
+
 
 
 
