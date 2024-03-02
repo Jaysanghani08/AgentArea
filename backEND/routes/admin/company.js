@@ -38,6 +38,8 @@ router.get("/company/getProducts",auth,getProducts);
 
 router.get("/company/getAgencies",auth,getAgencies);
 
+router.get("/company/getAgencies",auth,getAgencies);
+
 
 
 

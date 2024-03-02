@@ -16,7 +16,7 @@ require("./connection/connection");
 require("./connection/connectionMONGO");
 
 
-const company = require("./routes/admin/company");
+const adminCompany = require("./routes/admin/company");
 const admin = require("./routes/admin/admin");
 const adminAgent = require("./routes/admin/agent");
 const adminPolicy = require("./routes/admin/policy");
@@ -25,11 +25,13 @@ const adminPolicy = require("./routes/admin/policy");
 const Customer = require("./routes/agent/customer");
 const agent = require("./routes/agent/agent");
 const policy = require("./routes/agent/policy");
+const agentCompany = require("./routes/agent/company");
 
 
 app.use(agent);
 app.use(adminAgent);
-app.use(company);
+app.use(agentCompany);
+app.use(adminCompany);
 app.use(Customer);
 app.use(policy);
 app.use(admin);
