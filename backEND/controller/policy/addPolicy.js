@@ -10,7 +10,8 @@ const addPolicy = async (req, res) => {
 
         const data = req.body;
         console.log(data);
-        const agent_id = req.user;
+        const agent_id = req.user.id;
+
         // console.log(agent_id);
         // console.log(req.files);
 
