@@ -9,12 +9,13 @@ const addPolicy = async (req, res) => {
     try {
 
         const data = req.body;
+        console.log(data);
         const agent_id = req.user;
         // console.log(agent_id);
         // console.log(req.files);
 
-        const policy_copy = req.files['policy_copy'][0];
-        const renewal_notice_copy = req.files['renewal_notice_copy'][0];
+        // const policy_copy = req.files['policy_copy'][0];
+        // const renewal_notice_copy = req.files['renewal_notice_copy'][0];
 
         const new_policy = new policy({
             agent_id:agent_id,
@@ -53,19 +54,19 @@ const addPolicy = async (req, res) => {
                 registration_number: data.registration_number,
             } : undefined,
 
-            docs: [{
-                renewal_notice_copy: {
-                    originalname: renewal_notice_copy.originalname,
-                    buffer: renewal_notice_copy.buffer,
-                    mimetype: renewal_notice_copy.mimetype,
-                },
-                policy_copy: {
-                    originalname: policy_copy.originalname,
-                    buffer: policy_copy.buffer,
-                    mimetype: policy_copy.mimetype,
-                },
-            }
-        ],
+            // docs: [{
+                // renewal_notice_copy: {
+                //     originalname: renewal_notice_copy.originalname,
+                //     buffer: renewal_notice_copy.buffer,
+                //     mimetype: renewal_notice_copy.mimetype,
+                // },
+                // policy_copy: {
+                //     originalname: policy_copy.originalname,
+                //     buffer: policy_copy.buffer,
+                //     mimetype: policy_copy.mimetype,
+                // },
+            // }
+        // ],
         });
 
     const saved = await new_policy.save();
@@ -82,7 +83,7 @@ const addPolicy = async (req, res) => {
         res.status(410).send();
     }
     else {
-        res.status(413).send("Bad Request");
+        res.status(473).send("Bad Request");
     }
 
 }

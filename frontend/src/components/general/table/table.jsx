@@ -7,7 +7,7 @@ import 'datatables.net-rowreorder-dt/css/rowReorder.dataTables.min.css'
 import "datatables.net-rowreorder-dt";
 import './tables.css'
 import { FaRegEdit } from "react-icons/fa";
-import { MdDeleteOutline } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import tw from "twin.macro";
 
 const Th = tw.th`bg-primary-500`;
@@ -59,7 +59,7 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                             buttonColumns?.map((btnCol) => (
                                                 btnCol?.columnIndex === colIndex ? (
                                                     <CustomButton>
-                                                        <a href={row[colIndex]} key={`###${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
+                                                        <a href={row[colIndex]} key={`####${btnCol.colIndex}`} className="text-primary bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-sm text-sm px-3 py-2 me-2 mb-2 ">
                                                             {btnCol.buttonText}
                                                         </a>
                                                     </CustomButton>
@@ -74,7 +74,7 @@ const CustomTable = ({ columns, dataSet, buttonColumns = [], actionColumn = null
                                                             <FaRegEdit size={22} />
                                                         </GreenLink>
                                                         <RedLink href={row[colIndex][1]} key={`##${actionColumn.columnIndex}`}>
-                                                            <MdDeleteOutline size={23} />
+                                                            <RiDeleteBin6Line size={23} />
                                                         </RedLink>
                                                     </Span>
                                                 ) :

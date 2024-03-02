@@ -75,6 +75,10 @@ export const addAgency = async (data) => {
     return postRequestWithToken("company/addAgency", data);
 };
 
+export const getAgencies = async (id) => {
+    return getRequest(`company/getAgencies`, { id });
+}
+
 export const removeCompany = async (id) => {
     return getRequest(`company/removeCompany`, { id });
 };
@@ -83,19 +87,23 @@ export const addProduct = async (data) => {
     return postRequestWithToken("company/addProduct", data);
 };
 
+export const getProducts = async (id) => {
+    return getRequest(`company/getProducts`, { id });
+}
+
 export const CheckIfGroupCodeExists = async (id) => {
     return getRequest(`customer/isGroupExist`, { id });
 };
 
 // Policy functions
 export const addPolicy = async (data) => {
-    return postRequest("policy/addPolicy", data, {
+    return postRequestWithToken("policy/addPolicy", data, {
         "Content-Type": "multipart/form-data",
     }, {});
 };
 
-export const getPolicy = async () => {
-    return getRequest(`policy/getPolicies`);
+export const getPolicies = async () => {
+    return getRequest(`admin/policy/getPolicies`);
 }
 
 // Customer functions

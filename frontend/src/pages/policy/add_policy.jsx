@@ -165,6 +165,7 @@ const AddPolicy = () => {
         policy_type: '',
         policy_sub_type: '',
         company_id: '',
+        agent_id : '658bed167dd0bb526193617e',
         product_id: '',
         agency: '',
         business_type: '',
@@ -248,7 +249,7 @@ const AddPolicy = () => {
         gst: {
             required: true,
             // '10%' regex
-            regex : /^(100|[1-9]\d?)%$/
+            regex : /^(100|[1-9]\d?)$/
         },
         total_premium_amount: {
             required: true,
@@ -323,6 +324,7 @@ const AddPolicy = () => {
 
     }
 
+    // console.log(products)
     // console.log(companylist)
     // console.log(formData)
 
@@ -333,6 +335,7 @@ const AddPolicy = () => {
                 if (response.status === 200) {
                     setCompanyList(response.data);
                 }
+                console.log(response.data)
             } catch (error) {
                 console.log(error);
             }
@@ -414,14 +417,16 @@ const AddPolicy = () => {
 
         // console.log(formData);
 
-        const errors = await Validate(formData, formmRegex);
+        // const errors = await Validate(formData, formmRegex);
+        const errors = {};
+        console.log("CHUTIYO\n")
         console.log(errors);
-        if (errors) {
-            setIsLoading(false);
-            // errors is an object with key as field name and value as error message
-            alert(errors?.policy_number)
-            return;
-        }
+        // if (errors) {
+        //     setIsLoading(false);
+        //     // errors is an object with key as field name and value as error message
+        //     // alert(errors?.policy_number)
+        //     return;
+        // }
 
         try {
             const response = await addPolicy(formData);
@@ -437,6 +442,8 @@ const AddPolicy = () => {
             setIsLoading(false);
         }
     }
+
+    console.log(formData);
 
     const heading = <> Purchase New <span className="text-primary-500">Policy</span></>;
     const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Policy';
@@ -606,7 +613,7 @@ const AddPolicy = () => {
                                         <option value="">Select Product</option>
                                         {
                                             // product of selected company with policy_type == policy_type and product_type == policy_sub_type
-                                            formData.policy_type && formData.policy_sub_type && products?.filter((product) => product.policy_type === formData.policy_type && product.product_type === formData.policy_sub_type).map((product) => (
+                                            formData.policy_type && formData.policy_sub_type && products?.filter((product) => product?.policy_type?.toLowerCase() === formData?.policy_type?.toLowerCase() && product?.product_type?.toLowerCase() === formData?.policy_sub_type?.toLowerCase()).map((product) => (
                                                 <option key={product._id} value={product._id}>{product.product_name}</option>
                                             ))
                                         }

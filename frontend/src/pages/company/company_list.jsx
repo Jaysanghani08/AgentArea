@@ -16,7 +16,6 @@ const columns = [
     { title: "Website" },
     { title: "Products" },
     { title: "Agency" },
-    { title: "Action" },
 ];
 
 const buttonColumns = [
@@ -24,7 +23,6 @@ const buttonColumns = [
     { columnIndex: 3, buttonText: "Agency" },
 ];
 
-const actionColumn = { columnIndex: 4 };
 
 const Company_list = () => {
 
@@ -61,7 +59,6 @@ const Company_list = () => {
                     company.url,
                     `/admin/productlist/${company._id}`,
                     `/admin/agencylist/${company._id}`,
-                    ["/", "/"],
                 ];
             });
 
@@ -84,7 +81,7 @@ const Company_list = () => {
                         </div>
                         :
                         //     <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
-                        ((dataSet.length > 0)) && <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} actionColumn={actionColumn} />
+                        ((dataSet.length > 0)) && <CustomTable columns={columns} dataSet={dataSet} buttonColumns={buttonColumns} />
                 }
             </TextContent>
         </Container>
