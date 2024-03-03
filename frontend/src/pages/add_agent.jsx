@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../components/misc/form';
 import Spinner from './../components/general/spinner';
-import { AgentSignup } from './../services/Api';
+import { AgentSignup, sendOTPToCreateAgent } from './../services/Api';
+import { useNavigate } from 'react-router-dom';
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isOtpSent, setIsOtpSent] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [otp, setOtp] = useState('');
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -40,8 +45,65 @@ const AddAgent = () => {
         setPanFile(event.target.files[0]);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSendOTP = async (e) => {
         e.preventDefault();
+        setIsOtpSent(false);
+        const data = {
+            email: formData.email,
+            name: formData.name
+        }
+
+        try {
+            const response = await sendOTPToCreateAgent(data);
+            console.log(response);
+            if (response.status === 200) {
+                alert('OTP sent successfully');
+            }
+            else {
+                alert('Error sending OTP');
+            }
+        } catch (error) {
+            console.log(error);
+            alert('Error sending OTP');
+        } finally {
+            setIsOtpSent(true);
+        }
+    }
+
+    const handleSubmitOtp = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const data = {
+            email: formData.email,
+            otp: otp
+        }
+
+        try {
+            const response = await sendOTPToCreateAgent(data);
+            console.log(response);
+            if (response.status === 200) {
+                alert('OTP verified successfully');
+                await handleSubmit();
+                setIsOtpVerified(true);
+
+            }
+            else {
+                alert('Error verifying OTP');
+                navigate('/admin')
+            }
+        } catch (error) {
+            console.log(error);
+            alert('Error verifying OTP');
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
+
+
+    const handleSubmit = async (e) => {
+        // e.preventDefault();
         setIsLoading(true);
 
         const data = new FormData();
@@ -68,6 +130,7 @@ const AddAgent = () => {
             const response = await AgentSignup(data);
             console.log(response);
             if (response.status === 200) {
+                navigate("/admin")
                 alert('Agent created successfully');
             } else if (response.status === 410) {
                 alert('Email already exists');
@@ -83,8 +146,12 @@ const AddAgent = () => {
         }
     }
 
+    const handleChangeOtp = (e) => {
+        setOtp(e.target.value);
+    }
+
     const heading = <> Create new <span className="text-primary-500">Agent</span></>;
-    const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Agent';
+    const submitButtonText = isOtpSent ? <Spinner height={20} color='#000000' /> : 'Send OTP';
 
     return (
         <Container>
@@ -176,7 +243,22 @@ const AddAgent = () => {
                         <Label htmlFor="panDoc">PAN Card <RequiredIndicator>*</RequiredIndicator></Label>
                         <Input type="file" name="panDoc" placeholder="PAN Card" onChange={handlePanFileChange} accept=".jpg, .jpeg, .png, .pdf" />
                     </FormGroup>
-                    <SubmitButton type='submit' className="btn btn-primary flex justify-center items-center" >{submitButtonText}</SubmitButton>
+
+                    {   
+                        !isOtpSent ?
+                        <SubmitButton type='submit' className="btn btn-primary flex justify-center items-center" onClick={handleSendOTP}>{submitButtonText}</SubmitButton>
+                        :
+                        <FormGroup>
+                            <Label htmlFor="otp">OTP <RequiredIndicator>*</RequiredIndicator></Label>
+                            <Input type="text" name="otp" placeholder="OTP" onChange={handleChangeOtp} />
+                        </FormGroup>
+                    }
+
+                    {
+                        isOtpSent && !isOtpVerified && 
+                        <SubmitButton type='submit' className="btn btn-primary flex justify-center items-center" onClick={handleSubmitOtp}>{isLoading ? <Spinner height={20} color='#000000' /> : 'Verify Otp'}</SubmitButton>
+                    }
+
                 </Form>
             </TextContent>
             {/* </TwoColumn> */}
