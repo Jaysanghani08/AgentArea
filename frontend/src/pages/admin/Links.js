@@ -27,7 +27,7 @@ const Links = () => {
             <Link to="/admin/addagency">Add Agency</Link>
             <Link to="/admin/addproduct">Add Product</Link>
             {/* <Link to="/admin/addpolicy">Add Policy</Link> */}
-            <Link to="/admin/getpolicy">Get Policy</Link>
+            <Link to="/admin/policylist">Get Policy</Link>
             {/* <Link to="/admin/tmp">Tmp</Link> */}
         </Container>
     )

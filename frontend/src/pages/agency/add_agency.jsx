@@ -1,17 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { addAgency } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
-import { Container, TextContent, Subheading, Heading, Form, FormGroup, Label, RequiredIndicator, Input, SubmitButton } from './../../components/misc/form';
-
+import { Container, TextContent, Subheading, Heading, Form, FormGroup, Select, Label, RequiredIndicator, Input, SubmitButton } from './../../components/misc/form';
+import { getCompanies } from '../../services/Api';
 
 const AddAgency = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [companydata, setCompanyData] = useState([]);
+
+    useEffect(() => {
+        const loadCompany = async () => {
+            setIsLoading(true);
+            const response = await getCompanies();
+            // console.log(response?.data);
+            if (response.status === 200) {
+                setCompanyData(response.data);
+            }
+            else {
+                alert('Error fetching companies')
+            }
+            setIsLoading(false);
+        }
+
+        loadCompany();
+    }, []);
 
     const [formData, setFormData] = useState({
-        id: '659c68ab20de061edfa15294',
+        id: '',
         name: '',
         code: ''
     });
+
+    console.log(formData);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +44,7 @@ const AddAgency = () => {
 
         try {
             const response = await addAgency(formData);
-
+            // console.log(response);
             if (response.status === 200) {
                 alert('Agency created successfully');
             }
@@ -49,6 +69,27 @@ const AddAgency = () => {
 
                 <Form onSubmit={handleSubmit}>
                     <Subheading>Agency Information</Subheading>
+
+                    {
+                        isLoading ? <Spinner height={100} color='#a273ff' />
+                            : null
+                    }
+
+                    {
+                        companydata.length > 0 ?
+                            <FormGroup>
+                                <Label htmlFor="company">Company <RequiredIndicator>*</RequiredIndicator></Label>
+                                <Select name="id" onChange={handleChange}>
+                                    <option value="">Select Company</option>
+                                    {
+                                        companydata.map((company) => {
+                                            return <option value={company._id}>{company.name}</option>
+                                        })
+                                    }
+                                </Select>
+                            </FormGroup> : null
+                    }
+
                     <FormGroup>
                         <Label htmlFor="name">Agency Name <RequiredIndicator>*</RequiredIndicator></Label>
                         <Input type="text" name="name" placeholder="Agency Name" onChange={handleChange} />

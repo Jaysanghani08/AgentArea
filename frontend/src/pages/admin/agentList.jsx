@@ -30,7 +30,7 @@ const AgentList = () => {
                             agent.email,
                             agent.mobile,
                             "/admin/agentProfile/" + agent._id,
-                            agent._id
+                            // agent._id
                         ]   
                     }
                     )
@@ -65,8 +65,7 @@ const AgentList = () => {
                             { title: "Email" },
                             { title: "Phone" },
                             { title: "Details"},
-                            { title: "Action" },
-                        ]} dataSet={AgentListData} buttonColumns={[{columnIndex : 3, buttonText:"View More"}]} actionColumn={ {columnIndex : 4}  } />
+                        ]} dataSet={AgentListData} buttonColumns={[{columnIndex : 3, buttonText:"View More"}] } />
                 }
             </TextContent>
         </Container>

@@ -106,6 +106,10 @@ export const getPolicies = async () => {
     return getRequest(`admin/policy/getPolicies`);
 }
 
+export const getPolicy = async (id) => {
+    return getRequest(`policy/getPolicy`, { id });
+}
+
 // Customer functions
 export const addCustomer = async (data) => {
     return postRequest("customer/addMember", data);

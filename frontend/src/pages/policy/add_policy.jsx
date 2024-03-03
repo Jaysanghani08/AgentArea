@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from './../../components/general/spinner';
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from '../../components/misc/form.js';
-import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy } from './../../services/Api';
+import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy, getAgents } from './../../services/Api';
 import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
-
-const agents = [
-    {
-        id: '658bed167dd0bb526193617e',
-        name: 'Agent 1'
-    },
-    {
-        id: 2,
-        name: 'Agent 2'
-    },
-    {
-        id: 3,
-        name: 'Agent 3'
-    }
-]
 
 const paymentType = [
     {
@@ -156,6 +141,7 @@ const AddPolicy = () => {
     const [companylist, setCompanyList] = useState(null);
     const [agencies, setAgencies] = useState(null);
     const [products, setProducts] = useState(null);
+    const [agents, setAgents] = useState([]);
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -331,11 +317,20 @@ const AddPolicy = () => {
     useEffect(() => {
         const fetchCompanyList = async () => {
             try {
-                const response = await getCompanies();
-                if (response.status === 200) {
-                    setCompanyList(response.data);
+                const [companyResopnse, agentResponse] = await Promise.all(
+                    [
+                        getCompanies(),
+                        getAgents()
+                    ]
+                );
+                console.log(agentResponse.data)
+                if (companyResopnse.status === 200) {
+                    setCompanyList(companyResopnse.data);
+                    setAgents(agentResponse.data);
+                }else{
+                    alert('Something went wrong. Try after some time.');
                 }
-                console.log(response.data)
+                // console.log(response.data)
             } catch (error) {
                 console.log(error);
             }
@@ -499,7 +494,7 @@ const AddPolicy = () => {
                                         <option value="">Select Agent</option>
                                         {
                                             agents.map((agent) => (
-                                                <option key={agent.id} value={agent.id}>{agent.name}</option>
+                                                <option key={agent._id} value={agent._id}>{agent.name}</option>
                                             ))
                                         }
                                     </Select>

@@ -15,7 +15,7 @@ import Tmp from './pages/tmp.jsx';
 import AddAgency from './pages/agency/add_agency.jsx';
 import AddProduct from './pages/product/add_product.jsx';
 import AddPolicy from './pages/policy/add_policy.jsx';
-import GetPolicy from './pages/policy/getPolicy.jsx';
+import GetPolicy from './pages/policy/policy_list.jsx';
 import Links from './pages/admin/Links.js';
 import { AuthProvider, useAuth } from './context/AuthContext.js';
 import AgentLinks from './pages/agent/AgentLinks.jsx';
@@ -23,6 +23,7 @@ import Cookies from 'js-cookie';
 import AgencyList from './pages/agency/agency_list.jsx';
 import ProductList from './pages/product/product_list.jsx';
 import PolicyList from './pages/policy/policy_list.jsx';
+import PolicyDetail from './pages/policy/policy_detail.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -57,8 +58,8 @@ function App() {
                     <Route path="addproduct" element={<AddProduct />} />
                     <Route path="productlist/:agencyid" element={<ProductList />} />
                     <Route path="addpolicy" element={<AddPolicy />} />
-                    <Route path="poclicylist" element={<PolicyList />} />
-                    <Route path="getpolicy" element={<GetPolicy />} />
+                    <Route path="policylist" element={<PolicyList />} />
+                    <Route path="policy/:id" element={<PolicyDetail />} />
                     <Route path="tmp" element={<Tmp />} />
                 </Route>
                 <Route path='agent' >
