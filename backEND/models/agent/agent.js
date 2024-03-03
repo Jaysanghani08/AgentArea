@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const { Binary } = require("mongodb");
 
 
 const Schema = mongoose.Schema({
@@ -67,6 +68,10 @@ const Schema = mongoose.Schema({
     },
     bankIFSC: {
         type: String
+    },
+    changed:{
+        type: Number,
+        default : 0
     },
     docs: {
         type: [
