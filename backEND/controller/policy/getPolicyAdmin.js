@@ -13,6 +13,7 @@ const getPolicy = async (req,res) => {
                 policy_number: 1,
                 policy_type: 1,
                 business_type: 1,
+                'agent.name': 1,
                 'group.members.mobile': 1,
                 'company.name': 1,
                 'group.members.name': 1,

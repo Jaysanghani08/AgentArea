@@ -114,8 +114,8 @@ export const getPolicies = async () => {
     return getRequest(`admin/policy/getPolicies`);
 }
 
-export const getPolicy = async (id) => {
-    return getRequest(`policy/getPolicy`, { id });
+export const getPolicy = async (policy_number) => {
+    return getRequest(`admin/policy/getFullPolicy`, { policy_number });
 }
 
 // Customer functions

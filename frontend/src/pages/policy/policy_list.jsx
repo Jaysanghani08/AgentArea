@@ -46,7 +46,7 @@ const GetPolicy = () => {
                         policy.agent?.name,
                         policy.company?.products?.product_name,
                         policy.company?.agencies?.name,
-                        "/admin/policy/" + policy._id
+                        "/admin/policy/" + policy.policy_number
                     ];
                 });
 
