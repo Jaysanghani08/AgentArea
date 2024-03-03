@@ -49,10 +49,18 @@ export const getRequest = async (endpoint, params = {}) => {
 
 // Agent functions
 export const AgentSignup = async (data) => {
-    return postRequest("agent/addAgent", data, {
+    return postRequestWithToken("agent/addAgent", data, {
         "Content-Type": "multipart/form-data",
     }, {});
 };
+
+export const sendOTPToCreateAgent = async (data) => {
+    return postRequestWithToken("agent/mailer/sendOTP", data);
+}
+
+export const verifyOTPToCreateAgent = async (data) => {
+    return postRequestWithToken("agent/verifyOTP", data);
+}
 
 export const getAgents = async () => {
     return getRequest("agent/getAgents");
