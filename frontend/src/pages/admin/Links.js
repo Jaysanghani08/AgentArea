@@ -1,14 +1,19 @@
 import React from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import tw from "twin.macro";
 import Cookies from 'js-cookie';
+import { logOut } from '../../services/Api';
 // import styled from "styled-components";
+import {SubmitButton} from './../../components/misc/form';
+import { useAuth } from '../../context/AuthContext';
 
 const Container = tw.div`relative flex flex-col items-center p-12`;
 
 const Links = () => {
     
-    const usr = JSON.parse(Cookies.get('user') || null);;
+    const usr = JSON.parse(Cookies.get('user') || null)
+    const navigate = useNavigate();
+    const {logout} = useAuth()
 
     if(usr?.type !== "admin"){
         Cookies.remove('user');
@@ -28,6 +33,15 @@ const Links = () => {
             <Link to="/admin/addproduct">Add Product</Link>
             {/* <Link to="/admin/addpolicy">Add Policy</Link> */}
             <Link to="/admin/policylist">Get Policy</Link>
+
+            <SubmitButton onClick={async () => {
+                const res = await logout();
+                if(res === true){
+                    Cookies.remove('user');
+                    navigate("/home")
+                }
+            }
+            }>Logout</SubmitButton>
             {/* <Link to="/admin/tmp">Tmp</Link> */}
         </Container>
     )

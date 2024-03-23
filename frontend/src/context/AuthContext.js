@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
         // Perform logout logic here (e.g., clear session, remove user from context and session storage)
         // setUser(null);
         Cookies.remove('user');
+        return true;
     };
 
     return (
