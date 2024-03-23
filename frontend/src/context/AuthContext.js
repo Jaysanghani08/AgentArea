@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
             const expirationDate = new Date();
             expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 60 * 1000));
             Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate});
+            window.location.reload();
         }
 
         return response;

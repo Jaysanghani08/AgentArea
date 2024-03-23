@@ -24,6 +24,7 @@ import AgencyList from './pages/agency/agency_list.jsx';
 import ProductList from './pages/product/product_list.jsx';
 import PolicyList from './pages/policy/policy_list.jsx';
 import PolicyDetail from './pages/policy/policy_detail.jsx';
+import ForgetPassword from './pages/login_signup/ForgetPassword.jsx';
 
 // import Signup from './Signup';
 // import AgentDashboard from './AgentDashboard';
@@ -40,7 +41,7 @@ function App() {
     return (
         <AuthProvider>
             <Routes>
-                <Route path='/' element={<Links />} />
+                <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="addpolicy" element={<AddPolicy />} />
@@ -64,17 +65,20 @@ function App() {
                 </Route>
                 <Route path='agent' >
                     <Route index element={<AgentLinks />} />
-                    <Route path="signup" element={<Signup />} />
+                    <Route path="home" element={<AgentLinks />} />
+                    <Route path="updatePassword/:mobile" element={<ForgetPassword />} />
                     <Route path="login" element={<Login />} />
                     <Route path="addagent" element={<AddAgent />} />
-                    <Route path="agentProfile" element={<AgentProfile />} />
+                    <Route path="agentProfile/:agentid" element={<AgentProfile />} />
                     <Route path="agentlist" element={<AgentList />} />
                     <Route path="addcompany" element={<AddCompany />} />
                     <Route path="companylist" element={<Company_list />} />
                     <Route path="addagency" element={<AddAgency />} />
                     <Route path="addproduct" element={<AddProduct />} />
                     <Route path="addpolicy" element={<AddPolicy />} />
-                    <Route path="getpolicy" element={<GetPolicy />} />
+                    {/* polict list path below */}
+                    <Route path="getpolicy" element={<GetPolicy />} /> 
+                    <Route path="policy/:id" element={<PolicyDetail />} />
                     <Route path="tmp" element={<Tmp />} />
                 </Route>
                 {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />

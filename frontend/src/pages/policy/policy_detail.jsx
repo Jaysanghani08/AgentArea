@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from './../../components/general/spinner';
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from '../../components/misc/form.js';
-import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy, getAgents, getPolicy } from './../../services/Api';
+import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy, getAgents, getPolicy, getAgentPolicy } from './../../services/Api';
 import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const paymentType = [
     {
@@ -207,32 +208,56 @@ const PolicyDetail = () => {
 
     const [policydata, setPolicyData] = useState({});
     const policyId = useLocation().pathname.split("/").pop();
+    const usr = JSON.parse(Cookies.get('user') || null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchCompanyList = async () => {
+        const fetchPolicy = async () => {
             try {
-                const [policyResponse] = await Promise.all(
-                    [
-                        getPolicy(policyId)
-                    ]
-                );
+                if (usr?.type === 'admin') {
+                    const [policyResponse] = await Promise.all(
+                        [
+                            getPolicy(policyId)
+                        ]
+                    );
 
-                console.log(policyResponse?.data[0])
+                    console.log(policyResponse?.data[0])
 
-                if (policyResponse.status === 200) {
-                    setPolicyData(policyResponse?.data[0]);
-                } else {
-                    alert('Something went wrong. Try after some time.');
-                    navigate('/admin/policylist')
+                    if (policyResponse.status === 200) {
+                        setPolicyData(policyResponse?.data[0]);
+                    } else {
+                        alert('Something went wrong. Try after some time.');
+                        navigate('/admin/policylist')
+                    }
+                    // console.log(response.data)
+                } 
+                else if(usr?.type === 'agent') {
+                    console.log('agent')
+                    const [policyResponse] = await Promise.all(
+                        [
+                            getAgentPolicy(policyId)
+                        ]
+                    );
+
+                    console.log(policyResponse?.data[0])
+
+                    if (policyResponse.status === 200) {
+                        setPolicyData(policyResponse?.data[0]);
+                    } else {
+                        alert('Something went wrong. Try after some time.');
+                        navigate('/agent/policylist')
+                    }
                 }
-                // console.log(response.data)
+                else {
+                    alert('You are not authorized to view this page');
+                    navigate('/home');
+                }
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchCompanyList();
+        fetchPolicy();
     }, [])
 
 
@@ -410,7 +435,7 @@ const PolicyDetail = () => {
 
                         {
                             (policydata?.payment_type === 'net_banking' || policydata?.payment_type === 'credit_card' || policydata?.payment_type === 'debit_card') &&
-                            <FormGroup> 
+                            <FormGroup>
                                 <Label>Quick Pay Id <RequiredIndicator>*</RequiredIndicator></Label>
                                 <Input type="text" value={policydata?.quick_pay_id} disabled />
                             </FormGroup>

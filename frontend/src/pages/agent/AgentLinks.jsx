@@ -9,18 +9,24 @@ import Cookies from 'js-cookie';
 const Container = tw.div`relative flex flex-col items-center p-12`;
 
 const AgentLinks = () => {
-    const {user} = useAuth();
-    if(user?.type !== "agent"){
+    
+    const usr = JSON.parse(Cookies.get('user') || null);;
+
+    if(usr?.agentData?.changed === 0){
+        return <Navigate to={"/agent/updatePassword/" + usr?.agentData?.mobile} ></Navigate>
+    }
+
+    if(usr?.type !== "agent"){
         Cookies.remove('user');
         return <Navigate to="/agent/login"></Navigate>
     }
 
     return (
         <Container>
-            <Link to="/admin/agentProfile">Agent Profile</Link>
-            <Link to="/admin/addpolicy">Add Policy</Link>
-            <Link to="/admin/getpolicy">Get Policy</Link>
-            {/* <Link to="/admin/tmp">Tmp</Link> */}
+            <Link to={"/agent/agentProfile/" + usr?.agentData?._id}>Agent Profile</Link>
+            <Link to="/agent/addpolicy">Add Policy</Link>
+            <Link to="/agent/getpolicy">Get Policy</Link>
+            {/* <Link to="/agent/tmp">Tmp</Link> */}
         </Container>
     )
 }

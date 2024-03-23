@@ -180,10 +180,11 @@ const Login = ({
         try {
             const type = window.location.pathname.split("/")[1];
             const res = await login({ id: phone, password }, type);
-            // console.log(res);
+
             const usr = Cookies.get('user');
             if (res.status === 200 && usr != null) {
                 setError("");
+
                 if (usr.type === "admin") {
                     navigate("/admin")
                 }

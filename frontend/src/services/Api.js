@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { commonrequest } from "./common_request";
 import { BACKEND_URL } from "./helper";
 
-const user = JSON.parse(Cookies.get('user') || null);;
+const user = JSON.parse(Cookies.get('user') || null);
 
 export const postRequest = async (endpoint, data, headers = {}, params = {}) => {
 
@@ -53,6 +53,10 @@ export const AgentSignup = async (data) => {
         "Content-Type": "multipart/form-data",
     }, {});
 };
+
+export const updatePassword = async (data) => {
+    return postRequestWithToken("agent/updatePassword", data);
+}
 
 export const sendOTPToCreateAgent = async (data) => {
     return postRequestWithToken("agent/mailer/sendOTP", data);
@@ -114,8 +118,16 @@ export const getPolicies = async () => {
     return getRequest(`admin/policy/getPolicies`);
 }
 
+export const getAgentPolicies = async () => {
+    return getRequest(`agent/policy/getPolicies`);
+}
+
 export const getPolicy = async (policy_number) => {
     return getRequest(`admin/policy/getFullPolicy`, { policy_number });
+}
+
+export const getAgentPolicy = async (policy_number) => {
+    return getRequest(`agent/policy/getFullPolicy`, { policy_number });
 }
 
 // Customer functions
