@@ -26,6 +26,7 @@ const updatePassword = async (req,res) => {
         const newHashed = await bcrypt.hash(newPassword,8);
 
         const update = await agent.updateOne({mobile:mobile},{password:newHashed});
+        const update2 = await agent.updateOne({mobile:mobile},{changed:1});
 
         res.status(200).send();
 

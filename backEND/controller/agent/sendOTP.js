@@ -17,10 +17,12 @@ const sendOTP = async (req,res) => {
 
     const email = req.body.email;
     const name = req.body.name;
+    const mobile = req.body.mobile; 
 
     const match = await agent.findOne({ email: email });
+    const match2 = await agent.findOne({mobile:mobile});
 
-    if (match) {
+    if (match || match2) {
         res.status(222);
     }
     else {
