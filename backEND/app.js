@@ -64,9 +64,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-const blob = require("./test");
+// const blob = require("./test");
 
-app.post("/test/blob",upload.fields([{ name: 'aadharFile', maxCount: 1 }]),blob);
+// app.post("/test/blob",upload.fields([{ name: 'aadharFile', maxCount: 1 }]),blob);
 
 
 
