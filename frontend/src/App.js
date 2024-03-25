@@ -25,14 +25,7 @@ import ProductList from './pages/product/product_list.jsx';
 import PolicyList from './pages/policy/policy_list.jsx';
 import PolicyDetail from './pages/policy/policy_detail.jsx';
 import ForgetPassword from './pages/login_signup/ForgetPassword.jsx';
-
-// import Signup from './Signup';
-// import AgentDashboard from './AgentDashboard';
-// import ClientDashboard from './ClientDashboard';
-// import OtherAgentComponent from './OtherAgentComponent';
-// import OtherClientComponent from './OtherClientComponent';
-
-
+import CustomerLogin from './pages/login_signup/CustomerLogin.jsx';
 
 function App() {
     const user = Cookies.get('user');
@@ -81,10 +74,14 @@ function App() {
                     <Route path="policy/:id" element={<PolicyDetail />} />
                     <Route path="tmp" element={<Tmp />} />
                 </Route>
-                {/* <ClientRoute path="/client/dashboard" component={ClientDashboard} />
-                    <ClientRoute path="/client/other" component={OtherClientComponent} />
-                    <AgentRoute path="/agent/dashboard" component={AgentDashboard} />
-                    <AgentRoute path="/agent/other" component={OtherAgentComponent} /> */}
+
+                <Route path='customer' >
+                    {/* <Route path="signup" element={<Signup />} /> */}
+                    <Route path="login" element={<CustomerLogin />} />
+                    <Route path='policylist' element={<PolicyList />} />
+                </Route>
+
+                <Route path='*' element={<Navigate to="/home" />} />
             </Routes>
         </AuthProvider>
     );
