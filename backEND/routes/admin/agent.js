@@ -24,7 +24,7 @@ router.use(bodyParser.json());
 
 const storage = multer.diskStorage({
     destination: (req,file,callback)=>{
-        callback(null,"./docsTemp");
+        callback(null,"./agentDocs");
     },
     filename:(req,file,callback)=>{
         callback(null, req.body.mobile+file.fieldname);
@@ -36,10 +36,10 @@ const upload = multer({ storage: storage });
 
 
 
-router.post("/agent/addAgent", upload.fields([
+router.post("/agent/addAgent",auth,upload.fields([
     { name: 'aadharFile', maxCount: 1 },
     { name: 'panFile', maxCount: 1 }])
-    ,auth, addAgent);
+    , addAgent);
 
 router.get("/agent/getFullAgent",auth, getFullAgent);
 

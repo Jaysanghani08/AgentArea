@@ -11,10 +11,16 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+const storage = multer.diskStorage({
+    destination: (req,file,callback)=>{
+        callback(null,"./policies");
+    },
+    filename:(req,file,callback)=>{
+        callback(null, req.body.policy_number+file.fieldname);
+    }
+});
 
 
-
-const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 

@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
+const fs = require("fs");
+
 
 
 const policy = require("../../models/policy/policy");
+const docsUpload = require("../../blob/azureBlob");
+
 
 
 const addPolicy = async (req, res) => {
@@ -9,7 +13,7 @@ const addPolicy = async (req, res) => {
     try {
 
         const data = req.body;
-        console.log(data);
+        // console.log(data);
         const agent_id = req.user.id;
 
         // console.log(agent_id);
@@ -53,24 +57,27 @@ const addPolicy = async (req, res) => {
                 tp_premium: data.tp_premium,
                 od_premium: data.od_premium,
                 registration_number: data.registration_number,
-            } : undefined,
-
-            // docs: [{
-                // renewal_notice_copy: {
-                //     originalname: renewal_notice_copy.originalname,
-                //     buffer: renewal_notice_copy.buffer,
-                //     mimetype: renewal_notice_copy.mimetype,
-                // },
-                // policy_copy: {
-                //     originalname: policy_copy.originalname,
-                //     buffer: policy_copy.buffer,
-                //     mimetype: policy_copy.mimetype,
-                // },
-            // }
-        // ],
+            } : undefined
         });
 
+
     const saved = await new_policy.save();
+
+
+    const renewal_notice_copyURL = await docsUpload("./policies/"+req.body.policy_number + "renewal_notice_copy");
+    const policy_copyURL = await docsUpload("./policies/"+req.body.policy_number + "policy_copy");
+
+
+    const URLupdate = await policy.updateOne({ policy_number: req.body.policy_number },
+        {
+            $set: {
+                'docs.renewal_notice_copy': renewal_notice_copyURL,
+                'docs.policy_copy': policy_copyURL,
+            }
+        });
+
+    fs.unlink("../../policies/" + req.body.policy_number + "renewal_notice_copy",(err)=>{console.log(err)});
+    fs.unlink("../../policies/" + req.body.policy_number + "policy_copy",(err)=>{console.log(err)});
 
     res.status(200).send();
 

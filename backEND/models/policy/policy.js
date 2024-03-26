@@ -30,13 +30,13 @@ const motor_insurance_details = mongoose.Schema({
 
 
 const Schema = mongoose.Schema({
-    agent_id:{
-        type:mongoose.ObjectId,
-        ref:'agent'
+    agent_id: {
+        type: mongoose.ObjectId,
+        ref: 'agent'
     },
-    customer_id:{
-        type:mongoose.ObjectId,
-        ref:'customer'
+    customer_id: {
+        type: mongoose.ObjectId,
+        ref: 'customer'
     },
     policy_number: {
         type: String,
@@ -44,26 +44,26 @@ const Schema = mongoose.Schema({
     },
     group_code: {
         type: mongoose.ObjectId,
-        ref:'customer'
+        ref: 'customer'
     },
     policy_type: {
         type: String,
         // enum: ['motor', 'health', 'sme'],
     },
-    policy_sub_type:{
-        type:String
+    policy_sub_type: {
+        type: String
     },
-    company_id:{
-        type:mongoose.ObjectId,
-        ref:'company'
+    company_id: {
+        type: mongoose.ObjectId,
+        ref: 'company'
     },
     product_id: {
         type: mongoose.ObjectId,
-        ref:'company'
+        ref: 'company'
     },
     agency: {
         type: mongoose.ObjectId,
-        ref:'company'
+        ref: 'company'
     },
     business_type: {
         type: String,
@@ -83,11 +83,11 @@ const Schema = mongoose.Schema({
     commissionable_premium: {
         type: Number,
     },
-    pay_id:{
-        typr:String
+    pay_id: {
+        typr: String
     },
     // For details about policytype for diffrent attribute for motor insurance
-    motor_insurance_details: {type:motor_insurance_details},
+    motor_insurance_details: { type: motor_insurance_details },
     gst: {
         type: Number,
     },
@@ -97,36 +97,24 @@ const Schema = mongoose.Schema({
     payment_type: {
         type: String,
     },
-    cheque_details: {type:chequeDetails},
-    premium_deposite_date:{
-        type:Date,
+    cheque_details: { type: chequeDetails },
+    premium_deposite_date: {
+        type: Date,
     },
-    sum_assured:{
-        type:Number,
+    sum_assured: {
+        type: Number,
     },
-    remark:{
-        type:String
+    remark: {
+        type: String
     },
     docs: {
-        type: [
-            {
-                policy_copy: {
-                    originalname: { type: String, required: true },
-                    buffer: { type: Buffer, required: true },
-                    mimetype: { type: String, required: true },
-                },
-                renewal_notice_copy: {
-                    originalname: { type: String, required: true },
-                    buffer: { type: Buffer, required: true },
-                    mimetype: { type: String, required: true },
-                }
-            }
-        ]
+        policy_copy: String,
+        renewal_notice_copy: String
     }
 })
 
 
-const policy = mongoose.model("policy",Schema);
+const policy = mongoose.model("policy", Schema);
 
 
 

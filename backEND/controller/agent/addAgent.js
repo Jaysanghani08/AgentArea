@@ -14,9 +14,6 @@ const addAgent = async (req, res) => {
 
         // console.log(req.files);
 
-        const aadharFile = req.files['aadharFile'][0];
-        const panFile = req.files['panFile'][0];
-
         const agent_data = new agent({
             name: data.name,
             bacode: data.bacode,
@@ -41,8 +38,8 @@ const addAgent = async (req, res) => {
             const save = await agent_data.save();
             // console.log(save);
 
-            const aadharURL = await docsUpload(req.body.mobile + req.files['aadharFile'][0].fieldname);
-            const panURL = await docsUpload(req.body.mobile + req.files['panFile'][0].fieldname);
+            const aadharURL = await docsUpload("./agentDocs"+req.body.mobile + "aadharFile");
+            const panURL = await docsUpload("./agentDocs"+req.body.mobile + "panFile");
 
             // if (panURL == "" || aadharURL == "") {
             //     fs.unlink("./../../docsTemp/" + req.body.mobile + req.files['aadharFile'][0].fieldname);
@@ -59,8 +56,8 @@ const addAgent = async (req, res) => {
                     }
                 });
 
-            fs.unlink("/workspaces/AgentArea/backEND/docsTemp" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
-            fs.unlink("/workspaces/AgentArea/backEND/docsTemp" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+            fs.unlink("../../agentDocs" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
+            fs.unlink("../../agentDocs" + req.body.mobile + "panFile",(err)=>{console.log(err)});
 
 
             res.status(200).send();

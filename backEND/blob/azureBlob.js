@@ -21,7 +21,7 @@ const docsUpload = async (name) => {
 
         const url = blockBlobClient.url;
 
-        const uploadBlobResponse = await blockBlobClient.uploadFile("./docsTemp/"+name);
+        const uploadBlobResponse = await blockBlobClient.uploadFile(name);
 
         // console.log(
         //     `Blob was uploaded successfully. requestId: ${uploadBlobResponse.requestId}`
