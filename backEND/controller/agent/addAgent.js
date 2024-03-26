@@ -59,15 +59,13 @@ const addAgent = async (req, res) => {
                     }
                 });
 
-            fs.unlink("../../docsTemp/" + req.body.mobile + "aadharFile",()=>{});
-            fs.unlink("../../docsTemp/" + req.body.mobile + "panFile",()=>{});
+            fs.unlink("/workspaces/AgentArea/backEND/docsTemp" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
+            fs.unlink("/workspaces/AgentArea/backEND/docsTemp" + req.body.mobile + "panFile",(err)=>{console.log(err)});
 
 
             res.status(200).send();
 
         } catch (error) {
-            fs.unlink("../../docsTemp/" + req.body.mobile + "aadharFile",()=>{});
-            fs.unlink("../../docsTemp/" + req.body.mobile + "panFile",()=>{});
             console.log("This is error from controller/agent/addAgent.js");
             console.log(error);
             const err = error.keyPattern;
