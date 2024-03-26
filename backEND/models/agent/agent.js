@@ -73,21 +73,9 @@ const Schema = mongoose.Schema({
         type: Number,
         default : 0
     },
-    docs: {
-        type: [
-            {
-                aadhar: {
-                    originalname: { type: String, required: true },
-                    buffer: { type: Buffer, required: true },
-                    mimetype: { type: String, required: true },
-                },
-                pan: {
-                    originalname: { type: String, required: true },
-                    buffer: { type: Buffer, required: true },
-                    mimetype: { type: String, required: true },
-                }
-            }
-        ]
+    docs:{
+        aadhar: String,
+        pan: String
     }
 })
 

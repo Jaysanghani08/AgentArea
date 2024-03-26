@@ -49,23 +49,6 @@ app.get("/test/encrypt",async (req,res)=>{
 
 
 
-const multer = require('multer');
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const storage = multer.diskStorage({
-    destination: (req,file,callback)=>{
-        callback(null,"./docsTemp");
-    },
-    filename:(req,file,callback)=>{
-        callback(null, "resume");
-    }
-});
-const upload = multer({ storage: storage });
-
-// const blob = require("./test");
-
 // app.post("/test/blob",upload.fields([{ name: 'aadharFile', maxCount: 1 }]),blob);
 
 

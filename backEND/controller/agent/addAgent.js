@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 const agent = require("../../models/agent/agent");
+const docsUpload = require("../../blob/azureBlob");
 
 
 
@@ -10,14 +12,10 @@ const addAgent = async (req, res) => {
 
         const data = req.body;
 
-        // const aadharFile = req.files['aadharFile'][0];
-        // const panFile = req.files['panFile'][0];
+        // console.log(req.files);
 
-        // console.log(data);
-        // console.log('*****************')
-        // console.log(aadharFile);
-        // console.log('*****************')
-        // console.log(panFile);
+        const aadharFile = req.files['aadharFile'][0];
+        const panFile = req.files['panFile'][0];
 
         const agent_data = new agent({
             name: data.name,
@@ -35,30 +33,41 @@ const addAgent = async (req, res) => {
             bankAccType: data.bankAccType,
             micr: data.micr,
             accNumber: data.accNumber,
-            bankIFSC: data.bankIFSC,
-            // docs: [{
-            //     aadhar: {
-            //         originalname: aadharFile.originalname,
-            //         buffer: aadharFile.buffer,
-            //         mimetype: aadharFile.mimetype,
-            //     },
-            //     pan: {
-            //         originalname: panFile.originalname,
-            //         buffer: panFile.buffer,
-            //         mimetype: panFile.mimetype,
-            //     },
-            // }
-            // ]
+            bankIFSC: data.bankIFSC
         });
 
         try {
 
             const save = await agent_data.save();
-            console.log(save);
+            // console.log(save);
+
+            const aadharURL = await docsUpload(req.body.mobile + req.files['aadharFile'][0].fieldname);
+            const panURL = await docsUpload(req.body.mobile + req.files['panFile'][0].fieldname);
+
+            // if (panURL == "" || aadharURL == "") {
+            //     fs.unlink("./../../docsTemp/" + req.body.mobile + req.files['aadharFile'][0].fieldname);
+            //     fs.unlink("./../docsTemp/" + req.body.mobile + req.files['panFile'][0].fieldname);
+            //     console.log("This is error from docsUpload Part in controller/agent/addAgent.js");
+            //     res.status(303).send();
+            // }
+
+            const URLupdate = await agent.updateOne({ mobile: req.body.mobile },
+                {
+                    $set: {
+                        'docs.aadhar': aadharURL,
+                        'docs.pan': panURL,
+                    }
+                });
+
+            fs.unlink("../../docsTemp/" + req.body.mobile + "aadharFile",()=>{});
+            fs.unlink("../../docsTemp/" + req.body.mobile + "panFile",()=>{});
+
+
             res.status(200).send();
 
         } catch (error) {
-
+            fs.unlink("../../docsTemp/" + req.body.mobile + "aadharFile",()=>{});
+            fs.unlink("../../docsTemp/" + req.body.mobile + "panFile",()=>{});
             console.log("This is error from controller/agent/addAgent.js");
             console.log(error);
             const err = error.keyPattern;
