@@ -24,10 +24,11 @@ router.use(bodyParser.json());
 
 const storage = multer.diskStorage({
     destination: (req,file,callback)=>{
+        console.log(file);
         callback(null,"./agentDocs");
     },
     filename:(req,file,callback)=>{
-        callback(null, req.body.mobile+file.fieldname.pdf);
+        callback(null, req.body.mobile+file.fieldname+"pdf");
     }
 });
 
