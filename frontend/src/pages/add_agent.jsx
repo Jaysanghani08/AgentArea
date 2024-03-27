@@ -75,7 +75,6 @@ const AddAgent = () => {
         return true;
     }
     
-
     const [aadharFile, setAadharFile] = useState(null);
     const [panFile, setPanFile] = useState(null);
 
@@ -268,6 +267,7 @@ const AddAgent = () => {
                         <Label htmlFor="bankAccType">Account Type <RequiredIndicator>*</RequiredIndicator></Label>
                         {/* < type="text" name="bankAccType" placeholder="Account Type" onChange={handleChange} /> */}
                         <HalfSelect name="bankAccType" onChange={handleChange}>
+                            <option value="">Select Account Type</option>
                             <option value="savings">Savings</option>
                             <option value="current">Current</option>
                         </HalfSelect>
