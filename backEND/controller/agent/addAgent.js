@@ -35,29 +35,33 @@ const addAgent = async (req, res) => {
 
         try {
 
-            const save = await agent_data.save();
             // console.log(save);
+            
+            const aadharURL = await docsUpload("./agentDocs/"+req.body.mobile + "aadharFile.pdf");
+            const panURL = await docsUpload("./agentDocs/"+req.body.mobile + "panFile.pdf");
+            
+            if (panURL == "" || aadharURL == "") {
+                // fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile.pdf",(error)=>{console.log(error)});
+                // fs.unlink("./agentDocs/" + req.body.mobile + "panFile.pdf",(err)=>{console.log(err)});
+                console.log("This is error from docsUpload Part in controller/agent/addAgent.js");
+                res.status(303).send();
+            }
 
-            const aadharURL = await docsUpload("./agentDocs/"+req.body.mobile + "aadharFile");
-            const panURL = await docsUpload("./agentDocs/"+req.body.mobile + "panFile");
+            agent_data.docs.aadhar = aadharURL;
+            agent_data.docs.pan = panURL;
 
-            // if (panURL == "" || aadharURL == "") {
-            //     fs.unlink("./../../docsTemp/" + req.body.mobile + req.files['aadharFile'][0].fieldname);
-            //     fs.unlink("./../docsTemp/" + req.body.mobile + req.files['panFile'][0].fieldname);
-            //     console.log("This is error from docsUpload Part in controller/agent/addAgent.js");
-            //     res.status(303).send();
-            // }
+            const save = await agent_data.save();
+            
+            // const URLupdate = await agent.updateOne({ mobile: req.body.mobile },
+            //     {
+            //         $set: {
+            //             'docs.aadhar': aadharURL,
+            //             'docs.pan': panURL,
+            //         }
+            //     });
 
-            const URLupdate = await agent.updateOne({ mobile: req.body.mobile },
-                {
-                    $set: {
-                        'docs.aadhar': aadharURL,
-                        'docs.pan': panURL,
-                    }
-                });
-
-            await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
-            await fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+            // await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile.pdf",(err)=>{console.log(err)});
+            // await fs.unlink("./agentDocs/" + req.body.mobile + "panFile.pdf",(err)=>{console.log(err)});
 
 
             res.status(200).send();

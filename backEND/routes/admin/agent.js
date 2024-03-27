@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
         callback(null,"./agentDocs");
     },
     filename:(req,file,callback)=>{
-        callback(null, req.body.mobile+file.fieldname+"pdf");
+        callback(null, req.body.mobile+file.fieldname+".pdf");
     }
 });
 
