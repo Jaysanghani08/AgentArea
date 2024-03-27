@@ -27,6 +27,7 @@ const docsUpload = async (name) => {
         //     `Blob was uploaded successfully. requestId: ${uploadBlobResponse.requestId}`
         // );
 
+        console.log(url);
         
         return url;
 

@@ -76,8 +76,8 @@ const addPolicy = async (req, res) => {
             }
         });
 
-    fs.unlink("../../policies/" + req.body.policy_number + "renewal_notice_copy",(err)=>{console.log(err)});
-    fs.unlink("../../policies/" + req.body.policy_number + "policy_copy",(err)=>{console.log(err)});
+    await fs.unlink("./policies/" + req.body.policy_number + "renewal_notice_copy",(err)=>{console.log(err)});
+    await fs.unlink("./policies/" + req.body.policy_number + "policy_copy",(err)=>{console.log(err)});
 
     res.status(200).send();
 

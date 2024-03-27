@@ -38,8 +38,8 @@ const addAgent = async (req, res) => {
             const save = await agent_data.save();
             // console.log(save);
 
-            const aadharURL = await docsUpload("./agentDocs"+req.body.mobile + "aadharFile");
-            const panURL = await docsUpload("./agentDocs"+req.body.mobile + "panFile");
+            const aadharURL = await docsUpload("./agentDocs/"+req.body.mobile + "aadharFile");
+            const panURL = await docsUpload("./agentDocs/"+req.body.mobile + "panFile");
 
             // if (panURL == "" || aadharURL == "") {
             //     fs.unlink("./../../docsTemp/" + req.body.mobile + req.files['aadharFile'][0].fieldname);
@@ -56,8 +56,8 @@ const addAgent = async (req, res) => {
                     }
                 });
 
-            fs.unlink("../../agentDocs" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
-            fs.unlink("../../agentDocs" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+            await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
+            await fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
 
 
             res.status(200).send();
