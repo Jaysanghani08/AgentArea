@@ -39,7 +39,7 @@ const upload = multer({ storage: storage });
 router.post("/agent/addAgent",auth,upload.fields([
     { name: 'aadharFile', maxCount: 1 },
     { name: 'panFile', maxCount: 1 }])
-    , addAgent);
+    ,addAgent);
 
 router.get("/agent/getFullAgent",auth, getFullAgent);
 
