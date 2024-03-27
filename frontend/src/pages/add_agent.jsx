@@ -29,6 +29,53 @@ const AddAgent = () => {
         bankIFSC: '',
     });
 
+    // add data validation
+
+    const validateData = () => {
+        if (formData.name === '' || formData.mobile === '' || formData.email === '' || formData.username === '' || formData.password === '' || formData.address === '' || formData.city === '' || formData.state === '' || formData.pin === '' || formData.panNumber === '' || formData.bank === '' || formData.bankAccType === '' || formData.micr === '' || formData.accNumber === '' || formData.bankIFSC === '') {
+            alert('Please fill all the fields');
+            return false;
+        }
+
+        if (aadharFile === null || panFile === null) {
+            alert('Please upload all the documents');
+            return false;
+        }
+        
+        // validation for individual fields
+        if (formData.mobile.length !== 10) {
+            alert('Mobile number should be of 10 digits');
+            return false;
+        }
+        if(formData.email.indexOf('@') === -1 || formData.email.indexOf('.') === -1) {
+            alert('Invalid email');
+            return false;
+        }
+        if (formData.pin.length !== 6) {
+            alert('PIN code should be of 6 digits');
+            return false;
+        }
+        if (formData.bankIFSC.length !== 11) {
+            alert('IFSC code should be of 11 digits');
+            return false;
+        }
+        if (formData.micr.length !== 9) {
+            alert('MICR code should be of 9 digits');
+            return false;
+        }
+        if (panFile.size > 5000000) {
+            alert('PAN file size should be less than 5MB');
+            return false;
+        }
+        if (aadharFile.size > 5000000) {
+            alert('Aadhar file size should be less than 5MB');
+            return false;
+        }
+
+        return true;
+    }
+    
+
     const [aadharFile, setAadharFile] = useState(null);
     const [panFile, setPanFile] = useState(null);
 
@@ -47,6 +94,9 @@ const AddAgent = () => {
 
     const handleSendOTP = async (e) => {
         e.preventDefault();
+        if(!validateData()) {
+            return;
+        }
         setIsOtpSent(false);
         const data = {
             email: formData.email,
@@ -85,7 +135,6 @@ const AddAgent = () => {
                 alert('OTP verified successfully');
                 await handleSubmit();
                 setIsOtpVerified(true);
-
             }
             else {
                 alert('Error verifying OTP');
@@ -99,12 +148,14 @@ const AddAgent = () => {
         }
     }
 
-
-
-
     const handleSubmit = async (e) => {
         // e.preventDefault();
         setIsLoading(true);
+
+        if (!validateData()) {
+            setIsLoading(false);
+            return;
+        }
 
         const data = new FormData();
         data.append('name', formData.name);
