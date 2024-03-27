@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { getFullAgent } from './../services/Api'
+import { getFullAgent, isLogged } from './../services/Api'
 import Spinner from './../components/general/spinner'
 import { SectionHeading, Subheading as SubheadingBase } from "./../components/misc/Headings.js";
 import tw from "twin.macro";
@@ -37,7 +37,7 @@ const AgentProfile = () => {
                 setIsLoading(false);
             }
         }
-        loadData();
+        isLogged('admin') || isLogged('agent') ? loadData() : setIsLoading(false);
     }, [])
 
     return (

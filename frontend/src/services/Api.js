@@ -29,10 +29,26 @@ export const postRequestWithToken = async (endpoint, data, headers = {}, params 
     }
 }
 
+export const isLogged = async (usrType) => {
+    if(!user) {
+        // alert('Please login to access this page');
+        window.location.href = `/home`;
+        return true;
+    }
+
+    if(user.type !== usrType) {
+        Cookies.remove('user');
+        return false;
+    }
+
+    return true;
+}
+
 export const getRequest = async (endpoint, params = {}) => {
     const token = user?.token;
     if (!token) {
-        alert('No token found');
+        alert('Please login to access this page');
+        window.location.href = `/home`;
         // throw new Error('No token found');
     }
     const headers = {};

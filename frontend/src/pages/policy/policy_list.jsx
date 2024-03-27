@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { getAgentPolicies, getPolicies } from '../../services/Api.js'
+import { getAgentPolicies, getPolicies, isLogged } from '../../services/Api.js'
 import Spinner from '../../components/general/spinner.jsx';
 import CustomTable from '../../components/general/table/table.jsx';
 import { SectionHeading, Subheading as SubheadingBase } from "../../components/misc/Headings.js";
@@ -99,8 +99,7 @@ const GetPolicy = () => {
                 setIsLoading(false);
             }
         }
-            loadPolicy()
-        
+        isLogged('admin') || isLogged("agent") ? loadPolicy() : setIsLoading(false);
     }, [])
 
     return (

@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import { addCompany } from '../../services/Api';
+import { addCompany, isLogged } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../../components/misc/form';
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
+
+    if(!isLogged('admin')){
+        alert('You are not logged in. Please login to continue')
+    }
 
     const [formData, setFormData] = useState({
         name: '',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addAgency } from '../../services/Api';
+import { addAgency, isLogged } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
 import { Container, TextContent, Subheading, Heading, Form, FormGroup, Select, Label, RequiredIndicator, Input, SubmitButton } from './../../components/misc/form';
 import { getCompanies } from '../../services/Api';
@@ -22,7 +22,7 @@ const AddAgency = () => {
             setIsLoading(false);
         }
 
-        loadCompany();
+        isLogged("admin") ? loadCompany() : isLoading(false);
     }, []);
 
     const [formData, setFormData] = useState({

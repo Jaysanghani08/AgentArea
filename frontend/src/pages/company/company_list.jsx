@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from '../../components/general/spinner';
 import CustomTable from '../../components/general/table/table';
-import { getCompanies } from '../../services/Api';
+import { getCompanies, isLogged } from '../../services/Api';
 import tw from "twin.macro";
 import { SectionHeading, Subheading as SubheadingBase } from "../../components/misc/Headings.js";
 
@@ -45,8 +45,7 @@ const Company_list = () => {
             setIsLoading(false);
         }
 
-        loadData();
-
+        isLogged('admin') ? loadData() : setIsLoading(false);
     }, []);
 
     useEffect(() => {

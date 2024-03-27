@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addProduct } from '../../services/Api';
+import { addProduct, isLogged } from '../../services/Api';
 import Spinner from '../../components/general/spinner';
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../../components/misc/form';
 
@@ -13,6 +13,10 @@ const AddProduct = () => {
         product_type: '',
         agency_id: ''
     });
+
+    if(!isLogged('admin')){
+        alert('You are not logged in. Please login to continue')
+    }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

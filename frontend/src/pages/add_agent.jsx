@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, FormGroup, Label, RequiredIndicator, Input, Select, HalfInput, HalfSelect, ErrorMsg, Gap, Textarea, SubmitButton } from './../components/misc/form';
 import Spinner from './../components/general/spinner';
-import { AgentSignup, sendOTPToCreateAgent } from './../services/Api';
+import { AgentSignup, isLogged, sendOTPToCreateAgent } from './../services/Api';
 import { useNavigate } from 'react-router-dom';
 
 const AddAgent = () => {
@@ -30,6 +30,9 @@ const AddAgent = () => {
     });
 
     // add data validation
+    if(!isLogged('admin')) {
+        // alert('Please login to access this page');
+    }
 
     const validateData = () => {
         if (formData.name === '' || formData.mobile === '' || formData.email === '' || formData.username === '' || formData.password === '' || formData.address === '' || formData.city === '' || formData.state === '' || formData.pin === '' || formData.panNumber === '' || formData.bank === '' || formData.bankAccType === '' || formData.micr === '' || formData.accNumber === '' || formData.bankIFSC === '') {
