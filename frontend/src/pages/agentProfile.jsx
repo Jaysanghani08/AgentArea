@@ -8,31 +8,7 @@ import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, Form
 import { useLocation } from 'react-router-dom';
 
 
-
-// const dummyFormData = {
-//     name: 'John Doe',
-//     mobile: '9876543210',
-//     email: 'john.doe@example.com',
-//     username: 'johndoe123',
-//     password: 'password123',
-//     address: '123 Main Street',
-//     city: 'Anytown',
-//     state: 'State',
-//     pin: '12345',
-//     pan: 'ABCDE1234F',
-//     bank: 'XYZ Bank',
-//     bankAccType: 'Savings',
-//     micr: '123456789',
-//     accNumber: '9876543210',
-//     bankIFSC: 'XYZ1234567',
-//     docs: [
-//         {
-//             aadhar: '1234 5678 9012',
-//             pan: 'ABCDE1234F',
-//         }
-//     ]
-// };
-
+const Link = tw.a`text-primary-500 underline cursor-pointer`
 const Input = tw(customInput)`w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#000000] outline-none focus:border-[#6A64F1] focus:shadow-md col-span-4`
 
 const AgentProfile = () => {
@@ -129,11 +105,6 @@ const AgentProfile = () => {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="bankAccType">Account Type</Label>
-                        <Input type="text" name="bankAccType" value={agentListData.bankAccType} placeholder="Account Type" disabled/>
-                    </FormGroup>
-
-                    <FormGroup>
                         <Label htmlFor="micr">MICR</Label>
                         <Input type="text" name="micr" value={agentListData.micr} placeholder="MICR" disabled/>
                     </FormGroup>
@@ -160,7 +131,17 @@ const AgentProfile = () => {
                     /> */}
 
                     {/* <SubmitButton>{isLoading ? <Spinner height={20} color='#000000' /> : 'Update Profile'}</SubmitButton> */}
-                    
+
+                    <Subheading>Documents</Subheading>
+                    <FormGroup>
+                        <Label htmlFor="aadhar">Aadhar</Label>
+                        <Link to={agentListData?.docs?.aadhar} target="_blank">View Aadhar</Link>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="pan">pan</Label>
+                        <Link to={agentListData?.docs?.pan} target="_blank">View Aadhar</Link>
+                    </FormGroup>
+
                 </Form>
                 
             </TextContent>
