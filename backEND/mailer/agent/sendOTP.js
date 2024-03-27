@@ -22,7 +22,7 @@ const otp = async (email,otp,name) => {
         from: 'Insure Area',
         to: email,
         subject: 'Signup code',
-        template: 'sendOTP',
+        template: 'signupOTP',
         context:{
             data:data
         }
@@ -30,7 +30,7 @@ const otp = async (email,otp,name) => {
 
     const s = await mailTransporter.sendMail(mailDetails, function (err, data) {
         if (err) {
-            console.log('This is error from mailer/sendOTP.js');
+            console.log('This is error from /mailer/sendOTP.js');
             console.log(err);
             return 0;
         } else {
