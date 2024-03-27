@@ -15,12 +15,6 @@ const getFullAgent = async (req, res) => {
                 {
                     _id:new ObjectId(id),
                 },
-            },
-            {
-                $project:
-                {
-                    docs: 0,
-                },
             }
         ]
 
