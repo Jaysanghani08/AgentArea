@@ -307,7 +307,9 @@ const AddPolicy = () => {
             setAgencies(company?.agencies);
             setProducts(company?.products);
         }
-
+        if(e.target.name === 'gst' && formData.basic_premium){
+            setFormData({...formData, total_premium_amount: (parseInt(formData.basic_premium) + parseInt(formData.basic_premium) * parseInt(e.target.value)/100).toString()})
+        }
     }
 
     // console.log(products)
@@ -416,6 +418,7 @@ const AddPolicy = () => {
         const errors = {};
         console.log("CHUTIYO\n")
         console.log(errors);
+
         // if (errors) {
         //     setIsLoading(false);
         //     // errors is an object with key as field name and value as error message
@@ -693,11 +696,11 @@ const AddPolicy = () => {
                         {/* gst */}
                         {/* total premium amount */}
                         <FormGroup>
-                            <Label htmlFor="gst">GST <RequiredIndicator>*</RequiredIndicator> </Label>
+                            <Label htmlFor="gst">GST (%) <RequiredIndicator>*</RequiredIndicator> </Label>
                             <HalfInput type="text" name="gst" placeholder="GST" onChange={handleChange} />
                             <Gap />
                             <Label htmlFor="total_premium_amount">Total Premium Amount <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="text" name="total_premium_amount" placeholder="Total Premium Amount" onChange={handleChange} />
+                            <HalfInput type="text" name="total_premium_amount" placeholder="Total Premium Amount" value={formData.total_premium_amount} disabled/>
                         </FormGroup>
 
                         <HoriZontalLine />

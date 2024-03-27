@@ -118,10 +118,10 @@ const AgentProfile = () => {
                         <Input type="text" name="pin" value={agentListData.pin} placeholder="PIN" disabled/>
                     </FormGroup>
 
-                    <FormGroup>
+                    {/* <FormGroup>
                         <Label htmlFor="pan">PAN</Label>
                         <Input type="text" name="pan" value={agentListData.pan} placeholder="PAN" disabled/>
-                    </FormGroup>
+                    </FormGroup> */}
 
                     <FormGroup>
                         <Label htmlFor="bank">Bank</Label>
