@@ -7,10 +7,10 @@ import { logOut } from '../../services/Api';
 import { SubmitButton, Subheading, Container, TextContent, Heading } from './../../components/misc/form';
 import { useAuth } from '../../context/AuthContext';
 
-const CustomContainer = tw.div`relative flex flex-col flex-wrap items-center justify-start p-12 bg-white min-h-full`;
-const FlexContainer = tw(Container)`relative flex justify-center flex-wrap items-start p-12 bg-white min-h-full`;
+const CustomContainer = tw.div`relative flex flex-col flex-wrap items-center justify-start md:mx-12 bg-white min-h-full`;
+const FlexContainer = tw(Container)`relative flex justify-center flex-wrap items-start p-8 bg-white min-h-full`;
 const FlexContainer2 = tw.div`relative flex items-center justify-between flex-wrap p-12 bg-white max-h-[200px]`;
-const CustomLink = tw(Link)`text-gray-800 text-lg font-semibold mt-2 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500`;
+const CustomLink = tw(Link)` text-gray-800 text-lg font-semibold mt-2 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500`;
 const CustomSubheading = tw(Subheading)`mt-4 text-xl font-semibold mb-0 border-b-2 border-gray-500 pb-1`;
 const CustomHeading = tw(Heading)`mt-2 font-black text-center text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
 
