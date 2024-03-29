@@ -21,8 +21,7 @@ const tempOTP = async (subject,obj,email,template) => {
             } catch (error) {
                 console.log("This is error from ./controllers/agents/sendOTP.js");
                 console.log(error);
-                res.status(500);
-                return;
+                return 0;
             }
         }
 
@@ -62,6 +61,7 @@ const tempOTP = async (subject,obj,email,template) => {
     } catch (error) {
         console.log("This is error from mailer/agent/tempOTP.js");
         console.log(error);
+        return 0;
     }
 
 }
