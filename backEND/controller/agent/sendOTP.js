@@ -5,11 +5,14 @@ const otp = require("../../models/OTP/otp");
 const agent = require("../../models/agent/agent");
 const mail = require("../../mailer/agent/sendOTP");
 
+const mailerOTP = require("./../../mailer/OTP/mailerOTP");
+
 
 // res codes
 // 222 - user already exist
 // 500,400,300 - server error,
 // 200 - done
+
 
 
 
@@ -19,7 +22,7 @@ const sendOTP = async (req,res) => {
     const name = req.body.name;
     const mobile = req.body.mobile; 
 
-    const match = await agent.findOne({ email: email });
+    const match = await agent.findOne({email: email});
     const match2 = await agent.findOne({mobile:mobile});
 
     if (match || match2) {
@@ -38,24 +41,26 @@ const sendOTP = async (req,res) => {
             }
         }
 
-        const otp_number = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
-        const mailer = mail(email,otp_number,name);
-        if(mailer == 0){
-            res.status(300).send();
-            return;
-        }
-        const data = new otp({
-            email: email,
-            otp: otp_number
-        })
-        try {
-            const saved = await data.save();
-            res.status(200).send();
-        } catch (error) {
-            console.log("This is error from ./controller/agents/sendOTP.js -> mailer part");
-            console.log(error);
-            res.status(400).send();
-        }
+
+
+        const mailer = mailerOTP();
+        // const otp_number = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+        // if(mailer == 0){
+        //     res.status(300).send();
+        //     return;
+        // }
+        // const data = new otp({
+        //     email: email,
+        //     otp: otp_number
+        // })
+        // try {
+        //     const saved = await data.save();
+        //     res.status(200).send();
+        // } catch (error) {
+        //     console.log("This is error from ./controller/agents/sendOTP.js -> mailer part");
+        //     console.log(error);
+        //     res.status(400).send();
+        // }
 
     }
 }

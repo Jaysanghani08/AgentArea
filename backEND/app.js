@@ -47,16 +47,15 @@ app.get("/test/encrypt",async (req,res)=>{
     res.status(200).send();
 })
 
+const tempMail = require("./mailer/OTP/mailerOTP");
 
-
-// app.post("/test/blob",upload.fields([{ name: 'aadharFile', maxCount: 1 }]),blob);
-
-
-
-
-
-// Testing for blob
-
+app.get("/test",async (req,res)=>{
+    const obj = {
+        name:"Shubham"
+    }
+    await tempMail("Sign UP CODE",obj,"shubhampatel12233@gmail.com","signupOTP");
+    res.status(200).send();
+})
 
 
 

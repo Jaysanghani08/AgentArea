@@ -7,24 +7,26 @@ const mailTransporter = require("../utils/setup");
 
 
 
-const otp = async (email,otp,name) => {
+const otp = async (obj,subject,email,template) => {
 
     const date = new Date();
     const istDateTime = date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
-    let data = {
-        otp:otp,
-        date:istDateTime,
-        name:name
-    }
+    // let data = {
+    //     otp:otp,
+    //     date:istDateTime,
+    //     name:name
+    // }
+
+    obj.date = istDateTime;
 
     let mailDetails = {
         from: 'Insure Area',
         to: email,
-        subject: 'Signup code',
-        template: 'signupOTP',
+        subject: subject,
+        template: template,
         context:{
-            data:data
+            data:obj
         }
     };
 
