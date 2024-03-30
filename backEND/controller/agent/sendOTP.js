@@ -22,12 +22,20 @@ const sendOTP = async (req,res) => {
     const email = req.body.email;
     const name = req.body.name;
     const mobile = req.body.mobile; 
+    const username = req.body.username; 
 
     const match = await agent.findOne({email: email});
     const match2 = await agent.findOne({mobile:mobile});
+    const match3 = await agent.findOne({username:username});
 
-    if (match || match2) {
-        res.status(222);
+    if (match) {
+        res.status(201).send();
+    }
+    else if(match2){
+        res.status(202).send();
+    }
+    else if(match3){
+        res.status(203).send();
     }
     else {
         const match = await otp.findOne({ email: email });
@@ -48,7 +56,7 @@ const sendOTP = async (req,res) => {
 
         console.log("JJJ");
 
-        const mailer = mailerOTP("Sign up OTP",obj,email,"signupOTP");
+        const mailer = await mailerOTP("Sign up OTP",obj,email,"signupOTP");
 
         if(mailer==1){
             res.status(200).send();
@@ -56,25 +64,6 @@ const sendOTP = async (req,res) => {
         else{
             res.status(300).send();
         }
-
-
-        // const otp_number = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
-        // if(mailer == 0){
-        //     res.status(300).send();
-        //     return;
-        // }
-        // const data = new otp({
-        //     email: email,
-        //     otp: otp_number
-        // })
-        // try {
-        //     const saved = await data.save();
-        //     res.status(200).send();
-        // } catch (error) {
-        //     console.log("This is error from ./controller/agents/sendOTP.js -> mailer part");
-        //     console.log(error);
-        //     res.status(400).send();
-        // }
 
     }
 }
