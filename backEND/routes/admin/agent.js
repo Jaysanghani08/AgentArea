@@ -16,6 +16,8 @@ const getFullAgent = require("../../controller/agent/getFullAgnet");
 const sendOTP = require('../../controller/agent/signupSendOTP');
 const verifyOTP = require('../../controller/agent/verifyOTP');
 const deleteAgent = require('../../controller/agent/deleteAgent');
+const forgotPassword = require('../../controller/agent/forgotPasswordOTP');
+
 
 
 
@@ -49,6 +51,8 @@ router.post("/agent/mailer/sendOTP",auth,sendOTP);
 router.post("/agent/verifyOTP",auth,verifyOTP);
 
 router.get("/agent/deleteAgent",auth,deleteAgent)
+
+router.post("/agent/forgotPassword",forgotPassword);
 
 
 

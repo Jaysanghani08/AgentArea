@@ -4,6 +4,7 @@ const mailer = require("../../mailer/OTP/mailerOTP");
 
 // 404 user not found
 // 203 email and mobile does not belong to same user....
+// 500 internal server error
 
 
 
@@ -14,7 +15,9 @@ const forgotPassword = async (req,res) => {
         const mobile = req.body.mobile;
         const email = req.body.email;
 
-        const dbMobile = await agent.findOne({email:email}).mobile;
+        const db = await agent.findOne({email:email});
+        const dbMobile = db.mobile;
+        const name = db.name;
 
         if(!dbMobile){
             res.status(404).send();
@@ -22,7 +25,18 @@ const forgotPassword = async (req,res) => {
         else{
             if(dbMobile == mobile){
                 // sendOTP
-                const mailer = await mailer()
+                const obj = {
+                    name : name
+                }
+                const mail = await mailer("Forgot Password",obj,email,"forgotPassword");
+
+                if(mail==1){
+                    res.status(200).send();
+                }
+                else{
+                    res.status(500).send();
+                }
+
             }
             else{
                 res.status(203).send();
@@ -37,3 +51,6 @@ const forgotPassword = async (req,res) => {
     }
 
 }
+
+
+module.exports = forgotPassword;
