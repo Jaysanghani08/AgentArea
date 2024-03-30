@@ -20,7 +20,7 @@ export const postRequestWithToken = async (endpoint, data, headers = {}, params 
         throw new Error('No token found');
     }
     headers['Authorization '] = token;
-    headers['Content-Type'] = 'application/json';
+    // headers['Content-Type'] = 'application/json';
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/${endpoint}`, data, headers, params);
         return response;
@@ -148,5 +148,5 @@ export const getAgentPolicy = async (policy_number) => {
 
 // Customer functions
 export const addCustomer = async (data) => {
-    return postRequest("customer/addMember", data);
+    return postRequestWithToken("customer/addMember", data);
 };

@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 200) {
             const expirationDate = new Date();
             expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 60 * 1000));
-            Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate});
+            Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate });
             window.location.reload();
         }
 
@@ -36,7 +36,9 @@ export const AuthProvider = ({ children }) => {
 
     const signup = (userData) => {
         // setUser(userData);
-        Cookies.set('user', userData, { expires: 0 });
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + (60 * 60 * 1000));
+        Cookies.set('user', userData, { expires: expiryDate });
     };
 
     const logout = () => {

@@ -119,29 +119,15 @@ const AgentProfile = () => {
                         <Input type="text" name="bankIFSC" value={agentListData.bankIFSC} placeholder="Bank IFSC" disabled/>
                     </FormGroup>
 
-                    {/* <Subheading>Documents</Subheading> */}
-                    {/* <CustomTable
-                        data={[
-                            {
-                                aadhar: dummyFormData.docs[0].aadhar,
-                                pan: dummyFormData.docs[0].pan
-                            }
-                        ]}
-                        headings={['Aadhar', 'PAN']}
-                    /> */}
-
-                    {/* <SubmitButton>{isLoading ? <Spinner height={20} color='#000000' /> : 'Update Profile'}</SubmitButton> */}
-
                     <Subheading>Documents</Subheading>
                     <FormGroup>
                         <Label htmlFor="aadhar">Aadhar</Label>
-                        <Link to={agentListData?.docs?.aadhar} target="_blank">View Aadhar</Link>
+                        <Link href={agentListData?.docs?.aadhar} target="_blank" rel="noopener noreferrer">View Aadhar</Link>
                     </FormGroup>
                     <FormGroup>
                         <Label htmlFor="pan">pan</Label>
-                        <Link to={agentListData?.docs?.pan} target="_blank">View Aadhar</Link>
+                        <Link href={agentListData?.docs?.pan} target="_blank" rel="noopener noreferrer">View PAN</Link>
                     </FormGroup>
-
                 </Form>
                 
             </TextContent>

@@ -12,6 +12,8 @@ const addAgent = async (req, res) => {
 
         const data = req.body;
 
+        console.log(data);
+        console.log(req.files);
         // console.log(req.files);
 
         const agent_data = new agent({

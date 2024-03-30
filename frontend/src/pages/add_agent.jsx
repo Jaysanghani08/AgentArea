@@ -87,7 +87,7 @@ const AddAgent = () => {
 
     const handleAadharFileChange = (event) => {
         setAadharFile(event.target.files[0]);
-        console.log(event.target.files[0]);
+        // console.log(event.target.files[0]);
     };
 
     const handlePanFileChange = (event) => {
@@ -98,27 +98,43 @@ const AddAgent = () => {
         e.preventDefault();
         if(!validateData()) {
             return;
+            setIsOtpSent(false);
         }
-        setIsOtpSent(false);
+
         const data = {
+            mobile: formData.mobile,
             email: formData.email,
-            name: formData.name
+            name: formData.name,
+            username: formData.username
         }
 
         try {
             const response = await sendOTPToCreateAgent(data);
             console.log(response);
             if (response.status === 200) {
+                setIsOtpSent(true);
                 alert('OTP sent successfully');
             }
+            else if (response.status === 201) {
+                setIsOtpSent(false);
+                alert('Email already exists');
+            }
+            else if (response.status === 202) {
+                setIsOtpSent(false);
+                alert('Mobile already exists');
+            }
+            else if (response.status === 203) {
+                setIsOtpSent(false);
+                alert('Username already exists');
+            }
             else {
+                setIsOtpSent(false);
                 alert('Error sending OTP');
             }
         } catch (error) {
             console.log(error);
+            setIsOtpSent(false);
             alert('Error sending OTP');
-        } finally {
-            setIsOtpSent(true);
         }
     }
 
@@ -136,14 +152,16 @@ const AddAgent = () => {
             if (response.status === 200) {
                 alert('OTP verified successfully');
                 await handleSubmit();
-                setIsOtpVerified(true);
+                // setIsOtpVerified(true);
             }
             else {
                 alert('Error verifying OTP');
                 navigate('/admin')
+                setIsOtpVerified(false);
             }
         } catch (error) {
             console.log(error);
+            setIsOtpVerified(false);
             alert('Error verifying OTP');
         } finally {
             setIsLoading(false);
@@ -175,21 +193,28 @@ const AddAgent = () => {
         data.append('micr', formData.micr);
         data.append('accNumber', formData.accNumber);
         data.append('bankIFSC', formData.bankIFSC);
+        console.log(aadharFile);
+        console.log(panFile);
         data.append('aadharFile', aadharFile);
         data.append('panFile', panFile);
-        console.log(data);
+        console.log(data.aadharFile);
+        console.log(data.panFile);
 
         try {
             const response = await AgentSignup(data);
             console.log(response);
             if (response.status === 200) {
                 navigate("/admin")
+                setIsOtpVerified(true);
                 alert('Agent created successfully');
             } else if (response.status === 410) {
+                setIsOtpVerified(false);
                 alert('Email already exists');
             } else if (response.status === 411) {
+                setIsOtpVerified(false);
                 alert('Mobile already exists');
             } else if (response.status === 412) {
+                setIsOtpVerified(false);
                 alert('Username already exists');
             }
         } catch (error) {
