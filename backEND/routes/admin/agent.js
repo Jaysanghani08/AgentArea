@@ -13,7 +13,7 @@ const auth = require("../../middleware/auth");
 const getAgents = require("../../controller/agent/getAgents");
 const addAgent = require("../../controller/agent/addAgent");
 const getFullAgent = require("../../controller/agent/getFullAgnet");
-const sendOTP = require('../../controller/agent/sendOTP');
+const sendOTP = require('../../controller/agent/signupSendOTP');
 const verifyOTP = require('../../controller/agent/verifyOTP');
 const deleteAgent = require('../../controller/agent/deleteAgent');
 

@@ -46,25 +46,28 @@ const addAgent = async (req, res) => {
                 console.log("This is error from docsUpload Part in controller/agent/addAgent.js");
                 res.status(303).send();
             }
+            else{
+                agent_data.docs.aadhar = aadharURL;
+                agent_data.docs.pan = panURL;
+    
+                const save = await agent_data.save();
+                
+                // const URLupdate = await agent.updateOne({ mobile: req.body.mobile },
+                //     {
+                //         $set: {
+                //             'docs.aadhar': aadharURL,
+                //             'docs.pan': panURL,
+                //         }
+                //     });
+    
+                await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
+                await fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+    
+    
+                res.status(200).send();
+            }
 
-            agent_data.docs.aadhar = aadharURL;
-            agent_data.docs.pan = panURL;
-
-            const save = await agent_data.save();
-            
-            // const URLupdate = await agent.updateOne({ mobile: req.body.mobile },
-            //     {
-            //         $set: {
-            //             'docs.aadhar': aadharURL,
-            //             'docs.pan': panURL,
-            //         }
-            //     });
-
-            await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
-            await fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
-
-
-            res.status(200).send();
+           
 
         } catch (error) {
             console.log("This is error from controller/agent/addAgent.js");

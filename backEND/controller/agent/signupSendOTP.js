@@ -6,7 +6,7 @@ const agent = require("../../models/agent/agent");
 
 
 
-const mailerOTP = require("./../../mailer/OTP/mailerOTP");
+const mailerOTP = require("../../mailer/OTP/mailerOTP");
 
 
 // res codes
@@ -37,6 +37,7 @@ const sendOTP = async (req,res) => {
     else if(match3){
         res.status(203).send();
     }
+
     else {
         const match = await otp.findOne({ email: email });
         if (match) {
@@ -54,7 +55,7 @@ const sendOTP = async (req,res) => {
             name : name
         }
 
-        console.log("JJJ");
+        // console.log("JJJ");
 
         const mailer = await mailerOTP("Sign up OTP",obj,email,"signupOTP");
 
