@@ -24,6 +24,7 @@ const Link = tw.a`border-b-2 border-transparent hocus:border-gray-100 pb-1 trans
 const Divider = tw.div`my-16 border-b-2 border-primary-400 w-full`;
 
 const ThreeColRow = tw.div`flex flex-col md:flex-row items-center justify-between`;
+const Ourdetail = tw.div`font-extrabold`;
 
 const LogoContainer = tw.div`flex items-center justify-center md:justify-start`;
 const LogoImg = tw.img`w-8`;
@@ -51,8 +52,8 @@ export default () => {
   return (
     <Container>
       <Content>
-        <FiveColumns>
-          <Column>
+        {/* <FiveColumns> */}
+          {/* <Column>
             <ColumnHeading>Main</ColumnHeading>
             <LinkList>
               <LinkListItem>
@@ -119,8 +120,8 @@ export default () => {
                 <Link href="#">Onboarding</Link>
               </LinkListItem>
             </LinkList>
-          </Column>
-          <Column>
+          </Column> */}
+          {/* <Column>
             <ColumnHeading>Legal</ColumnHeading>
             <LinkList>
               <LinkListItem>
@@ -136,16 +137,16 @@ export default () => {
                 <Link href="#">Disclaimer</Link>
               </LinkListItem>
             </LinkList>
-          </Column>
-        </FiveColumns>
-        <Divider />
+          </Column> */}
+        {/* </FiveColumns> */}
+        {/* <Divider /> */}
         <ThreeColRow>
           <LogoContainer>
             <LogoImg src={LogoImage} alt="logo image"/>
-            <LogoText>Treact Inc.</LogoText>
+            <LogoText>Insure Area</LogoText>
           </LogoContainer>
-          <CopywrightNotice>&copy; 2018 Treact Inc. All Rights Reserved.</CopywrightNotice>
-          <SocialLinksContainer>
+          {/* <CopywrightNotice>&copy; 2024 Insure Area. All Rights Reserved.</CopywrightNotice> */}
+          {/* <SocialLinksContainer>
             <SocialLink href="https://facebook.com" aria-label="Connect to Our Facebook Page">
               <FacebookIcon />
             </SocialLink>
@@ -155,7 +156,12 @@ export default () => {
             <SocialLink href="https://youtube.com" aria-label="Connect to Our Youtube Page">
               <YoutubeIcon />
             </SocialLink>
-          </SocialLinksContainer>
+          </SocialLinksContainer> */}
+          <Ourdetail>
+            Designed & Managed By : Jay Sanghani  & Shubham Patel
+            <br/ >
+            Contact us : 9924590036, 7622051688
+          </Ourdetail>
         </ThreeColRow>
       </Content>
       <DecoratorBlobContainer>

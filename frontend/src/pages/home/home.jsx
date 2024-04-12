@@ -40,7 +40,7 @@ export default () => {
         imageBorder={true}
         imageDecoratorBlob={true}
       />
-      <FeatureWithSteps
+      {/* <FeatureWithSteps
         subheading={<Subheading>STEPS</Subheading>}
         heading={
           <>
@@ -108,7 +108,7 @@ export default () => {
             features: ["90 Templates", "27 Landing Pages", "37 Internal Pages", "Personal Assistance"]
           }
         ]}
-      />
+      /> */}
       {/* <Testimonial
         subheading={<Subheading>Testimonials</Subheading>}
         heading={
@@ -180,7 +180,7 @@ export default () => {
         ]}
       /> */}
       {/* <GetStarted/> */}
-      <Footer />
+      <Footer />  
     </AnimationRevealPage>
   );
 }
