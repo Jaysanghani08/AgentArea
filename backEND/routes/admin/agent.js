@@ -48,11 +48,11 @@ router.get("/agent/getAgents", auth,getAgents);
 
 router.post("/agent/mailer/sendOTP",auth,sendOTP);
 
-router.post("/agent/verifyOTP",auth,verifyOTP);
+router.post("/agent/verifyOTP",verifyOTP);
 
-router.get("/agent/deleteAgent",auth,deleteAgent)
+router.get("/agent/deleteAgent",auth,deleteAgent);
 
-router.post("/agent/forgotPassword",forgotPassword);
+
 
 
 

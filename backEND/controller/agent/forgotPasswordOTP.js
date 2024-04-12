@@ -28,7 +28,7 @@ const forgotPassword = async (req,res) => {
                 const obj = {
                     name : name
                 }
-                const mail = await mailer("Forgot Password",obj,email,"forgotPassword");
+                const mail = await mailer("Forgot Password",obj,email,"forgotPasswordOTP");
 
                 if(mail==1){
                     res.status(200).send();
