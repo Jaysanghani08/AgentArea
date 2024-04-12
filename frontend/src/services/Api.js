@@ -70,6 +70,21 @@ export const AgentSignup = async (data) => {
     }, {});
 };
 
+// forget password
+
+export const sendOtpToFp = async (data) => {
+    return postRequest("agent/forgotPasswordOTP", data);
+}
+
+export const verifyOtpTOFp = async (data) => {
+    return postRequest("agent/verifyOTP", data);
+}
+
+export const forgetPassword = async (data) => {
+    return postRequest("agent/forgotPassword", data);
+}
+
+
 export const updatePassword = async (data) => {
     return postRequestWithToken("agent/updatePassword", data);
 }

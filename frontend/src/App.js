@@ -26,6 +26,7 @@ import PolicyList from './pages/policy/policy_list.jsx';
 import PolicyDetail from './pages/policy/policy_detail.jsx';
 import ForgetPassword from './pages/login_signup/ForgetPassword.jsx';
 import CustomerLogin from './pages/login_signup/CustomerLogin.jsx';
+import UpdatePassword from './pages/login_signup/UpdatePassword.jsx';
 
 function App() {
     const user = Cookies.get('user');
@@ -59,7 +60,8 @@ function App() {
                 <Route path='agent' >
                     <Route index element={<AgentLinks />} />
                     <Route path="home" element={<AgentLinks />} />
-                    <Route path="updatePassword/:mobile" element={<ForgetPassword />} />
+                    <Route path="updatePassword/:mobile" element={<UpdatePassword />} />
+                    <Route path="forgetpassword" element={<ForgetPassword />} />
                     <Route path="login" element={<Login />} />
                     <Route path="addagent" element={<AddAgent />} />
                     <Route path="agentProfile/:agentid" element={<AgentProfile />} />
