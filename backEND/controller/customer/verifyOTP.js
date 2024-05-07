@@ -36,7 +36,7 @@ const verifyOTP = async (req,res) => {
         
         const x = await dataCollection.aggregate(pipe).toArray();
 
-        console.log(x);
+        // console.log(x);
 
         // JWT
         const token = await jwt.sign(
