@@ -39,12 +39,12 @@ const addAgent = async (req, res) => {
 
             // console.log(save);
             
-            const aadharURL = await docsUpload("./agentDocs/"+req.body.mobile + "aadharFile");
-            const panURL = await docsUpload("./agentDocs/"+req.body.mobile + "panFile");
+            const aadharURL = await docsUpload("./agentDocs/"+req.body.mobile + "aadharFile.pdf");
+            const panURL = await docsUpload("./agentDocs/"+req.body.mobile + "panFile.pdf");
             
             if (panURL == "" || aadharURL == "") {
-                fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(error)=>{console.log(error)});
-                fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+                fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile.pdf",(error)=>{console.log(error)});
+                fs.unlink("./agentDocs/" + req.body.mobile + "panFile.pdf",(err)=>{console.log(err)});
                 console.log("This is error from docsUpload Part in controller/agent/addAgent.js");
                 res.status(303).send();
             }
@@ -62,8 +62,8 @@ const addAgent = async (req, res) => {
                 //         }
                 //     });
     
-                await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile",(err)=>{console.log(err)});
-                await fs.unlink("./agentDocs/" + req.body.mobile + "panFile",(err)=>{console.log(err)});
+                await fs.unlink("./agentDocs/" + req.body.mobile + "aadharFile.pdf",(err)=>{console.log(err)});
+                await fs.unlink("./agentDocs/" + req.body.mobile + "panFile.pdf",(err)=>{console.log(err)});
     
     
                 res.status(200).send();

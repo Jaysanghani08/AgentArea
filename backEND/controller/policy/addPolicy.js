@@ -63,8 +63,8 @@ const addPolicy = async (req, res) => {
 
 
 
-        const renewal_notice_copyURL = await docsUpload("./policies/" + req.body.policy_number + "renewal_notice_copy");
-        const policy_copyURL = await docsUpload("./policies/" + req.body.policy_number + "policy_copy");
+        const renewal_notice_copyURL = await docsUpload("./policies/" + req.body.policy_number + "renewal_notice_copy.pdf");
+        const policy_copyURL = await docsUpload("./policies/" + req.body.policy_number + "policy_copy.pdf");
 
         new_policy.docs.policy_copy = policy_copyURL;
         new_policy.docs.renewal_notice_copy = renewal_notice_copyURL;
@@ -72,15 +72,15 @@ const addPolicy = async (req, res) => {
         const saved = await new_policy.save();
 
         if (renewal_notice_copyURL == "" || policy_copyURL == "") {
-            fs.unlink("./policies/" + req.body.policy_number + "renewal_notice_copy",(error)=>{console.log(error)});
-            fs.unlink("./policies/" + req.body.policy_number + "policy_copy",(err)=>{console.log(err)});
+            fs.unlink("./policies/" + req.body.policy_number + "renewal_notice_copy.pdf",(error)=>{console.log(error)});
+            fs.unlink("./policies/" + req.body.policy_number + "policy_copy.pdf",(err)=>{console.log(err)});
             console.log("This is error from docsUpload Part in controller/policy/addPolicy.js");
             res.status(303).send();
         }
 
 
-        await fs.unlink("./policies/" + req.body.policy_number + "renewal_notice_copy", (err) => { console.log(err) });
-        await fs.unlink("./policies/" + req.body.policy_number + "policy_copy", (err) => { console.log(err) });
+        await fs.unlink("./policies/" + req.body.policy_number + "renewal_notice_copy.pdf", (err) => { console.log(err) });
+        await fs.unlink("./policies/" + req.body.policy_number + "policy_copy.pdf", (err) => { console.log(err) });
 
         res.status(200).send();
 

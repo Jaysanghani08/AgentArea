@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         callback(null,"./policies");
     },
     filename:(req,file,callback)=>{
-        callback(null, req.body.policy_number+file.fieldname);
+        callback(null, req.body.policy_number+file.fieldname+".pdf");
     }
 });
 
