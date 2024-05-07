@@ -39,23 +39,9 @@ const sendOTP = async (req,res) => {
     }
 
     else {
-        const match = await otp.findOne({ email: email });
-        if (match) {
-            try {
-                await otp.deleteOne({ email: email });
-            } catch (error) {
-                console.log("This is error from ./controllers/agents/sendOTP.js");
-                console.log(error);
-                res.status(500);
-                return;
-            }
-        }
-
         const obj = {
             name : name
         }
-
-        // console.log("JJJ");
 
         const mailer = await mailerOTP("Sign up OTP",obj,email,"signupOTP");
 

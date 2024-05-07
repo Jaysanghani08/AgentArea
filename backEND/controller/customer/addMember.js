@@ -29,7 +29,9 @@ const addMember = async (req,res) => {
         }
 
         const update = await group.findOneAndUpdate({id:data.group_id},{$push : { members : member }},{new:true});
+
         const id = update.members[update.members.length - 1]._id;
+        
         res.status(200).send({id:id});
 
 

@@ -27,6 +27,8 @@ const agent = require("./routes/agent/agent");
 const policy = require("./routes/agent/policy");
 const agentCompany = require("./routes/agent/company");
 
+const customer_ = require("./routes/customer/policy");
+
 
 app.use(agent);
 app.use(adminAgent);
@@ -36,6 +38,7 @@ app.use(Customer);
 app.use(policy);
 app.use(admin);
 app.use(adminPolicy);
+app.use(customer_);
 
 
 // for testing a dummy listener
