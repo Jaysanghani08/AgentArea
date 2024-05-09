@@ -37,7 +37,7 @@ export const isLogged = async (usrType) => {
     }
 
     if(user.type !== usrType) {
-        Cookies.remove('user');
+        // Cookies.remove('user');
         return false;
     }
 

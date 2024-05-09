@@ -1,5 +1,4 @@
 // AuthContext.js
-import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { postRequest } from '../services/Api';
 import Cookies from 'js-cookie';

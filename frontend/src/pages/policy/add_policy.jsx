@@ -4,6 +4,7 @@ import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, Form
 import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy, getAgents } from './../../services/Api';
 import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
+import { useNavigate } from 'react-router-dom';
 
 const paymentType = [
     {
@@ -142,6 +143,7 @@ const AddPolicy = () => {
     const [agencies, setAgencies] = useState(null);
     const [products, setProducts] = useState(null);
     const [agents, setAgents] = useState([]);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -431,7 +433,12 @@ const AddPolicy = () => {
 
             if (response.status === 200) {
                 alert('Policy addedd successfully');
-            } else {
+                navigate('/agent');
+            }
+            else if(response.status === 410){
+                alert('Policy number already exists');
+            } 
+            else {
                 alert('Something went wrong');
             }
         } catch (error) {

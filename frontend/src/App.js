@@ -29,8 +29,8 @@ import CustomerLogin from './pages/login_signup/CustomerLogin.jsx';
 import UpdatePassword from './pages/login_signup/UpdatePassword.jsx';
 
 function App() {
-    const user = Cookies.get('user');
-    console.log(user);
+    const user = JSON.parse(Cookies.get('user') || 'null');
+    console.log(user?.type);
 
     return (
         <AuthProvider>

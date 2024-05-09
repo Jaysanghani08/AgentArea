@@ -32,6 +32,7 @@ const GetPolicy = () => {
     const navigate = useNavigate();
 
     const usr = JSON.parse(Cookies.get('user') || null);
+    console.log(usr);   
 
     useEffect(() => {
 

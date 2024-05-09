@@ -215,7 +215,8 @@ const PolicyDetail = () => {
     useEffect(() => {
         const fetchPolicy = async () => {
             try {
-                if (usr?.type === 'admin') {
+                console.log(usr?.type)
+                if (usr?.type === "admin") {
                     const [policyResponse] = await Promise.all(
                         [
                             getPolicy(policyId)
@@ -231,9 +232,8 @@ const PolicyDetail = () => {
                         navigate('/admin/policylist')
                     }
                     // console.log(response.data)
-                } 
-                else if(usr?.type === 'agent') {
-                    console.log('agent')
+                }
+                else if (usr?.type === "agent") {
                     const [policyResponse] = await Promise.all(
                         [
                             getAgentPolicy(policyId)
@@ -245,8 +245,8 @@ const PolicyDetail = () => {
                     if (policyResponse.status === 200) {
                         setPolicyData(policyResponse?.data[0]);
                     } else {
-                        alert('Something went wrong. Try after some time.');
-                        navigate('/agent/policylist')
+                        alert('Something went wrong. Try after some time 1smmsdas.');
+                        // navigate('/agent/policylist')
                     }
                 }
                 else {
