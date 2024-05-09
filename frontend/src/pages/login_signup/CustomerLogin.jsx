@@ -10,6 +10,7 @@ import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg
 import { useAuth } from "../../context/AuthContext.js";
 import { Navigate, useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
+import {customerLogin, customerVerifyOTP} from './../../services/Api.js'
 
 const Container = tw(ContainerBase)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
 const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
@@ -52,90 +53,146 @@ const CustomerLogin = (
 ) => {
 
     const [Error, setError] = React.useState("");
-    const [phone, setPhone] = React.useState("");
+    const [formdata, setFormdata] = React.useState({
+        group_id: "",
+        mobile: "",
+        email: ""
+    });
     const [isOtpSent, setIsOtpSent] = React.useState(false);
     const [otp, setOtp] = React.useState("");
 
 
-    const onChangePhone = (e) => {
+    const onChangeFormdata = (e) => {
 
         const regex = /^[0-9]{10}$/;
-        if (regex.test(e.target.value)) {
-            setError("");
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (e.target.name === "group_id") {
+            if(regex.test(e.target.value)) setError("");
+            else setError("Invalid Group Code");
+        }
+        else if (e.target.name === "mobile" && regex.test(e.target.value)) {
+            if(regex.test(e.target.value)) setError("");
+            else setError("Invalid Phone Number");
+        }
+        else if (e.target.name === "email") {
+            if(emailRegex.test(e.target.value)) setError("");
+            else setError("Invalid Email");
         }
         else {
-            setError("Invalid Phone Number");
+            setError("Invalid Input");
         }
 
-        setPhone(e.target.value);
+        setFormdata({
+            ...formdata,
+            [e.target.name]: e.target.value
+        });
     }
 
     const onChangeOtp = (e) => {
         setOtp(e.target.value);
     }
 
-    const handleSendOtp = async () => {
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
+
         if (Error) {
             return;
         }
         const data = {
-            phone
+            group_id: formdata.group_id,
+            mobile: formdata.mobile,
+            email: formdata.email
         }
-
-        setIsOtpSent(true);
+        // console.log(data);
+        const response = await customerLogin(data);
+        if(response.status === 200) {
+            alert("OTP sent successfully");
+            setIsOtpSent(true);
+        }
+        else if(response.status === 400) {
+            setError(response.data.message);
+        }
+        else {
+            setError("Invalid Credentials");
+        }
     }
 
-    const handleOtpSubmit = async () => {
+    const handleOtpSubmit = async (e) => {
+        e.preventDefault();
+
         const data = {
-            phone,
-            otp
+            group_id: formdata.group_id,
+            mobile: formdata.mobile,
+            email: formdata.email,
+            otp: otp
         }
+
+        // console.log(data)
+        const response = await customerVerifyOTP(data);
+        console.log(response);
+
+        if(response.status === 200) {
+            alert("Login Successfull");
+            const expirationDate = new Date();
+            expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 60 * 1000));
+            Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate });
+            window.location.reload();
+            // window.location.href = '/home';
+        }
+        else if(response.status === 288) {
+            setError("Invalid OTP");
+        }
+        else {
+            setError("Invalid Credentials");
+        }
+        
     }
 
     const navigate = useNavigate();
     const { user } = useAuth();
     if (user && user.type === "customer") {
-        navigate('/home');
+        // navigate('/home');
     }
 
     const submitButtonText = isOtpSent ? "Submit OTP" : "Send OTP";
 
     return (
         <AnimationRevealPage>
-        <Container>
-            <Content>
-                <MainContainer>
-                    <LogoLink href={logoLinkUrl}>
-                        <LogoImage src={logo} />
-                    </LogoLink>
-                    <MainContent>
-                        <Heading>{headingText}</Heading>
-                        <FormContainer>
-                            <Form>
-                                {/* <Input type="text" placeholder="Country Code (ex : +91 for India)" value={countryCode} onChange={onChangeCountryCode} /> */}
-                                <Input type="text" placeholder="Phone No." onChange={onChangePhone} />
-                                {Error && <ErrorContainer> {Error} </ErrorContainer>}
-                                {
-                                    isOtpSent &&
-                                    <Input type="text" placeholder="OTP" onChange={onChangeOtp} />
-                                } 
+            <Container>
+                <Content>
+                    <MainContainer>
+                        <LogoLink href={logoLinkUrl}>
+                            <LogoImage src={logo} />
+                        </LogoLink>
+                        <MainContent>
+                            <Heading>{headingText}</Heading>
+                            <FormContainer>
+                                <Form>
+                                    <Input type="text" name='group_id' placeholder="Group Code" onChange={onChangeFormdata} />
+                                    <Input type="text" name='mobile' placeholder="Mobile No." onChange={onChangeFormdata} />
+                                    <Input type="email" name='email' placeholder="Email" onChange={onChangeFormdata} />
+                                    {Error && <ErrorContainer> {Error} </ErrorContainer>}
+                                    {
+                                        isOtpSent &&
+                                        <Input type="text" placeholder="OTP" onChange={onChangeOtp} />
+                                    }
 
-                                {
-                                    !isOtpSent ?
-                                        <SubmitButton onClick={handleSendOtp} >
-                                            <SubmitButtonIcon className="icon" />
-                                            <span className="text">{submitButtonText}</span>
-                                        </SubmitButton>
-                                        :
-                                        <>
-                                            <SubmitButton onClick={handleOtpSubmit} >
+                                    {
+                                        !isOtpSent ?
+                                            <SubmitButton onClick={handleSendOtp} >
                                                 <SubmitButtonIcon className="icon" />
-                                                <span className="text">Login</span>
+                                                <span className="text">{submitButtonText}</span>
                                             </SubmitButton>
-                                        </>
-                                } 
-                            </Form>
-                            {/* <p tw="mt-6 text-xs text-gray-600 text-center">
+                                            :
+                                            <>
+                                                <SubmitButton onClick={handleOtpSubmit} >
+                                                    <SubmitButtonIcon className="icon" />
+                                                    <span className="text">Login</span>
+                                                </SubmitButton>
+                                            </>
+                                    }
+                                </Form>
+                                {/* <p tw="mt-6 text-xs text-gray-600 text-center">
                                 <a href={forgotPasswordUrl} tw="border-b border-gray-500 border-dotted">
                                     Forgot Password ?
                                 </a>
@@ -146,16 +203,16 @@ const CustomerLogin = (
                                     Sign Up
                                 </a>
                             </p> */}
-                        </FormContainer>
+                            </FormContainer>
 
-                    </MainContent>
-                </MainContainer>
-                <IllustrationContainer>
-                    <IllustrationImage imageSrc={illustrationImageSrc} />
-                </IllustrationContainer>
-            </Content>
-        </Container>
-    </AnimationRevealPage>
+                        </MainContent>
+                    </MainContainer>
+                    <IllustrationContainer>
+                        <IllustrationImage imageSrc={illustrationImageSrc} />
+                    </IllustrationContainer>
+                </Content>
+            </Container>
+        </AnimationRevealPage>
     )
 }
 

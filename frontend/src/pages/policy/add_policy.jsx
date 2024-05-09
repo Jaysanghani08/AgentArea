@@ -153,7 +153,7 @@ const AddPolicy = () => {
         policy_type: '',
         policy_sub_type: '',
         company_id: '',
-        agent_id : '658bed167dd0bb526193617e',
+        agent_id : '',
         product_id: '',
         agency: '',
         business_type: '',
@@ -369,7 +369,7 @@ const AddPolicy = () => {
             // console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
-                setFormData({ ...formData, group_code: response.data?._id });
+                // setFormData({ ...formData });
                 setFetchedButNotExists(false);
                 setGroupMembers(response.data?.members);
             } else if (response.status === 201) {
@@ -392,10 +392,11 @@ const AddPolicy = () => {
             ...customerFormData
         }
 
-        // console.log(data);
+        console.log(data);
 
         try {
             const response = await addCustomer(data);
+            console.log(response);
             if (response.status === 200) {
                 alert('Customer created successfully');
             } else {

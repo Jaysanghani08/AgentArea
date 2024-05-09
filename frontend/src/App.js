@@ -30,7 +30,7 @@ import UpdatePassword from './pages/login_signup/UpdatePassword.jsx';
 
 function App() {
     const user = JSON.parse(Cookies.get('user') || 'null');
-    console.log(user?.type);
+    console.log(user);
 
     return (
         <AuthProvider>

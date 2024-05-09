@@ -51,14 +51,11 @@ const verifyOTP = async (req,res) => {
         );
 
         res.status(200).send({data:x,token:token,type:"customer"});
-
-
     } catch (error) {
         console.log("This is error from ./controller/customers/verifyOTP.js");
         console.log(error);
         res.status(500).send();
     }
-
 }
 
 module.exports = verifyOTP;

@@ -296,7 +296,7 @@ const PolicyDetail = () => {
 
                         <FormGroup>
                             <Label>Group Code <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Input type="text" value={policydata?.group_code} disabled />
+                            <Input type="text" value={policydata?.group?.id} disabled />
                         </FormGroup>
 
 
