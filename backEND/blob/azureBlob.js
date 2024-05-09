@@ -12,7 +12,7 @@ const docsUpload = async (name) => {
     try {
 
         const containerClient = blobServiceClient.getContainerClient(process.env.BLOB_NAME);
-        
+
         const blockBlobClient = containerClient.getBlockBlobClient(name);
 
         // console.log(
@@ -21,14 +21,16 @@ const docsUpload = async (name) => {
 
         const url = blockBlobClient.url;
 
-        const uploadBlobResponse = await blockBlobClient.uploadFile(name);
+        const blobOptions = { blobHTTPHeaders: { blobContentType: 'application/pdf' } };
+
+        const uploadBlobResponse = await blockBlobClient.uploadFile(name,blobOptions);
 
         // console.log(
         //     `Blob was uploaded successfully. requestId: ${uploadBlobResponse.requestId}`
         // );
 
         // console.log(url);
-        
+
         return url;
 
     } catch (error) {
@@ -43,3 +45,8 @@ const docsUpload = async (name) => {
 
 
 module.exports = docsUpload;
+
+
+
+
+
