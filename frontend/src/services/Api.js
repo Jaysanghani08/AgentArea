@@ -165,3 +165,11 @@ export const getAgentPolicy = async (policy_number) => {
 export const addCustomer = async (data) => {
     return postRequestWithToken("customer/addMember", data);
 };
+
+export const customerLogin = async (data) => {
+    return postRequest('customer/login', data)
+}
+
+export const customerVerifyOTP = async (data) => {
+    return postRequest('customer/verifyOTP', data)
+}

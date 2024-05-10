@@ -7,6 +7,7 @@ const login = async (req,res) => {
     try {
 
         const data = req.body;
+        console.log(data);
         const isGroup = await group.findOne({id:data.group_id});
 
         if(!isGroup){

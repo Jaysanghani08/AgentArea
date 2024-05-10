@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Form from '@radix-ui/react-form';
 
 const Signup = () => (
     <div className="h-screen flex justify-center items-center bg-light">

@@ -6,6 +6,7 @@ import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import tw from "twin.macro";
 
 const paymentType = [
     {
@@ -203,6 +204,8 @@ const policyType = [
 //     }
 // }
 
+const Link = tw.a`text-primary-500 underline cursor-pointer`
+
 const PolicyDetail = () => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -262,7 +265,6 @@ const PolicyDetail = () => {
 
 
     const heading = <> Polict Details </>;
-    const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Policy';
 
     return (
         <>
@@ -294,7 +296,7 @@ const PolicyDetail = () => {
 
                         <FormGroup>
                             <Label>Group Code <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Input type="text" value={policydata?.group_code} disabled />
+                            <Input type="text" value={policydata?.group?.id} disabled />
                         </FormGroup>
 
 
@@ -336,12 +338,12 @@ const PolicyDetail = () => {
 
                         <FormGroup>
                             <Label>Start Date <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Input type="text" value={policydata?.start_date} disabled />
+                            <Input type="date" value={policydata?.start_date?.split('T')[0]} disabled />
                         </FormGroup>
 
                         <FormGroup>
                             <Label>End Date <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Input type="text" value={policydata?.end_date} disabled />
+                            <Input type="date" value={`${policydata?.end_date?.substring(2, 6)}-${policydata?.end_date?.substring(8, 10)}-${policydata?.end_date?.substring(11, 13)}`} disabled />
                         </FormGroup>
 
                         <FormGroup>
@@ -352,11 +354,6 @@ const PolicyDetail = () => {
                         <FormGroup>
                             <Label>Commissionable Premium <RequiredIndicator>*</RequiredIndicator></Label>
                             <Input type="text" value={policydata?.commissionable_premium} disabled />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Label>GST <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Input type="text" value={policydata?.gst} disabled />
                         </FormGroup>
 
                         <FormGroup>
@@ -443,10 +440,29 @@ const PolicyDetail = () => {
 
 
 
-                        <FormGroup>
-                            <Label>Remark <RequiredIndicator>*</RequiredIndicator></Label>
-                            <Textarea value={policydata?.remark} disabled />
-                        </FormGroup>
+                        {policydata?.remark &&
+                            <FormGroup>
+                                <Label>Remark <RequiredIndicator>*</RequiredIndicator></Label>
+                                <Textarea value={policydata?.remark} disabled />
+                            </FormGroup>
+                        }
+
+                        <HoriZontalLine />
+                        <Subheading>Documents</Subheading>
+                        {
+                            policydata?.docs?.policy_copy &&
+                            <FormGroup>
+                                <Label>Policy Copy <RequiredIndicator>*</RequiredIndicator></Label>
+                                <Link href={ policydata?.docs?.policy_copy } target="_blank" rel="noopener noreferrer">View Policy</Link>
+                            </FormGroup>
+                        }
+                        {
+                            policydata?.docs?.renewal_notice_copy &&
+                            <FormGroup>
+                                <Label>Policy Copy <RequiredIndicator>*</RequiredIndicator></Label>
+                                <Link href={ policydata?.docs?.renewal_notice_copy } target="_blank" rel="noopener noreferrer">View Renewal Notice</Link>
+                            </FormGroup>
+                        }
 
                     </Form>
 

@@ -3,6 +3,7 @@ import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, Form
 import Spinner from './../components/general/spinner';
 import { AgentSignup, isLogged, sendOTPToCreateAgent } from './../services/Api';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 const AddAgent = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,8 @@ const AddAgent = () => {
 
     // add data validation
     if(!isLogged('admin')) {
-        // alert('Please login to access this page');
+        alert('Please login to access this page');
+        Cookies.remove('user');
     }
 
     const validateData = () => {
@@ -204,9 +206,9 @@ const AddAgent = () => {
             const response = await AgentSignup(data);
             console.log(response);
             if (response.status === 200) {
-                navigate("/admin")
-                setIsOtpVerified(true);
                 alert('Agent created successfully');
+                setIsOtpVerified(true);
+                navigate("/admin")
             } else if (response.status === 410) {
                 setIsOtpVerified(false);
                 alert('Email already exists');
