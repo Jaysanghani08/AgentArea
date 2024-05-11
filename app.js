@@ -6,11 +6,15 @@ const bcrypt = require('bcryptjs');
 
 const app = express();
 
+const corsOptions = {
+    origin: 'https://insurearea.azurewebsites.net',
+    optionsSuccessStatus: 200,
+}
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 console.log(__dirname + '/frontend/build/index.html')
 require("./connection/connection");
@@ -47,8 +51,8 @@ app.get("*", (req, res) => {
 
 // for testing a dummy listener
 
-app.get("/api/test/encrypt",async (req,res)=>{
-    const password = "shubham464";
+app.post("/api/test/encrypt",async (req,res)=>{
+    const password = "Abc123@#$";
     const hashed = await bcrypt.hash(password,9);
     console.log(hashed);
     res.status(200).send();
