@@ -21,7 +21,7 @@ const AgentProfile = () => {
         const loadData = async () => {
             try {
                 const response = await getFullAgent(agentId);
-                console.log(response?.data[0]);
+                // console.log(response?.data[0]);
                 if (response.status === 200) {
                     // const data = Object.entries(response?.data[0]).map(([key, value]) => [key, value]);
                     // console.log(data);

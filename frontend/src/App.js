@@ -81,6 +81,7 @@ function App() {
                     {/* <Route path="signup" element={<Signup />} /> */}
                     <Route path="login" element={<CustomerLogin />} />
                     <Route path='policylist' element={<PolicyList />} />
+                    <Route path='policy/:id' element={<PolicyDetail />} />
                 </Route>
 
                 <Route path='*' element={<Navigate to="/home" />} />

@@ -21,7 +21,7 @@ const AgentList = () => {
         const loadData = async () => {
             try {
                 const response = await getAgents();
-                console.log(response?.data);
+                // console.log(response?.data);
 
                 if (response.status === 200) {
                     const data = response.data.map((agent) => {

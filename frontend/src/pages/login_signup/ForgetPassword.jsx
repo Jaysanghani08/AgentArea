@@ -34,7 +34,7 @@ const ForgetPassword = () => {
         }
 
         const response = await forgetPassword(formData);
-        console.log(response);
+        // console.log(response);
 
         if(response.status === 200){
             alert("Password updated successfully");
@@ -55,7 +55,7 @@ const ForgetPassword = () => {
         }
         
         const response = await sendOtpToFp(formData);
-        console.log(response)
+        // console.log(response)
         if(response.status === 200){
             alert("OTP sent successfully");
             setIsOtpSent(true);
@@ -75,7 +75,7 @@ const ForgetPassword = () => {
         e.preventDefault();
 
         const response = await verifyOtpTOFp({otp: otp, email : formData.email});
-        console.log(response)
+        // console.log(response)
 
         if(response.status === 200){
             alert("OTP verified successfully");

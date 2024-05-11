@@ -14,6 +14,7 @@ const verifyOTP = async (req, res) => {
 
         if (otp == null) {
             res.status(500).send({ message: "OTP NOT FOUND" });
+            return;
         }
 
         const hashed_otp = otp.otp;
@@ -22,6 +23,7 @@ const verifyOTP = async (req, res) => {
 
         if (match == false) {
             res.status(288).send({ message: "OTP INVALID" });
+            return;
         }
 
         // Policie Data
@@ -29,7 +31,7 @@ const verifyOTP = async (req, res) => {
         else {
             const pipe = [
                 {
-                    $match: { 'group.members.mobile': data.mobile, 'group.members.email': data.email }
+                    $match: { 'group.members.mobile': Number(data.mobile), 'group.members.email': data.email }
                 }
             ];
 
@@ -37,7 +39,6 @@ const verifyOTP = async (req, res) => {
 
             const x = await dataCollection.aggregate(pipe).toArray();
 
-            // console.log(x);
             res.status(200).send({ data: x, type: "customer" });
             
         }

@@ -41,7 +41,7 @@ const UpdatePassword = () => {
         }
 
         const response = await updatePassword(formData);
-        console.log(response);
+        // console.log(response);
         alert("Password updated successfully");
         Cookies.remove('user');
         window.location.href = "/agent/login";

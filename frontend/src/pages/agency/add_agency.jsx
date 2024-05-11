@@ -31,7 +31,7 @@ const AddAgency = () => {
         code: ''
     });
 
-    console.log(formData);
+    // console.log(formData);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,7 +39,7 @@ const AddAgency = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
         setIsLoading(true);
 
         try {

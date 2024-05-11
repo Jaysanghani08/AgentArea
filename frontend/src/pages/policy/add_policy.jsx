@@ -327,7 +327,7 @@ const AddPolicy = () => {
                         getAgents()
                     ]
                 );
-                console.log(agentResponse.data)
+                // console.log(agentResponse.data)
                 if (companyResopnse.status === 200) {
                     setCompanyList(companyResopnse.data);
                     setAgents(agentResponse.data);
@@ -392,11 +392,11 @@ const AddPolicy = () => {
             ...customerFormData
         }
 
-        console.log(data);
+        // console.log(data);
 
         try {
             const response = await addCustomer(data);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 alert('Customer created successfully');
             } else {
@@ -419,7 +419,7 @@ const AddPolicy = () => {
 
         // const errors = await Validate(formData, formmRegex);
         const errors = {};
-        console.log("CHUTIYO\n")
+        // console.log("CHUTIYO\n")
         console.log(errors);
 
         // if (errors) {
@@ -449,7 +449,7 @@ const AddPolicy = () => {
         }
     }
 
-    console.log(formData);
+    // console.log(formData);
 
     const heading = <> Purchase New <span className="text-primary-500">Policy</span></>;
     const submitButtonText = isLoading ? <Spinner height={20} color='#000000' /> : 'Create Policy';

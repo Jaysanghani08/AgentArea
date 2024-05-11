@@ -129,15 +129,20 @@ const CustomerLogin = (
 
         // console.log(data)
         const response = await customerVerifyOTP(data);
-        console.log(response);
+        // console.log(response);
 
         if(response.status === 200) {
             alert("Login Successfull");
             const expirationDate = new Date();
-            expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 60 * 1000));
-            Cookies.set('user', JSON.stringify(response.data), { secure: true, sameSite: 'strict', expires: expirationDate });
-            window.location.reload();
-            // window.location.href = '/home';
+            expirationDate.setTime(expirationDate.getTime() + (1 * 30 * 60 * 1000));
+            
+            // console.log(response.data);
+            Cookies.set('user', JSON.stringify({"type" : response.data?.type}), { secure: true, sameSite: 'strict', expires: expirationDate });
+            localStorage.setItem('customerPolicies', JSON.stringify(response.data?.data));
+
+            // console.log(localStorage.getItem('customerPolicies'));
+            navigate('/customer/policylist');
+            // window.location.reload();
         }
         else if(response.status === 288) {
             setError("Invalid OTP");

@@ -28,7 +28,7 @@ const AgencyList = () => {
             try {
                 setIsLoading(true)
                 const response = await getAgencies(companyId);
-                console.log(response?.data);
+                // console.log(response?.data);
                 if (response.status === 200) {
                     const data = response.data?.map((agency) => {
                         return [
@@ -37,7 +37,7 @@ const AgencyList = () => {
                             // agency._id
                         ];
                     });;
-                    console.log(data);
+                    // console.log(data);
                     setProducts(data);
                     setIsLoading(false);
                 } else {

@@ -112,7 +112,7 @@ const AddAgent = () => {
 
         try {
             const response = await sendOTPToCreateAgent(data);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 setIsOtpSent(true);
                 alert('OTP sent successfully');
@@ -150,7 +150,7 @@ const AddAgent = () => {
 
         try {
             const response = await sendOTPToCreateAgent(data);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 alert('OTP verified successfully');
                 await handleSubmit();
@@ -195,16 +195,12 @@ const AddAgent = () => {
         data.append('micr', formData.micr);
         data.append('accNumber', formData.accNumber);
         data.append('bankIFSC', formData.bankIFSC);
-        console.log(aadharFile);
-        console.log(panFile);
         data.append('aadharFile', aadharFile);
         data.append('panFile', panFile);
-        console.log(data.aadharFile);
-        console.log(data.panFile);
 
         try {
             const response = await AgentSignup(data);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 alert('Agent created successfully');
                 setIsOtpVerified(true);

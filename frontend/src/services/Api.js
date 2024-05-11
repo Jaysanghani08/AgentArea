@@ -31,7 +31,7 @@ export const postRequestWithToken = async (endpoint, data, headers = {}, params 
 
 export const isLogged = async (usrType) => {
     if(!user) {
-        // alert('Please login to access this page');
+        alert('Please login to access this page hghfg');
         window.location.href = `/home`;
         return true;
     }

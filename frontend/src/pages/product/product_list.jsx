@@ -33,7 +33,7 @@ const ProductList = () => {
             try {
                 setIsLoading(true)
                 const response = await getProducts(companyId);
-                console.log(response?.data);
+                // console.log(response?.data);
                 if (response.status === 200) {
                     const data = response.data?.map((product) => {
                         return [
@@ -43,7 +43,7 @@ const ProductList = () => {
                             // product._id
                         ];
                     });;
-                    console.log(data);
+                    // console.log(data);
                     setProducts(data);
                     setIsLoading(false);
                 } else {
