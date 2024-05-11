@@ -33,15 +33,15 @@ const agentCompany = require("./routes/agent/company");
 const customer_ = require("./routes/customer/policy");
 
 
-app.use(agent);
-app.use(adminAgent);
-app.use(agentCompany);
-app.use(adminCompany);
-app.use(Customer);
-app.use(policy);
-app.use(admin);
-app.use(adminPolicy);
-app.use(customer_);
+app.use("/",agent);
+app.use("/",adminAgent);
+app.use("/",agentCompany);
+app.use("/",adminCompany);
+app.use("/",Customer);
+app.use("/",policy);
+app.use("/",admin);
+app.use("/",adminPolicy);
+app.use("/",customer_);
 
 app.use(express.static(__dirname + '/frontend/build'));
 app.get("*", (req, res) => {
