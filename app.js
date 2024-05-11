@@ -44,7 +44,7 @@ app.use(admin);
 app.use(adminPolicy);
 app.use(customer_);
 
-app.use(express.static(__dirname + '/frontend/public'));
+app.use(express.static(__dirname + '/frontend/build'));
 app.get("*", (req, res) => {
     res.sendFile(__dirname + '/frontend/build/index.html');
 });
