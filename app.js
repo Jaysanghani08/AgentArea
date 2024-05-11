@@ -20,28 +20,11 @@ require("./connection/connection");
 require("./connection/connectionMONGO");
 
 
-const adminCompany = require("./routes/admin/company");
-const admin = require("./routes/admin/admin");
-const adminAgent = require("./routes/admin/agent");
-const adminPolicy = require("./routes/admin/policy");
-
-const Customer = require("./routes/agent/customer");
-const agent = require("./routes/agent/agent");
-const policy = require("./routes/agent/policy");
-const agentCompany = require("./routes/agent/company");
-
-const customer_ = require("./routes/customer/policy");
+const main_route = require("./routes/main_route");
 
 
-app.use("/",agent);
-app.use("/",adminAgent);
-app.use("/",agentCompany);
-app.use("/",adminCompany);
-app.use("/",Customer);
-app.use("/",policy);
-app.use("/",admin);
-app.use("/",adminPolicy);
-app.use("/",customer_);
+app.use("/",main_route);
+
 
 app.use(express.static(__dirname + '/frontend/build'));
 app.get("*", (req, res) => {
