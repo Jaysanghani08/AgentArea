@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.json());
 app.use(cors(corsOptions));
 
-console.log(__dirname + '/frontend/build/index.html')
+// console.log(__dirname + '/frontend/build/index.html')
 require("./connection/connection");
 require("./connection/connectionMONGO");
 
@@ -44,10 +44,10 @@ app.use(admin);
 app.use(adminPolicy);
 app.use(customer_);
 
-app.use(express.static(__dirname + '/frontend/build'));
-app.get("*", (req, res) => {
-    res.sendFile(__dirname + '/frontend/build/index.html');
-});
+app.use(express.static(__dirname + '/frontend/public'));
+// app.get("*", (req, res) => {
+//     res.sendFile(__dirname + '/frontend/build/index.html');
+// });
 
 // for testing a dummy listener
 
