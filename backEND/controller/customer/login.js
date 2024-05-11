@@ -7,7 +7,7 @@ const login = async (req,res) => {
     try {
 
         const data = req.body;
-        console.log(data);
+        // console.log(typeof(data.mobile));
         const isGroup = await group.findOne({id:data.group_id});
 
         if(!isGroup){
@@ -15,12 +15,13 @@ const login = async (req,res) => {
         }
 
 
-        const member = await isGroup.members.find(member => ((member.mobile === data.mobile) && (member.email === data.email)));
+        const member = await isGroup.members.find(member => ((member.mobile == data.mobile) && (member.email == data.email)));
         
 
         if(!member){
             res.status(400).send({message:"Member not found"});
         }   
+   
    
     
         // Send OTP for verification
