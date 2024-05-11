@@ -73,7 +73,7 @@ app.get("/test",async (req,res)=>{
 
 
 
-app.listen(7000,(()=>{
+app.listen(8080,(()=>{
     console.log("Listening on 7000");
 }))
 
