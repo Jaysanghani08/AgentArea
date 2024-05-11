@@ -82,7 +82,7 @@ function App() {
                     <Route path='policylist' element={<PolicyList />} />
                     <Route path='policy/:id' element={<PolicyDetail />} />
                 </Route>
-                <Route path='*' element={<Navigate to="/home" />} />
+                // <Route path='*' element={<Navigate to="/home" />} />
             </Routes>
         </AuthProvider>
     );
