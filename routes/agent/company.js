@@ -19,11 +19,11 @@ const getAgencies = require('../../controller/company/getAgencies');
 
 
 
-router.get("/company/getCompanies",auth,getCompanies);
+router.get("/api/company/getCompanies",auth,getCompanies);
 
-router.get("/company/getProducts",auth,getProducts);
+router.get("/api/company/getProducts",auth,getProducts);
 
-router.get("/company/getAgencies",auth,getAgencies);
+router.get("/api/company/getAgencies",auth,getAgencies);
 
 
 module.exports = router;

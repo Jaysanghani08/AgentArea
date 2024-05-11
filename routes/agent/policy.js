@@ -32,13 +32,13 @@ const getFullPolicy = require('../../controller/policy/getFullPolicy');
 
 
 
-router.post("/policy/addPolicy",auth,upload.fields([
+router.post("/api/policy/addPolicy",auth,upload.fields([
     { name: 'renewal_notice_copy', maxCount: 1 },
     { name: 'policy_copy', maxCount: 1 }]),addPolicy);
 
-router.get("/agent/policy/getPolicies",auth,getPoliciesAgent);
+router.get("/api/agent/policy/getPolicies",auth,getPoliciesAgent);
 
-router.get("/agent/policy/getFullPolicy",auth,getFullPolicy);
+router.get("/api/agent/policy/getFullPolicy",auth,getFullPolicy);
 
 
 

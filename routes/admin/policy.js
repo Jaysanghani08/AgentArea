@@ -11,9 +11,9 @@ const auth = require("../../middleware/auth");
 const getFullPolicy = require('../../controller/policy/getFullPolicy');
 
 
-router.get("/admin/policy/getPolicies",auth,getPolicies);
+router.get("/api/admin/policy/getPolicies",auth,getPolicies);
 
-router.get("/admin/policy/getFullPolicy",auth,getFullPolicy);
+router.get("/api/admin/policy/getFullPolicy",auth,getFullPolicy);
 
 
 module.exports = router;

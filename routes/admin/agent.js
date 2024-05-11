@@ -37,20 +37,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/agent/addAgent",auth,upload.fields([
+router.post("/api/agent/addAgent",auth,upload.fields([
     { name: 'aadharFile', maxCount: 1 },
     { name: 'panFile', maxCount: 1 }])
     ,addAgent);
 
-router.get("/agent/getFullAgent",auth, getFullAgent);
+router.get("/api/agent/getFullAgent",auth, getFullAgent);
 
-router.get("/agent/getAgents", auth,getAgents);
+router.get("/api/agent/getAgents", auth,getAgents);
 
-router.post("/agent/mailer/sendOTP",auth,sendOTP);
+router.post("/api/agent/mailer/sendOTP",auth,sendOTP);
 
-router.post("/agent/verifyOTP",verifyOTP);
+router.post("/api/agent/verifyOTP",verifyOTP);
 
-router.get("/agent/deleteAgent",auth,deleteAgent);
+router.get("/api/agent/deleteAgent",auth,deleteAgent);
 
 
 

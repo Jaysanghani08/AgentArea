@@ -12,9 +12,9 @@ const addMember = require("../../controller/customer/addMember");
 
 
 
-router.get("/customer/isGroupExist",auth,isGroupExist);
+router.get("/api/customer/isGroupExist",auth,isGroupExist);
 
-router.post("/customer/addMember",auth,addMember);
+router.post("/api/customer/addMember",auth,addMember);
 
 
 

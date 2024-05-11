@@ -8,9 +8,9 @@ const auth = require("../../middleware/auth");
 const login = require("../../controller/admin/login");
 
 
-router.post("/admin/login",login);
+router.post("/api/admin/login",login);
 
-router.post("/token/test",auth,async (req,res)=>{
+router.post("/api/token/test",auth,async (req,res)=>{
     console.log("Sucess");
     res.status(200).send();
 })

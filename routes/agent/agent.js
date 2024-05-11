@@ -20,13 +20,13 @@ const forgotPassword = require('../../controller/agent/forgotPassword');
 
 
 
-router.post("/agent/login", login);
+router.post("/api/agent/login", login);
 
-router.post('/agent/updatePassword',auth,updatePassword);
+router.post('/api/agent/updatePassword',auth,updatePassword);
 
-router.post("/agent/forgotPasswordOTP",forgotPasswordOTP);
+router.post("/api/agent/forgotPasswordOTP",forgotPasswordOTP);
 
-router.post("/agent/forgotPassword",forgotPassword);
+router.post("/api/agent/forgotPassword",forgotPassword);
 
 
 

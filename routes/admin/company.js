@@ -24,21 +24,21 @@ const getAgencies = require('../../controller/company/getAgencies');
 
 
 
-router.post("/company/addCompany",auth,addCompany);
+router.post("/api/company/addCompany",auth,addCompany);
 
-router.post("/company/addAgency",auth,addAgency);
+router.post("/api/company/addAgency",auth,addAgency);
 
-router.get("/company/removeCompany",auth,removeCompany);
+router.get("/api/company/removeCompany",auth,removeCompany);
 
-router.post("/company/addProduct",auth,addProduct);
+router.post("/api/company/addProduct",auth,addProduct);
 
-router.get("/company/getCompanies",auth,getCompanies);
+router.get("/api/company/getCompanies",auth,getCompanies);
 
-router.get("/company/getProducts",auth,getProducts);
+router.get("/api/company/getProducts",auth,getProducts);
 
-router.get("/company/getAgencies",auth,getAgencies);
+router.get("/api/company/getAgencies",auth,getAgencies);
 
-router.get("/company/getAgencies",auth,getAgencies);
+router.get("/api/company/getAgencies",auth,getAgencies);
 
 
 

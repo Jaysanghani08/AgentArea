@@ -14,9 +14,9 @@ const auth = require("../../middleware/auth");
 
 
 
-router.post('/customer/login',login);
+router.post('/api/customer/login',login);
 
-router.post('/customer/verifyOTP',verifyOTP);   
+router.post('/api/customer/verifyOTP',verifyOTP);   
 
 
 
