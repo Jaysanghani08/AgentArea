@@ -17,7 +17,7 @@ app.get("*", (req, res) => {
     res.sendFile(__dirname + '/frontend/build/index.html');
 });
 
-// console.log(__dirname + '/frontend/build/index.html')
+console.log(__dirname + '/frontend/build/index.html')
 require("./connection/connection");
 require("./connection/connectionMONGO");
 
@@ -74,7 +74,7 @@ app.get("/test",async (req,res)=>{
 
 
 app.listen(8080,(()=>{
-    console.log("Listening on 7000");
+    console.log("Listening on 8080");
 }))
 
 
