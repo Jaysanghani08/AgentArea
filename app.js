@@ -7,8 +7,7 @@ const bcrypt = require('bcryptjs');
 const app = express();
 
 const corsOptions = {
-    origin: 'https://insurearea.azurewebsites.net',
-    optionsSuccessStatus: 200,
+    origin: 'https://insurearea.azurewebsites.net'
 }
 
 app.use(bodyParser.json({ limit: '10mb' }));
