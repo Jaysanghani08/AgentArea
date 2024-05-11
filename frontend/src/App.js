@@ -37,7 +37,6 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
-                {/* <Route path="/home" element={<Home />} /> */}
                 <Route path="addpolicy" element={<AddPolicy />} />
                 <Route path='admin' >
                     <Route path="signup" element={<Signup />} />
@@ -83,7 +82,6 @@ function App() {
                     <Route path='policylist' element={<PolicyList />} />
                     <Route path='policy/:id' element={<PolicyDetail />} />
                 </Route>
-
                 <Route path='*' element={<Navigate to="/home" />} />
             </Routes>
         </AuthProvider>
