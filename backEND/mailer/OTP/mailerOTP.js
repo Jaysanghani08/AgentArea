@@ -25,7 +25,7 @@ const tempOTP = async (subject,obj,email,template) => {
             }
         }
 
-        const otp_number = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+        const otp_number = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
 
         // sending part...
 

@@ -28,8 +28,10 @@ const login = async (req,res) => {
 
         const mail = await tempOTP("Customer OTP",{},data.email,"customerOTP");
         
+        if(mail){
+            res.status(200).send({"message":"OTP sent"});
+        }
 
-        res.status(200).send({"message":"OTP sent"});
 
     } catch (error) {
         console.log("This is error from ./controller/customers/login.js");
