@@ -1,1 +1,1 @@
-export const BACKEND_URL = 'https://insurearea.azurewebsites.net'
+export const BACKEND_URL = 'http://localhost:8080'
