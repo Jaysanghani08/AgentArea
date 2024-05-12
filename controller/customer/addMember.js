@@ -12,10 +12,11 @@ const addMember = async (req, res) => {
 
         const responseObj = {};
 
+        
         if (!ifExist) {
-
+            
             try {
-
+                
                 const GroupData = new group({
                     id: Number(data.group_code)
                 })
@@ -24,16 +25,18 @@ const addMember = async (req, res) => {
                 responseObj.group_id = saved_data._id;
                 responseObj.group_code = saved_data.id;
                 // console.log(saved_data);
-
+                
             } catch (error) {
                 console.log("This is error from /controller/customers/addMember.js ((group creation part))");
                 console.log(error);
                 res.status(500).send({ "error": "Internal Server Error" });
             }
-
-
-
+            
         }
+        else{
+            responseObj.group_id = ifExist._id;
+        }
+
 
         const member = {
             agent_id: data.agent_id,
