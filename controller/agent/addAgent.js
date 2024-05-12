@@ -86,7 +86,7 @@ const addAgent = async (req, res) => {
                 res.status(412).send();
             }
             else {
-                res.status(413).send("Bad Request");
+                res.status(501).send("Bad Request");
             }
 
         }
