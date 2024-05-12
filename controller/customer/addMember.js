@@ -8,8 +8,8 @@ const addMember = async (req, res) => {
     try {
 
         const data = req.body;
-        const ifExist = await group.findOne({ id: data.group_id });
-        // console.log("******");
+        const ifExist = await group.findOne({ id: data.group_code });
+
         const responseObj = {};
 
         if (!ifExist) {
@@ -17,11 +17,12 @@ const addMember = async (req, res) => {
             try {
 
                 const GroupData = new group({
-                    id: Number(data.group_id)
+                    id: Number(data.group_code)
                 })
 
                 const saved_data = await GroupData.save();
                 responseObj.group_id = saved_data._id;
+                responseObj.group_code = saved_data.id;
                 // console.log(saved_data);
 
             } catch (error) {
