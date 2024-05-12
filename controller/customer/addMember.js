@@ -8,6 +8,7 @@ const addMember = async (req, res) => {
     try {
 
         const data = req.body;
+        console.log(data);
         const ifExist = await group.findOne({ id: data.group_code });
 
         const responseObj = {};
@@ -33,10 +34,11 @@ const addMember = async (req, res) => {
             }
             
         }
-        else{
+
+        if(ifExist){
             responseObj.group_id = ifExist._id;
         }
-
+       
 
         const member = {
             agent_id: data.agent_id,
@@ -46,7 +48,7 @@ const addMember = async (req, res) => {
             dob: data.dob
         }
 
-        const update = await group.findOneAndUpdate({ id: data.group_id }, { $push: { members: member } }, { new: true });
+        const update = await group.findOneAndUpdate({ id: data.group_code }, { $push: { members: member } }, { new: true });
 
         responseObj.customer_id = update.members[update.members.length - 1]._id;
 

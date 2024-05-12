@@ -27,7 +27,7 @@ const addPolicy = async (req, res) => {
             agent_id: agent_id,
             customer_id: data.customer_id,
             policy_number: data.policy_number,
-            group_code: data.group_code,
+            group_code: data.group_id,
             policy_type: data.policy_type,
             policy_sub_type: data.policy_sub_type,
             company_id: data.company_id,

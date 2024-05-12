@@ -146,6 +146,7 @@ const AddPolicy = () => {
     const [agents, setAgents] = useState([]);
     const navigate = useNavigate();
     const usr = JSON.parse(Cookies.get('user') || 'null');
+    const [groupCode, setGroupCode] = useState(null);
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -154,7 +155,7 @@ const AddPolicy = () => {
         policy_type: '',
         policy_sub_type: '',
         company_id: '',
-        agent_id : usr?.agentData?._id,
+        agent_id: usr?.agentData?._id,
         product_id: '',
         agency: '',
         business_type: '',
@@ -184,7 +185,7 @@ const AddPolicy = () => {
     const formmRegex = {
         policy_number: {
             required: true,
-            regex : /^[a-zA-Z0-9]{1,10}$/
+            regex: /^[a-zA-Z0-9]{1,10}$/
         },
         customer_id: {
             required: true,
@@ -194,7 +195,7 @@ const AddPolicy = () => {
         },
         group_code: {
             required: true,
-            regex :  /^[0-9]{10}$/
+            regex: /^[0-9]{10}$/
         },
         policy_type: {
             required: true,
@@ -225,24 +226,24 @@ const AddPolicy = () => {
         },
         basic_premium: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         commissionable_premium: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         sum_assured: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         gst: {
             required: true,
             // '10%' regex
-            regex : /^(100|[1-9]\d?)$/
+            regex: /^(100|[1-9]\d?)$/
         },
         total_premium_amount: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         payment_type: {
             required: true,
@@ -259,26 +260,26 @@ const AddPolicy = () => {
         },
         chequeNumber: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         payment_bank_branch: {
             required: true,
         },
         idv: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         tp_premium: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         od_premium: {
             required: true,
-            regex : /^[0-9]{1,10}$/
+            regex: /^[0-9]{1,10}$/
         },
         registration_number: {
             required: true,
-            regex : /^[a-zA-Z0-9]{1,10}$/
+            regex: /^[a-zA-Z0-9]{1,10}$/
         },
         renewal_notice_copy: {
         },
@@ -288,6 +289,7 @@ const AddPolicy = () => {
     }
 
     const [customerFormData, setCustomerFormData] = useState({
+        group_code: formData.group_code,
         agent_id: '',
         name: '',
         mobile: '',
@@ -310,8 +312,8 @@ const AddPolicy = () => {
             setAgencies(company?.agencies);
             setProducts(company?.products);
         }
-        if(e.target.name === 'gst' && formData.basic_premium){
-            setFormData({...formData, gst : e.target.value , total_premium_amount: (parseInt(formData.basic_premium) + parseInt(formData.basic_premium) * parseInt(e.target.value)/100).toString()})
+        if (e.target.name === 'gst' && formData.basic_premium) {
+            setFormData({ ...formData, gst: e.target.value, total_premium_amount: (parseInt(formData.basic_premium) + parseInt(formData.basic_premium) * parseInt(e.target.value) / 100).toString() })
         }
     }
 
@@ -332,7 +334,7 @@ const AddPolicy = () => {
                 if (companyResopnse.status === 200) {
                     setCompanyList(companyResopnse.data);
                     setAgents(agentResponse.data);
-                }else{
+                } else {
                     alert('Something went wrong. Try after some time.');
                 }
                 // console.log(response.data)
@@ -353,13 +355,16 @@ const AddPolicy = () => {
 
     const handleGroupIdChange = async (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
+        setGroupCode(e.target.value);
+        // setCustomerFormData({ ...customerFormData, [e.target.name]: e.target.value });
         if (e.target.value.length != 10) {
             setFetchedButNotExists(false);
             setGroupMembers({});
         }
 
         if (e.target.value.length === 10 && !isNaN(e.target.value)) {
+            setFetchedButNotExists(false);
+
             await IfGroupExists(e.target.value);
         }
     }
@@ -370,7 +375,7 @@ const AddPolicy = () => {
             console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
-                setFormData({ ...formData, group_code: response.data._id});
+                setFormData({ ...formData, group_id: response.data._id });
                 setFetchedButNotExists(false);
                 setGroupMembers(response.data?.members);
             } else if (response.status === 201) {
@@ -380,13 +385,16 @@ const AddPolicy = () => {
             } else {
                 setGroupMembers({});
             }
+            setCustomerFormData({ ...customerFormData, group_code: groupCode });
+            setGroupCode(groupCode);
+            setFormData({ ...formData, group_code: groupCode });
         }
         catch (error) {
             console.log(error);
         }
     }
 
-    // console.log(formData.group_code)
+    console.log(formData.group_code)
 
     const handleAddCustomer = async (e) => {
         e.preventDefault();
@@ -396,14 +404,14 @@ const AddPolicy = () => {
             ...customerFormData
         }
 
-        // console.log(data);
+        console.log(data);
 
         try {
             const response = await addCustomer(data);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 setFormData({ ...formData, customer_id: response.data.customer_id });
-                setFormData({ ...formData, group_code: response.data.group_id });
+                setFormData({ ...formData, group_id: response.data.group_id });
                 alert('Customer created successfully');
             } else {
                 alert('Something went wrong');
@@ -444,10 +452,10 @@ const AddPolicy = () => {
                 alert('Policy addedd successfully');
                 navigate('/agent');
             }
-            else if(response.status === 410){
+            else if (response.status === 410) {
                 alert('Policy number already exists');
-            } 
-            else if(response.status === 413){
+            }
+            else if (response.status === 413) {
                 alert("Payload too large");
             }
             else {
@@ -655,14 +663,14 @@ const AddPolicy = () => {
                         {/* login date */}
                         <FormGroup>
                             <Label htmlFor="login_date">Login Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <Input type="date" name="login_date" placeholder="Login Date" onChange={handleChange} value={formData.login_date || ''}/>
+                            <Input type="date" name="login_date" placeholder="Login Date" onChange={handleChange} value={formData.login_date || ''} />
                         </FormGroup>
 
                         {/* start date */}
                         {/* end date */}
                         <FormGroup>
                             <Label htmlFor="start_date">Start Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="date" name="start_date" placeholder="Start Date" onChange={handleChange} value={formData.start_date || ''}/>
+                            <HalfInput type="date" name="start_date" placeholder="Start Date" onChange={handleChange} value={formData.start_date || ''} />
                             <Gap />
                             <Label htmlFor="end_date">End Date <RequiredIndicator>*</RequiredIndicator> </Label>
                             <HalfInput type="date" name="end_date" placeholder="End Date" onChange={handleChange} />
@@ -719,7 +727,7 @@ const AddPolicy = () => {
                             <HalfInput type="text" name="gst" placeholder="GST" onChange={handleChange} />
                             <Gap />
                             <Label htmlFor="total_premium_amount">Total Premium Amount <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="text" name="total_premium_amount" placeholder="Total Premium Amount" value={formData.total_premium_amount} disabled/>
+                            <HalfInput type="text" name="total_premium_amount" placeholder="Total Premium Amount" value={formData.total_premium_amount} disabled />
                         </FormGroup>
 
                         <HoriZontalLine />
@@ -736,7 +744,7 @@ const AddPolicy = () => {
                             </HalfSelect>
                             <Gap />
                             <Label htmlFor="premium_deposite_date">Premium Deposite Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                            <HalfInput type="date" name="premium_deposite_date" placeholder="Premium Deposite Date" onChange={handleChange} value={formData.premium_deposite_date || ''}/>
+                            <HalfInput type="date" name="premium_deposite_date" placeholder="Premium Deposite Date" onChange={handleChange} value={formData.premium_deposite_date || ''} />
                         </FormGroup>
 
                         {/* quick pay id */}
@@ -756,7 +764,7 @@ const AddPolicy = () => {
                                 {/* // cheque date */}
                                 <FormGroup>
                                     <Label htmlFor="chequeDate">Cheque Date <RequiredIndicator>*</RequiredIndicator> </Label>
-                                    <Input type="date" name="chequeDate" placeholder="Cheque Date" onChange={handleChange} value={formData.chequeDate || ''}/>
+                                    <Input type="date" name="chequeDate" placeholder="Cheque Date" onChange={handleChange} value={formData.chequeDate || ''} />
                                 </FormGroup>
 
                                 {/* // cheque number */}
