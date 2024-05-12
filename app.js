@@ -11,10 +11,11 @@ const corsOptions = {
     // origin: 'https://insurearea.azurewebsites.net'
 }
 
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.json());
 app.use(cors(corsOptions));
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 // app.use(cors());
 
 // console.log(__dirname + '/frontend/build/index.html')

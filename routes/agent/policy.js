@@ -8,8 +8,8 @@ const router = express.Router();
 
 
 
-router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
     destination: (req,file,callback)=>{
