@@ -392,7 +392,7 @@ const AddPolicy = () => {
         e.preventDefault();
 
         const data = {
-            group_id: formData.group_code,
+            group_code: formData.group_code,
             ...customerFormData
         }
 
