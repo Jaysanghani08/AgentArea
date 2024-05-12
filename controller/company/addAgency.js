@@ -15,7 +15,7 @@ const addAgency = async (req, res) => {
         const company_id = data.id;
         const agency ={
             name : data.name,
-            code : data.code
+            code : Number(data.code)
         }
 
         const update = await company.updateOne({_id:company_id},{$push :{agencies : agency}});
