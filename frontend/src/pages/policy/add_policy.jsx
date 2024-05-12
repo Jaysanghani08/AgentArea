@@ -4,6 +4,7 @@ import { Container, TextContent, Subheading, Heading, HoriZontalLine, Form, Form
 import { CheckIfGroupCodeExists, addCustomer, getCompanies, addPolicy, getAgents } from './../../services/Api';
 import getTodayDate from './../../helpers/TodayDate.js';
 import Validate from '../../helpers/Validator.js';
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 const paymentType = [
@@ -144,16 +145,16 @@ const AddPolicy = () => {
     const [products, setProducts] = useState(null);
     const [agents, setAgents] = useState([]);
     const navigate = useNavigate();
+    const usr = JSON.parse(Cookies.get('user') || 'null');
 
     const [formData, setFormData] = useState({
         policy_number: '',
         customer_id: '',
-        groud_id: '',
         group_code: '',
         policy_type: '',
         policy_sub_type: '',
         company_id: '',
-        agent_id : '',
+        agent_id : usr?.agentData?._id,
         product_id: '',
         agency: '',
         business_type: '',
@@ -310,7 +311,7 @@ const AddPolicy = () => {
             setProducts(company?.products);
         }
         if(e.target.name === 'gst' && formData.basic_premium){
-            setFormData({...formData, total_premium_amount: (parseInt(formData.basic_premium) + parseInt(formData.basic_premium) * parseInt(e.target.value)/100).toString()})
+            setFormData({...formData, gst : e.target.value , total_premium_amount: (parseInt(formData.basic_premium) + parseInt(formData.basic_premium) * parseInt(e.target.value)/100).toString()})
         }
     }
 
@@ -366,10 +367,10 @@ const AddPolicy = () => {
     const IfGroupExists = async (groupCode) => {
         try {
             const response = await CheckIfGroupCodeExists(groupCode);
-            // console.log(response);
+            console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
-                // setFormData({ ...formData });
+                setFormData({ ...formData, group_code: response.data._id});
                 setFetchedButNotExists(false);
                 setGroupMembers(response.data?.members);
             } else if (response.status === 201) {
@@ -384,6 +385,8 @@ const AddPolicy = () => {
             console.log(error);
         }
     }
+
+    // console.log(formData.group_code)
 
     const handleAddCustomer = async (e) => {
         e.preventDefault();
@@ -409,10 +412,12 @@ const AddPolicy = () => {
         }
     }
 
+    // console.log(usr?.agentData?._id)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         // formData.groud_id = group_id;
+        // setFormData({ ...formData,  });
         renewalNoticeCopy && (formData.renewal_notice_copy = renewalNoticeCopy);
         formData.policy_copy = policyCopy;
 

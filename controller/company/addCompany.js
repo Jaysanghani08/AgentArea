@@ -26,7 +26,7 @@ const addCompany = async (req, res) => {
     try {
 
         const save = await company_data.save();
-        console.log(save);
+        // console.log(save);
         res.status(200).send();
 
     } catch (error) {

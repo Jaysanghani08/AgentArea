@@ -5,6 +5,7 @@ const fs = require("fs");
 
 const policy = require("../../models/policy/policy");
 const docsUpload = require("../../blob/azureBlob");
+const { ObjectId } = require("mongodb");
 
 
 
@@ -13,7 +14,7 @@ const addPolicy = async (req, res) => {
     try {
 
         const data = req.body;
-        // console.log(data);
+        console.log(data);
         const agent_id = req.user.id;
 
         // console.log(agent_id);
@@ -36,7 +37,7 @@ const addPolicy = async (req, res) => {
             login_date: data.login_date,
             start_date: data.start_date,
             end_date: data.end_date,
-            basic_premium: Number(data.basic_premium),
+            basic_premium: Number(data.basic_premium ),
             commissionable_premium: Number(data.commissionable_premium),
             gst: Number(data.gst),
             total_premium_amount: Number(data.total_premium_amount),
@@ -53,8 +54,8 @@ const addPolicy = async (req, res) => {
             } : undefined,
 
             motor_insurance_details: (data.policy_type == "motor") ? {
-                idv: data.idv,
-                tp_premium: Number(data.tp_premium),
+                idv: Number(data.idv),
+                tp_premium: Number(data.tp_premium ),
                 od_premium: Number(data.od_premium),
                 registration_number: data.registration_number,
             } : undefined

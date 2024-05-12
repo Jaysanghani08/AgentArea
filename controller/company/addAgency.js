@@ -19,7 +19,7 @@ const addAgency = async (req, res) => {
         }
 
         const update = await company.updateOne({_id:company_id},{$push :{agencies : agency}});
-        console.log(update);        
+        // console.log(update);        
         res.status(200).send();
 
     } catch (error) {

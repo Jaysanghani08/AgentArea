@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const company = require("../../models/company/company");
+const { ObjectId } = require("mongodb");
 
 
 const addProduct = async (req, res) => {
@@ -9,18 +10,18 @@ const addProduct = async (req, res) => {
 
         const data = req.body;
 
-        const type = data.type;
-        const id = data.company_id
+        // const type = data.type;
+        const id = data.company_id;
 
         const product = {
             product_name: data.product_name,
             product_type: data.product_type,
-            company_agency: data.agency_id,
+            company_agency: new ObjectId(data.agency_id),
             policy_type: data.policy_type
         }
 
         const update = await company.updateOne({ _id: id }, { $push: { products: product } });
-        console.log(update);
+        // console.log(update);
         res.status(200).send();
 
     } catch (error) {

@@ -27,7 +27,7 @@ const ProductList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const companyId = useLocation().pathname.split('/')[3];
-
+    console.log(products)
     useEffect(() => {
         const loadData = async () => {
             try {

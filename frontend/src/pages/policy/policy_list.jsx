@@ -259,6 +259,17 @@ const columns = [
     { title: "Details" }
 ];
 
+const columnsForAgent = [
+    { title: "Policy Number" },
+    { title: "Policy Type" },
+    { title: "Bussiness Type" },
+    { title: "Owner" },
+    { title: "Company Name" },
+    { title: "Product Name" },
+    { title: "Agency Name" },
+    { title: "Details" }
+];
+
 const columnsForCustomer = [
     { title: "Policy Number" },
     { title: "Policy Type" },
@@ -323,7 +334,6 @@ const GetPolicy = () => {
                             policy.business_type,
                             policy.group?.members?.name,
                             policy.company?.name,
-                            policy.agent?.name,
                             policy.company?.products?.product_name,
                             policy.company?.agencies?.name,
                             "/agent/policy/" + policy.policy_number
@@ -384,11 +394,17 @@ const GetPolicy = () => {
                         </div>
                         :
                         ((policies.length > 0)) ?
-                            usr?.type !== "customer" ?
-                                <CustomTable columns={columns} dataSet={policies}
+                            usr?.type === "agent" ?
+                                <CustomTable columns={columnsForAgent} dataSet={policies}
                                     // actionColumn={{ columnIndex: 3 }} 
-                                    buttonColumns={[{ columnIndex: 8, buttonText: "Details" }]}
+                                    buttonColumns={[{ columnIndex: 7, buttonText: "Details" }]}
                                 />
+                                : 
+                                usr?.type === "admin" ?
+                                    <CustomTable columns={columns} dataSet={policies}
+                                        // actionColumn={{ columnIndex: 3 }} 
+                                        buttonColumns={[{ columnIndex: 8, buttonText: "Details" }]}
+                                    />
                                 : <CustomTable columns={columnsForCustomer} dataSet={policies}
                                     // actionColumn={{ columnIndex: 3 }}
                                     buttonColumns={[{ columnIndex: 7, buttonText: "Details" }]}
