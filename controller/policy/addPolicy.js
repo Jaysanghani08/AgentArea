@@ -36,13 +36,13 @@ const addPolicy = async (req, res) => {
             login_date: data.login_date,
             start_date: data.start_date,
             end_date: data.end_date,
-            basic_premium: data.basic_premium,
-            commissionable_premium: data.commissionable_premium,
-            gst: data.gst,
-            total_premium_amount: data.total_premium_amount,
+            basic_premium: Number(data.basic_premium),
+            commissionable_premium: Number(data.commissionable_premium),
+            gst: Number(data.gst),
+            total_premium_amount: Number(data.total_premium_amount),
             payment_type: data.payment_type,
             premium_deposite_date: data.premium_deposite_date,
-            sum_assured: data.sum_assured,
+            sum_assured: Number(data.sum_assured),
             remark: data.remark,
 
             cheque_details: (data.payment_type == 'cheque') ? {
@@ -54,8 +54,8 @@ const addPolicy = async (req, res) => {
 
             motor_insurance_details: (data.policy_type == "motor") ? {
                 idv: data.idv,
-                tp_premium: data.tp_premium,
-                od_premium: data.od_premium,
+                tp_premium: Number(data.tp_premium),
+                od_premium: Number(data.od_premium),
                 registration_number: data.registration_number,
             } : undefined
         });

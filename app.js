@@ -39,7 +39,7 @@ app.get("*", (req, res) => {
 app.post("/api/test/encrypt",async (req,res)=>{
     const password = "Abc123@#$";
     const hashed = await bcrypt.hash(password,9);
-    console.log(hashed);
+    // console.log(hashed);
     res.status(200).send();
 })
 

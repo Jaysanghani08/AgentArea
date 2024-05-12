@@ -9,12 +9,12 @@ const addMember = async (req,res) => {
 
         const data = req.body;
         const ifExist = await group.findOne({id:data.group_id});
-        console.log("******")
+        // console.log("******");
 
         if(!ifExist){
 
             const data = new group({
-                id:data.group_id
+                id:Number(data.group_id)
             })
 
             const saved_data = await data.save();
@@ -24,7 +24,7 @@ const addMember = async (req,res) => {
         const member = {
             agent_id : data.agent_id,
             name : data.name,
-            mobile : data.mobile,
+            mobile : Number(data.mobile),
             email : data.email,
             dob : data.dob
         }

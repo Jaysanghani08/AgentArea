@@ -214,10 +214,13 @@ const AddAgent = () => {
             } else if (response.status === 412) {
                 setIsOtpVerified(false);
                 alert('Username already exists');
-            }
-            else if (response.status === 413) {
+            } else if (response.status === 413) {
                 setIsOtpVerified(false);
-                alert('PayLoad too large');
+                alert('File size should be less than 5MB');
+            }
+            else if (response.status === 501) {
+                setIsOtpVerified(false);
+                alert('Something went wrong');
             }
             else {
                 setIsOtpVerified(false);

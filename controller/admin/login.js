@@ -44,12 +44,12 @@ const login = async(req,res)=>{
                 res.status(200).send({token:token,type:"admin"});
             }
             else{
-                console.log("Wrong Password")
+                // console.log("Wrong Password");
                 res.status(202).send({message : "Wrong Password"});
             }
         }
         else{
-            console.log("Not Exist")
+            // console.log("Not Exist");
             res.status(404).send({message : "Not Exist"});
         }
 

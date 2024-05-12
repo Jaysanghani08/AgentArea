@@ -12,26 +12,26 @@ const addAgent = async (req, res) => {
 
         const data = req.body;
 
-        console.log(data);
-        console.log(req.files);
+        // console.log(data);
+        // console.log(req.files);
         // console.log(req.files);
 
         const agent_data = new agent({
             name: data.name,
             bacode: data.bacode,
-            mobile: data.mobile,
+            mobile: Number(data.mobile),
             email: data.email,
             username: data.username,
             password: data.password,
             address: data.address,
             city: data.city,
             state: data.state,
-            pin: data.pin,
+            pin: Number(data.pin),
             pan: data.panNumber,
             bank: data.bank,
             bankAccType: data.bankAccType,
             micr: data.micr,
-            accNumber: data.accNumber,
+            accNumber: Number(data.accNumber),
             bankIFSC: data.bankIFSC
         });
 
@@ -86,7 +86,7 @@ const addAgent = async (req, res) => {
                 res.status(412).send();
             }
             else {
-                res.status(413).send("Bad Request");
+                res.status(501).send("Bad Request");
             }
 
         }
