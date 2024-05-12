@@ -21,7 +21,12 @@ const storage = multer.diskStorage({
 });
 
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    limits:{
+        fileSize: 1024*1024*10
+    },
+    storage: storage
+ });
 
 
 const addPolicy = require("../../controller/policy/addPolicy");
