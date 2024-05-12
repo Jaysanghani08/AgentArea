@@ -20,7 +20,7 @@ const login = async(req,res)=>{
 
     try {
         const data = req.body;
-        const mobile = data.id;
+        const mobile = Number(data.id);
         const pipe = [
             {
                 $match:
