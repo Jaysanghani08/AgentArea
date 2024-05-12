@@ -11,14 +11,14 @@ const Schema = mongoose.Schema({
     mobile: {
         type: Number,
         unique: true,
-        validate(m) {
-            if (validator.isMobilePhone(toString(m))) {
-                return true;
-            }
-            else {
-                throw new Error('Invalid Mobile');
-            }
-        }
+        // validate(m) {
+        //     if (validator.isMobilePhone(toString(m))) {
+        //         return true;
+        //     }
+        //     else {
+        //         throw new Error('Invalid Mobile');
+        //     }
+        // }
     },
     email: {
         type: String,
