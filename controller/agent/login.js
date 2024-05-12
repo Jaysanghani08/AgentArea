@@ -64,7 +64,7 @@ const login = async(req,res)=>{
             }
         }
         else{
-            res.status(404).send();
+            res.status(305).send({message:"Agent Not Found"});
         }
 
     } catch (error) {

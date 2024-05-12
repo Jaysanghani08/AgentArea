@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (userData, type) => {
 
-        console.log(userData);
+        // console.log(userData);
         const response = await postRequest(`${type}/login`, userData);
 
         if (response.status === 200) {
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             window.location.reload();
         }
 
-        return response;
+        return response.response;
     };
 
     const signup = (userData) => {

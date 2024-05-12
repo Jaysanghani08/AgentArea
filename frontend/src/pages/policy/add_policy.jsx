@@ -400,9 +400,10 @@ const AddPolicy = () => {
 
         try {
             const response = await addCustomer(data);
-            // console.log(response);
+            console.log(response);
             if (response.status === 200) {
-                setFormData({ ...formData, customer_id: response.data.id });
+                setFormData({ ...formData, customer_id: response.data.customer_id });
+                setFormData({ ...formData, group_code: response.data.group_id });
                 alert('Customer created successfully');
             } else {
                 alert('Something went wrong');

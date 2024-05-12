@@ -10,6 +10,7 @@ const addMember = async (req, res) => {
         const data = req.body;
         const ifExist = await group.findOne({ id: data.group_id });
         // console.log("******");
+        const responseObj = {};
 
         if (!ifExist) {
 
@@ -20,6 +21,8 @@ const addMember = async (req, res) => {
                 })
 
                 const saved_data = await GroupData.save();
+                responseObj.group_id = saved_data._id;
+                // console.log(saved_data);
 
             } catch (error) {
                 console.log("This is error from /controller/customers/addMember.js ((group creation part))");
@@ -41,9 +44,9 @@ const addMember = async (req, res) => {
 
         const update = await group.findOneAndUpdate({ id: data.group_id }, { $push: { members: member } }, { new: true });
 
-        const id = update.members[update.members.length - 1]._id;
+        responseObj.customer_id = update.members[update.members.length - 1]._id;
 
-        res.status(200).send({ id: id });
+        res.status(200).send(responseObj);
 
 
     } catch (error) {

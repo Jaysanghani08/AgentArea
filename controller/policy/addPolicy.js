@@ -14,7 +14,7 @@ const addPolicy = async (req, res) => {
     try {
 
         const data = req.body;
-        console.log(data);
+        // console.log(data);
         const agent_id = req.user.id;
 
         // console.log(agent_id);

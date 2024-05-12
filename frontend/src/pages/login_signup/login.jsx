@@ -180,7 +180,7 @@ const Login = ({
         try {
             const type = window.location.pathname.split("/")[1];
             const res = await login({ id: phone, password }, type);
-
+            // console.log(res);
             const usr = Cookies.get('user');
             if (res.status === 200 && usr != null) {
                 setError("");
@@ -196,12 +196,15 @@ const Login = ({
                 }
             }
             else if (res.status === 202) {
+                // alert("Invalid Credentials");
                 setError("Invalid Credentials");
             }
-            else if (res.status === 404) {
+            else if (res.status === 305) {
+                alert("User Not Found");
                 setError("User Not Found");
             }
             else if (res.status === 400) {
+                // alert("Server Error");
                 setError("Server Error");
             }
         }
