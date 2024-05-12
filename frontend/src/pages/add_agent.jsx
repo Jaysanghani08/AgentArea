@@ -215,6 +215,14 @@ const AddAgent = () => {
                 setIsOtpVerified(false);
                 alert('Username already exists');
             }
+            else if (response.status === 413) {
+                setIsOtpVerified(false);
+                alert('PayLoad too large');
+            }
+            else {
+                setIsOtpVerified(false);
+                alert('Error creating agent');
+            }
         } catch (error) {
             console.log(error);
         } finally {

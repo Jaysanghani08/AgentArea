@@ -373,6 +373,7 @@ const AddPolicy = () => {
                 setFetchedButNotExists(false);
                 setGroupMembers(response.data?.members);
             } else if (response.status === 201) {
+                // alert('Group does not exists')
                 setFetchedButNotExists(true);
                 setGroupMembers({});
             } else {
@@ -439,6 +440,9 @@ const AddPolicy = () => {
             else if(response.status === 410){
                 alert('Policy number already exists');
             } 
+            else if(response.status === 413){
+                alert("Payload too large");
+            }
             else {
                 alert('Something went wrong');
             }
