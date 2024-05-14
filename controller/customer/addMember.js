@@ -8,7 +8,7 @@ const addMember = async (req, res) => {
     try {
 
         const data = req.body;
-        console.log(data);
+        // console.log(data);
         const ifExist = await group.findOne({ id: data.group_code });
 
         const responseObj = {};
@@ -52,7 +52,7 @@ const addMember = async (req, res) => {
 
         responseObj.customer_id = update.members[update.members.length - 1]._id;
 
-        console.log(responseObj)
+        // console.log(responseObj)
         res.status(200).send(responseObj);
 
 

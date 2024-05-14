@@ -373,7 +373,7 @@ const AddPolicy = () => {
     const IfGroupExists = async (groupCode) => {
         try {
             const response = await CheckIfGroupCodeExists(groupCode);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 alert('Group exists')
                 setFormData({ ...formData, group_id: response.data._id });
@@ -405,16 +405,15 @@ const AddPolicy = () => {
             ...customerFormData
         }
 
-        console.log(data);
+        // console.log(data);
 
         try {
             const response = await addCustomer(data);
             if (response.status === 200) {
-                console.log(response.data.customer_id);
+                // console.log(response.data.customer_id);
                 setCustomer_id(response.data.customer_id);
                 // setFormData({ ...formData, customer_id: response.data.customer_id });
                 setFormData({ ...formData, group_id: response.data.group_id });
-                console.log(formData);
                 alert('Customer created successfully');
             } else {
                 alert('Something went wrong');
@@ -425,7 +424,7 @@ const AddPolicy = () => {
         }
     }
 
-    console.log(formData)
+    // console.log(formData)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -439,7 +438,7 @@ const AddPolicy = () => {
             customer_id: customer_id,
         }
 
-        console.log(data);
+        // console.log(data);
 
         // const errors = await Validate(formData, formmRegex);
         const errors = {};
