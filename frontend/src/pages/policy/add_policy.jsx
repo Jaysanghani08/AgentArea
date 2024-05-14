@@ -146,7 +146,8 @@ const AddPolicy = () => {
     const [agents, setAgents] = useState([]);
     const navigate = useNavigate();
     const usr = JSON.parse(Cookies.get('user') || 'null');
-    const [groupCode, setGroupCode] = useState(null);
+    const [groupCode, setGroupCode] = useState("");
+    const [customer_id, setCustomer_id] = useState("");   
 
     const [formData, setFormData] = useState({
         policy_number: '',
@@ -394,7 +395,7 @@ const AddPolicy = () => {
         }
     }
 
-    console.log(formData.group_code)
+    // console.log(formData.group_code)
 
     const handleAddCustomer = async (e) => {
         e.preventDefault();
@@ -408,10 +409,12 @@ const AddPolicy = () => {
 
         try {
             const response = await addCustomer(data);
-            // console.log(response);
             if (response.status === 200) {
-                setFormData({ ...formData, customer_id: response.data.customer_id });
+                console.log(response.data.customer_id);
+                setCustomer_id(response.data.customer_id);
+                // setFormData({ ...formData, customer_id: response.data.customer_id });
                 setFormData({ ...formData, group_id: response.data.group_id });
+                console.log(formData);
                 alert('Customer created successfully');
             } else {
                 alert('Something went wrong');
@@ -422,20 +425,24 @@ const AddPolicy = () => {
         }
     }
 
-    // console.log(usr?.agentData?._id)
+    console.log(formData)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        // formData.groud_id = group_id;
-        // setFormData({ ...formData,  });
+
+        // setFormData({ ...formData, customer_id: customer_id });
         renewalNoticeCopy && (formData.renewal_notice_copy = renewalNoticeCopy);
         formData.policy_copy = policyCopy;
 
-        // console.log(formData);
+        const data = {
+            ...formData,
+            customer_id: customer_id,
+        }
+
+        console.log(data);
 
         // const errors = await Validate(formData, formmRegex);
         const errors = {};
-        // console.log("CHUTIYO\n")
         console.log(errors);
 
         // if (errors) {
@@ -446,7 +453,8 @@ const AddPolicy = () => {
         // }
 
         try {
-            const response = await addPolicy(formData);
+            const response = await addPolicy(data);
+            // const response = {};
 
             if (response.status === 200) {
                 alert('Policy addedd successfully');

@@ -52,6 +52,7 @@ const addMember = async (req, res) => {
 
         responseObj.customer_id = update.members[update.members.length - 1]._id;
 
+        console.log(responseObj)
         res.status(200).send(responseObj);
 
 
