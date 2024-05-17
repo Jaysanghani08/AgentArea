@@ -58,17 +58,17 @@ const policyType = [
             {
                 id: 11,
                 name: 'Private Car',
-                value: 'private_car'
+                value: 'privateCar'
             },
             {
                 id: 12,
                 name: 'Two Wheeler',
-                value: 'two_wheeler'
+                value: 'twoWheeler'
             },
             {
                 id: 13,
                 name: 'Commercial Vehicle',
-                value: 'commercial_vehicle'
+                value: 'commercialVehicle'
             },
             {
                 id: 14,
@@ -91,12 +91,12 @@ const policyType = [
             {
                 id: 22,
                 name: 'Family Floater',
-                value: 'family_floater'
+                value: 'familyFloater'
             },
             {
                 id: 23,
                 name: 'Personal Accident',
-                value: 'personal_accident'
+                value: 'personalAccident'
             },
             {
                 id: 24,
@@ -124,7 +124,7 @@ const policyType = [
             {
                 id: 33,
                 name: 'Workmen Compensation',
-                value: 'workmen_compensation'
+                value: 'workmenCompensation'
             },
             {
                 id: 34,
@@ -608,7 +608,7 @@ const AddPolicy = () => {
 
 
                                 {/*  product select */}
-
+                                
 
 
                                 {/* policy type */}
